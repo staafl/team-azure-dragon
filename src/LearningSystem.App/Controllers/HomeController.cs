@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearningSystem.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,18 +14,24 @@ namespace LearningSystem.App.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public string Status()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return "System online";
         }
 
-        public ActionResult Contact()
+        [HttpPut]
+        public string WipeDatabase(string sure)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (sure.ToLower() == "yes")
+            {
+                using (var context = new LearningSystemContext())
+                    foreach (var tableName in new string[0])
+                    {
+                        context.Database.ExecuteSqlCommand(string.Format("DELETE FROM {0}", tableName));
+                    }
+                return "Database successfully cleared.";
+            }
+            throw new HttpException(400, "");
         }
     }
 }

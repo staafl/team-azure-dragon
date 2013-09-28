@@ -19,6 +19,7 @@ namespace LearningSystem.App
             {
                 new DefaultInitializer().InitializeDatabaseWithSetInitializer(context);
             }
+
             AreaRegistration.RegisterAllAreas();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LearningSystem.App.Models;
+using LearningSystem.Data;
 
 namespace LearningSystem.App.Controllers
 {
@@ -18,7 +19,7 @@ namespace LearningSystem.App.Controllers
     {
         public AccountController() 
         {
-            IdentityManager = new AuthenticationIdentityManager(new IdentityStore());
+            IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new LearningSystemContext()));
         }
 
         public AccountController(AuthenticationIdentityManager manager)
