@@ -1,4 +1,4 @@
-﻿namespace WorkingWithDataMvc.Data
+﻿namespace TeamAzureDragon.Utils
 {
     using System;
     using System.Data.Entity;
@@ -26,7 +26,7 @@
         {
             var ret = this.DbSet;
 
-            foreach (var inc in include) 
+            foreach (var inc in include)
                 ret = ret.Include(inc);
 
             return ret;

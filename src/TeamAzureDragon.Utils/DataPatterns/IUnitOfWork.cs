@@ -6,11 +6,7 @@
 
     public interface IUowData : IDisposable
     {
-        IRepository<Comment> Comments { get; }
-
-        IRepository<BlogPost> BlogPosts { get; }
-
-        IRepository<ApplicationUser> Users { get; }
+        IRepository<T> GetRepo<T>();
 
         int SaveChanges();
     }
