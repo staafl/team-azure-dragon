@@ -11,6 +11,8 @@ namespace LearningSystem.Data
 {
     public class LearningSystemContext : IdentityDbContextWithCustomUser<ApplicationUser>
     {
+        public LearningSystemContext() : base() {
 
+        }
     }
 }
