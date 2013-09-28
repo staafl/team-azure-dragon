@@ -24,7 +24,19 @@ namespace LearningSystem.App.Controllers
         {
             if (sure.ToLower() == "yes")
             {
+                string[] tables =
+                {
+"dbo.AspNetUserRoles",
+"dbo.AspNetTokens",
+"dbo.AspNetUserClaims",
+"dbo.AspNetUserLogins",
+"dbo.AspNetUserManagement",
+"dbo.AspNetUserSecrets",
+"dbo.AspNetUsers",
+"dbo.AspNetRoles",
+                };
                 using (var context = new LearningSystemContext())
+
                     foreach (var tableName in new string[0])
                     {
                         context.Database.ExecuteSqlCommand(string.Format("DELETE FROM {0}", tableName));

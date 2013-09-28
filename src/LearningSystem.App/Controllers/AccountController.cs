@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using LearningSystem.App.Models;
+using LearningSystem.Models;
 using LearningSystem.Data;
 
 namespace LearningSystem.App.Controllers

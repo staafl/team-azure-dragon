@@ -56,6 +56,10 @@
   <ItemGroup>
     <Compile Include="DefaultInitializer.cs" />
     <Compile Include="LearningSystemContext.cs" />
+    <Compile Include="Migrations\201309282104371_initial.cs" />
+    <Compile Include="Migrations\201309282104371_initial.Designer.cs">
+      <DependentUpon>201309282104371_initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,6 +75,11 @@
       <Project>{e77c8fc5-143f-4341-b8a7-b2b99f0061c6}</Project>
       <Name>TeamAzureDragon.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201309282104371_initial.resx">
+      <DependentUpon>201309282104371_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
