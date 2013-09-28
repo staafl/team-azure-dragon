@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataPatterns\DefaultInitializer.cs" />
     <Compile Include="DataPatterns\GenericRepository.cs" />
     <Compile Include="DataPatterns\IRepository.cs" />
     <Compile Include="DataPatterns\IUnitOfWork.cs" />
