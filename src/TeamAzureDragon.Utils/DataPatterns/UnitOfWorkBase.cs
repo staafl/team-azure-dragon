@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using System.Data.Entity;
 
-    public class UowBase : IUowData
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext context;
         private readonly Dictionary<Type, object> repositories = new Dictionary<Type, object>();
 
-        public UowBase(DbContext context)
+        public UnitOfWork(DbContext context)
         {
             this.context = context;
         }
@@ -27,7 +27,7 @@
             }
         }
 
-        private IRepository<T> GetRepository<T>() where T : class
+        public IRepository<T> GetRepository<T>() where T : class
         {
             if (!this.repositories.ContainsKey(typeof(T)))
             {

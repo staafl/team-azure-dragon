@@ -1,8 +1,8 @@
-﻿namespace WorkingWithDataMvc.Data
+﻿namespace TeamAzureDragon.Utils
 {
     using System.Linq;
 
-    public interface IRepository<T> where T : class
+    public interface IRepository<T>  where T : class
     {
         IQueryable<T> All();
 

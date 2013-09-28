@@ -218,6 +218,20 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LearningSystem.Data\LearningSystem.Data.csproj">
+      <Project>{b7d009e7-d120-4c19-8a1b-717dae55868b}</Project>
+      <Name>LearningSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LearningSystem.Models\LearningSystem.Models.csproj">
+      <Project>{1a5bab78-e243-455a-ad7c-23caa9d882c5}</Project>
+      <Name>LearningSystem.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj">
+      <Project>{e77c8fc5-143f-4341-b8a7-b2b99f0061c6}</Project>
+      <Name>TeamAzureDragon.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

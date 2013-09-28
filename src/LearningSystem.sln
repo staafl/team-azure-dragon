@@ -1,9 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
+VisualStudioVersion = 12.0.20617.1 PREVIEW
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.App", "LearningSystem.App\LearningSystem.App.csproj", "{097D9FF2-6C10-4BDA-8FC7-7692E816262C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.Utils", "TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj", "{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AC5BE326-87C9-461C-8483-91A41442BB8E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Models", "LearningSystem.Models\LearningSystem.Models.csproj", "{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Data", "LearningSystem.Data\LearningSystem.Data.csproj", "{B7D009E7-D120-4C19-8A1B-717DAE55868B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +28,18 @@ Global
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

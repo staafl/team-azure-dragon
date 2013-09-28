@@ -1,12 +1,10 @@
-﻿namespace WorkingWithDataMvc.Data
+﻿namespace TeamAzureDragon.Utils
 {
     using System;
 
-    using WorkingWithDataMvc.Models;
-
-    public interface IUowData : IDisposable
+    public interface IUnitOfWork : IDisposable 
     {
-        IRepository<T> GetRepo<T>();
+        IRepository<T> GetRepository<T>() where T : class;
 
         int SaveChanges();
     }
