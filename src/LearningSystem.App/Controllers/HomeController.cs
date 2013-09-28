@@ -45,5 +45,16 @@ namespace LearningSystem.App.Controllers
             }
             throw new HttpException(400, "");
         }
+
+        [HttpPost]
+        public void Kill(string sure)
+        {
+            if (sure.ToLower() == "yes")
+            {
+                Environment.Exit();
+                throw new ApplicationException("Shouldn't happen");
+            }
+            throw new HttpException(400, "");
+        }
     }
 }
