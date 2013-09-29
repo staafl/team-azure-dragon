@@ -13,22 +13,18 @@ namespace LearningSystem.App.Controllers
         // GET: /Error/
         public ActionResult Index(Exception exception, int statusCode, string controllerName, string actionName)
         {
+            Response.StatusCode = statusCode;
             ErrorModel model = new ErrorModel
             {
                 HttpStatusCode = statusCode,
+                HttpStatus = Response.Status,
                 Exception = exception,
                 ControllerName = controllerName,
                 ActionName = actionName
             };
-            Response.StatusCode = statusCode;
             
             return View("Error", model);
-            //return View("Error");
         }
         
-        public ActionResult test()
-        {
-            throw new ArgumentException();
-        }
 	}
 }

@@ -8,7 +8,7 @@
 <div class="errorContainer">
         @if (Model != null)
         {
-            var errorMessage = "";
+            @*var errorMessage = "";
             switch (Model.HttpStatusCode)
             {
                 case 400: { errorMessage = "400 - Bad Request!"; break; }
@@ -30,7 +30,8 @@
                 case 416: { errorMessage = "416 - Requested Range Not Satisfiable!"; break; }
                 case 417: { errorMessage = "417 - Expectation Failed!"; break; }
             }
-        <h2>@errorMessage</h2>
+            <h2>@errorMessage</h2>*@
+            <h2>@(Model.HttpStatus + "!")</h2>
         }
     
     <div class="list-header clearfix">
