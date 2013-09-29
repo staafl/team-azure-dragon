@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearningSystem.App.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,17 +11,20 @@ namespace LearningSystem.App.Controllers
     {
         //
         // GET: /Error/
-        public string Index()
+        public ActionResult Index(Exception exception, int statusCode, string controllerName, string actionName)
         {
-            Server.GetLastError();
-            ViewBag.ErrorType = "";
-            return "ASDF";
-           // return View("Error");
+            Response.StatusCode = statusCode;
+            ErrorModel model = new ErrorModel
+            {
+                HttpStatusCode = statusCode,
+                HttpStatus = Response.Status,
+                Exception = exception,
+                ControllerName = controllerName,
+                ActionName = actionName
+            };
+            
+            return View("Error", model);
         }
-
-        public ActionResult test()
-        {
-            throw new ArgumentException();
-        }
+        
 	}
 }
