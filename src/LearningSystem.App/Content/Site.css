@@ -40,10 +40,18 @@ input[type="checkbox"].input-validation-error {
 }
 
 .errorContainer {
-    width: 800px;
+    width:900px;
     margin: 0 auto;
     text-align: center;
     /*display: inline-block;*/
+}
+    .errorContainer div {
+        width: 600px;
+        margin: 0 auto;
+    }
+
+#moreInfo {
+    width: 900px;
 }
 
 
