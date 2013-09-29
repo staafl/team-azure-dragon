@@ -26,13 +26,13 @@ namespace LearningSystem.Models
 
         public virtual Skill Skill { get; set; }
 
-        public ICollection<Exercise> Exercises { get; set; }
-        public ICollection<Lesson> Requirements { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<Lesson> Requirements { get; set; }
 
         public Lesson()
         {
-            Exercises = new HashSet<Exercise>();
-            Requirements = new HashSet<Lesson>();
+            this.Exercises = new HashSet<Exercise>();
+            this.Requirements = new HashSet<Lesson>();
         }
     }
 }

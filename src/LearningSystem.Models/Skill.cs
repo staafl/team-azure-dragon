@@ -21,11 +21,11 @@ namespace LearningSystem.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public ICollection<Lesson> Lessons { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
 
         public Skill()
         {
-            Lessons = new HashSet<Lesson>();
+            this.Lessons = new HashSet<Lesson>();
         }
 
     }

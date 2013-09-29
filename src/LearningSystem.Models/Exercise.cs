@@ -28,11 +28,11 @@ namespace LearningSystem.Models
 
         public virtual Lesson Lesson { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
 
         public Exercise()
         {
-            Questions = new HashSet<Question>();
+            this.Questions = new HashSet<Question>();
         }
     }
 }
