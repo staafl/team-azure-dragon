@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Kendo.Mvc;
+using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using System.IO;
+using Ionic.Zip;
+using System.Text;
 
 namespace LearningSystem.App.Controllers
 {
@@ -57,6 +60,39 @@ namespace LearningSystem.App.Controllers
                 throw new ApplicationException("Shouldn't happen");
             }
             throw new HttpException(400, "");
+        }
+
+        public ActionResult SaveSkill()
+        {
+            Response.Expires = -1;
+            try
+            {
+                HttpPostedFileBase file = Request.Files["skills-uploader"];
+
+                ZipFile zipFile = ZipFile.Read(file.InputStream);
+                StringBuilder zipContent = new StringBuilder();
+                foreach (var zipEntry in zipFile.Entries)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    zipEntry.Extract(memoryStream);
+
+                    memoryStream.Position = 0;
+                    StreamReader reader = new StreamReader(memoryStream);
+                    zipContent.AppendLine(reader.ReadToEnd());
+                }
+
+                
+
+
+                Response.ContentType = "application/json";
+                Response.Write("{}");
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
+
+            return Content("");
         }
 
 

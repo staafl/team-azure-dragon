@@ -17,7 +17,7 @@ namespace LearningSystem.App
         {
             using (var context = new LearningSystemContext())
             {
-                new DefaultInitializer().InitializeDatabaseWithSetInitializer(context);
+                //new DefaultInitializer().InitializeDatabaseWithSetInitializer(context);
             }
 
             AreaRegistration.RegisterAllAreas();
