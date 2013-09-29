@@ -9,11 +9,18 @@ using Kendo.Mvc.Extensions;
 using System.IO;
 using Ionic.Zip;
 using System.Text;
+using TeamAzureDragon.Utils;
 
 namespace LearningSystem.App.Controllers
 {
     public class HomeController : Controller
     {
+        IUnitOfWork db;
+        public HomeController(IUnitOfWork db)
+        {
+            this.db = db;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -31,14 +38,14 @@ namespace LearningSystem.App.Controllers
             {
                 string[] tables =
                 {
-"dbo.AspNetUserRoles",
-"dbo.AspNetTokens",
-"dbo.AspNetUserClaims",
-"dbo.AspNetUserLogins",
-"dbo.AspNetUserManagement",
-"dbo.AspNetUserSecrets",
-"dbo.AspNetUsers",
-"dbo.AspNetRoles",
+                    "dbo.AspNetUserRoles",
+                    "dbo.AspNetTokens",
+                    "dbo.AspNetUserClaims",
+                    "dbo.AspNetUserLogins",
+                    "dbo.AspNetUserManagement",
+                    "dbo.AspNetUserSecrets",
+                    "dbo.AspNetUsers",
+                    "dbo.AspNetRoles",
                 };
                 using (var context = new LearningSystemContext())
 
@@ -71,6 +78,9 @@ namespace LearningSystem.App.Controllers
 
                 ZipFile zipFile = ZipFile.Read(file.InputStream);
                 StringBuilder zipContent = new StringBuilder();
+
+                
+
                 foreach (var zipEntry in zipFile.Entries)
                 {
                     MemoryStream memoryStream = new MemoryStream();
@@ -81,7 +91,7 @@ namespace LearningSystem.App.Controllers
                     zipContent.AppendLine(reader.ReadToEnd());
                 }
 
-                
+                string s = zipContent.ToString();
 
 
                 Response.ContentType = "application/json";
