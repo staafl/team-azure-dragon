@@ -12,7 +12,7 @@ namespace LearningSystem.Models
         public int QuestionId { get; set; }
 
         [Required(ErrorMessage = "Question statement is required!")]
-        [StringLength(300)]
+        [StringLength(3000)]
         public string Statement { get; set; }
 
         [Required(ErrorMessage = "Order is required!")]
@@ -25,7 +25,7 @@ namespace LearningSystem.Models
         [Display(Name = "Answer type")]
         public AnswerType AnswerType { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(2000)]
         [Display(Name="Answer content")]
         public string AnswerContent { get; set; }
 

@@ -13,7 +13,7 @@ namespace LearningSystem.Models
         public int ExerciseId { get; set; }
 
         [Required(ErrorMessage = "Exercise name is required!")]
-        [StringLength(200)]
+        [StringLength(600)]
         public string Name { get; set; }
 
         [Column(TypeName = "ntext")]
