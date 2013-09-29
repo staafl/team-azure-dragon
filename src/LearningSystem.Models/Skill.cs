@@ -23,9 +23,12 @@ namespace LearningSystem.Models
 
         public virtual ICollection<Lesson> Lessons { get; set; }
 
+        public virtual ICollection<ApplicationUser> Users { get; set; }
+
         public Skill()
         {
             this.Lessons = new HashSet<Lesson>();
+            this.Users = new HashSet<ApplicationUser>();
         }
 
     }

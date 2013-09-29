@@ -14,5 +14,20 @@ namespace LearningSystem.Data
         public LearningSystemContext() : base() {
 
         }
+
+        public IDbSet<Skill> Skills { get; set; }
+        public IDbSet<Lesson> Lessons { get; set; }
+        public IDbSet<Exercise> Exercises { get; set; }
+        public IDbSet<Question> Questions { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Skill>().HasMany(x => x.Users).WithMany();
+            modelBuilder.Entity<Lesson>().HasMany(x => x.Users).WithMany();
+            modelBuilder.Entity<Exercise>().HasMany(x => x.Users).WithMany();
+            modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Friends).WithMany();
+            modelBuilder.Entity<Lesson>().HasMany(x => x.Requirements).WithMany();
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
