@@ -11,6 +11,21 @@ namespace LearningSystem.App
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+               "~/Scripts/KendoUI/kendo.web.js",
+               "~/Scripts/KendoUI/kendo.aspnetmvc.js"));
+
+            bundles.Add(new StyleBundle("~/Content/kendo").Include(
+                "~/Content/KendoStyles/kendo.common.min.css",
+                "~/Content/KendoStyles/kendo.default.min.css"
+
+                ));
+
+            bundles.IgnoreList.Clear();
+            bundles.IgnoreList.Ignore("*.intellisense.js");
+            bundles.IgnoreList.Ignore("*-vsdoc.js");
+            bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
