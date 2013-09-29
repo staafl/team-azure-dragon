@@ -1,28 +1,45 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 @{
-    Layout = "_Layout.cshtml";
+    //Layout = "_Layout.cshtml";
     ViewBag.Title = "Error";
 }
-<div class="list-header clearfix">
-    <span>Error</span>
-</div>
-<div class="list-sfs-holder">
-    <div class="alert alert-error">
-        An unexpected error has occurred. Please contact the system administrator.
+<div class="errorContainer">
+    <div class="list-header clearfix">
+        <span>Error</span>
     </div>
-    @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
-    {
-        <div>
-            <p>
-                <b>Exception:</b> @Model.Exception.Message<br />
-                <b>Controller:</b> @Model.ControllerName<br />
-                <b>Action:</b> @Model.ActionName
-            </p>
-            <div style="overflow:scroll">
-                <pre>
+    <div class="list-sfs-holder">
+        <div class="alert alert-error">
+            An unexpected error has occurred. Please contact the system administrator.
+        </div>
+        @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+        {
+            <div>
+                <p>
+                    <b>Exception:</b> @Model.Exception.Message<br />
+                    <b>Controller:</b> @Model.ControllerName<br />
+                    <b>Action:</b> @Model.ActionName
+                </p>
+                <div id="moreInfo" style="overflow:scroll; display:none">
+                    <pre>
                     @Model.Exception.StackTrace
                 </pre>
+                </div>
+                <button id="btn-moreInfo" onclick="displayMoreInfo()">See more.</button>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
+<script>
+    var displayMoreInfo = function () {
+        $("#moreInfo").toggle();
+        var button = $("#btn-moreInfo");
+        if (button.html() == "See more.") {
+            button.html("Hide details.");
+        }
+        else {
+            button.html("See more.");
+        }
+
+    }
+</script>

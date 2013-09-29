@@ -25,5 +25,10 @@ namespace LearningSystem.App.Controllers
             Response.StatusCode = 403; 
             return View("NoAccess");
         }
+
+        public ActionResult test()
+        {
+            throw new ArgumentException();
+        }
 	}
 }
