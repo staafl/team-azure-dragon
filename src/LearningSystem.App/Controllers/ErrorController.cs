@@ -10,20 +10,12 @@ namespace LearningSystem.App.Controllers
     {
         //
         // GET: /Error/
-        public ActionResult Index()
+        public string Index()
         {
-            return View("Error");
-        }
-        public ViewResult NotFound()
-        {
-            Response.StatusCode = 404; 
-            return View("NotFound");
-        }
-
-        public ViewResult NoAccess()
-        {
-            Response.StatusCode = 403; 
-            return View("NoAccess");
+            Server.GetLastError();
+            ViewBag.ErrorType = "";
+            return "ASDF";
+           // return View("Error");
         }
 
         public ActionResult test()
