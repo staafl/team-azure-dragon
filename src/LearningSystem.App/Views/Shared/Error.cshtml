@@ -2,15 +2,18 @@
 @{
     //Layout = "_Layout.cshtml";
     ViewBag.Title = "Error";
+    var err = Server.GetLastError();
 }
 <div class="errorContainer">
     <div class="list-header clearfix">
-        <span>Error</span>
+        <span>Sorry but there is an error in your request: </span>
     </div>
     <div class="list-sfs-holder">
-        <div class="alert alert-error">
-            An unexpected error has occurred. Please contact the system administrator.
-        </div>
+        
+        <img src="/img/Azure_Dragon.jpg" width="200" />
+        @System.Diagnostics.Process.GetCurrentProcess().Id
+
+
         @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
         {
             <div>
@@ -22,9 +25,10 @@
                 <div id="moreInfo" style="overflow:scroll; display:none">
                     <pre>
                     @Model.Exception.StackTrace
-                </pre>
+                    </pre>
                 </div>
-                <button id="btn-moreInfo" onclick="displayMoreInfo()">See more.</button>
+                <a href="#" id="btn-moreInfo" onclick="displayMoreInfo()">See more.</a>
+                @Html.ActionLink("Go to home page", "index", "Home")
             </div>
         }
     </div>

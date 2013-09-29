@@ -10,7 +10,7 @@
 
 .field-validation-valid {
     display: none;
- }
+}
 
 input.input-validation-error {
     border: 1px solid #b94a48;
@@ -30,6 +30,30 @@ input[type="checkbox"].input-validation-error {
 
 /* styles for removing the background from form */
 .no-color {
-  background-color: white;
-  border-style:none;
+    background-color: white;
+    border-style: none;
 }
+
+.errorContainer img {
+    /*position: relative;
+    left: 45%;*/
+}
+
+.errorContainer {
+    width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    /*display: inline-block;*/
+}
+
+
+#btn-moreInfo {
+    margin-right: 20px;
+}
+
+/*.errorContainer {
+    background-image: url(/img/Azure_Dragon.jpg);
+    background-repeat: no-repeat;
+    background-color:rgba(255,255,255,0.5);
+    background-position:top;
+}*/
