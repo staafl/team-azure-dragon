@@ -8,6 +8,7 @@ namespace LearningSystem.Models
     public enum AnswerType
     {
         None,
+        // TODO - spelling
         MultipleChoise,
         CSharpCode,
         Text,

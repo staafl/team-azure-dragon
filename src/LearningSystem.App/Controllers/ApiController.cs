@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearningSystem.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -45,7 +46,7 @@ namespace LearningSystem.App
                     }
                 return "Database successfully cleared.";
             }
-            throw new HttpException(400, "");
+            throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
         [HttpPost]
@@ -56,7 +57,7 @@ namespace LearningSystem.App
                 Environment.Exit(0);
                 throw new ApplicationException("Shouldn't happen");
             }
-            throw new HttpException(400, "");
+            throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
         //// GET 
         // api/<controller>

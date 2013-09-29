@@ -18,7 +18,7 @@ namespace LearningSystem.App.AppLogic
             if (this.NormalizeWhiteSpace)
                 input = Regex.Replace(input, @"\s+", " ").Trim();
 
-            if (String.Compare(input, this.Text, this.IgnoreCase))
+            if (String.Compare(input, this.Text, this.IgnoreCase) == 0)
                 return new AnswerValidationResult { Success = true };
             else
                 return new AnswerValidationResult

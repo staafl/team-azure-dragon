@@ -181,7 +181,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiController.cs" />
+    <Compile Include="AppLogic\AnswerHandlerFactory.cs" />
+    <Compile Include="AppLogic\AnswerValidationResult.cs" />
+    <Compile Include="AppLogic\CSharpAnswerHandler.cs" />
+    <Compile Include="AppLogic\IAnswerHandler.cs" />
+    <Compile Include="AppLogic\TextAnswerHandler.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -335,9 +341,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AppLogic\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

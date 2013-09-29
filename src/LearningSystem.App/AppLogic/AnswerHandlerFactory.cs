@@ -1,8 +1,11 @@
 ﻿using LearningSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Xml.Serialization;
+using TeamAzureDragon.Utils;
 
 namespace LearningSystem.App.AppLogic
 {
@@ -15,7 +18,6 @@ namespace LearningSystem.App.AppLogic
             {
                 case AnswerType.None:
                     throw new ArgumentException("'type' cannot be None.");
-                    break;
                 case AnswerType.Custom:
                 case AnswerType.CSharpCode:
                     return GetSCharpAnswerHandler(answerContent);
@@ -34,8 +36,10 @@ namespace LearningSystem.App.AppLogic
             return new CSharpAnswerHandler();
         }
 
-        static IAnswerHandler GetTextAnswerHandler(string text) {
-            return new TextAnswerHandler(text);
+
+        static IAnswerHandler GetTextAnswerHandler(string data)
+        {
+            return Misc.ParseVersioned<TextAnswerHandler>(data);
         }
 
     }

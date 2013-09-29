@@ -53,7 +53,10 @@
     <Compile Include="DataPatterns\IRepository.cs" />
     <Compile Include="DataPatterns\IUnitOfWork.cs" />
     <Compile Include="DataPatterns\UnitOfWorkBase.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VersionedString.cs" />
+    <Compile Include="VersionMismatchException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
