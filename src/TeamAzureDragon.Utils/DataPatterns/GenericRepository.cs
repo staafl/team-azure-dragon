@@ -22,15 +22,20 @@
 
         protected DbContext Context { get; set; }
 
-        public virtual IQueryable<T> All() { return this.DbSet; }
+        public virtual IQueryable<T> All()
+        {
+            return this.DbSet;
+        }
         public virtual IQueryable<T> All(params string[] include)
         {
-            var ret = this.DbSet.AsQueryable();
+            var result = this.DbSet.AsQueryable();
 
             foreach (var inc in include)
-                ret = ret.Include(inc);
+            {
+                result = result.Include(inc);
+            }
 
-            return ret;
+            return result;
         }
 
         public virtual T GetById(int id)
