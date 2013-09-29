@@ -27,7 +27,7 @@
             }
         }
 
-        public IRepository<T> GetRepository<T>() where T : class
+        public IRepository<T> _<T>() where T : class
         {
             if (!this.repositories.ContainsKey(typeof(T)))
             {

@@ -118,6 +118,8 @@ namespace LearningSystem.App.Controllers
 
                 skill.Lessons = lessons.Values;
 
+                db._<Skill>().Add(skill);
+                db.SaveChanges();
             }
             catch (Exception ex)
             {

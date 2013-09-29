@@ -5,11 +5,12 @@ namespace LearningSystem.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LearningSystem.Data.LearningSystemContext>
+    public sealed class Configuration : DbMigrationsConfiguration<LearningSystem.Data.LearningSystemContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            this.AutomaticMigrationsEnabled = true;
+            this.AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(LearningSystem.Data.LearningSystemContext context)

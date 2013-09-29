@@ -1,10 +1,11 @@
-﻿namespace TeamAzureDragon.Utils
+﻿
+namespace TeamAzureDragon.Utils
 {
     using System;
 
     public interface IUnitOfWork : IDisposable 
     {
-        IRepository<T> GetRepository<T>() where T : class;
+        IRepository<T> _<T>() where T : class;
 
         int SaveChanges();
     }

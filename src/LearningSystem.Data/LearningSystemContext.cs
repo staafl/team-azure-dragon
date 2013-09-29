@@ -22,10 +22,10 @@ namespace LearningSystem.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Skill>().HasMany(x => x.Users).WithMany();
-            modelBuilder.Entity<Lesson>().HasMany(x => x.Users).WithMany();
-            modelBuilder.Entity<Exercise>().HasMany(x => x.Users).WithMany();
             modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Friends).WithMany();
+            modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Exercises).WithMany(x => x.Users);
+            modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Lessons).WithMany(x => x.Users);
+            modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Skills).WithMany(x => x.Users);
             modelBuilder.Entity<Lesson>().HasMany(x => x.Requirements).WithMany();
             base.OnModelCreating(modelBuilder);
         }

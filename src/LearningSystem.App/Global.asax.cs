@@ -1,6 +1,8 @@
 ﻿using LearningSystem.Data;
+using LearningSystem.Data.Migrations;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,9 +17,12 @@ namespace LearningSystem.App
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<LearningSystemContext>(new MigrateDatabaseToLatestVersion<LearningSystemContext, Configuration>());
+
             using (var context = new LearningSystemContext())
             {
-                new DefaultInitializer().InitializeDatabaseWithSetInitializer(context);
+                Console.WriteLine(context.Users.Count());
+                //new DefaultInitializer().InitializeDatabaseWithSetInitializer(context);
             }
 
             AreaRegistration.RegisterAllAreas();
