@@ -14,7 +14,7 @@ namespace LearningSystem.Models
         public int LessonId { get; set; }
 
         [Required(ErrorMessage = "Lesson name is required!")]
-        [StringLength(80)]
+        [StringLength(200)]
         public string Name { get; set; }
 
         [Column(TypeName = "ntext")]

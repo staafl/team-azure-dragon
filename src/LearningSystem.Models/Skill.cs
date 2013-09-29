@@ -14,7 +14,7 @@ namespace LearningSystem.Models
         public int SkillId { get; set; }
 
         [Required(ErrorMessage = "Skill name is required!")]
-        [StringLength(60)]
+        [StringLength(200)]
         public string Name { get; set; }
 
         [Column(TypeName = "ntext")]

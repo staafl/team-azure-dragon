@@ -90,7 +90,7 @@ namespace LearningSystem.App.Controllers
 
                 var archivedQuestions = zipFile.Entries.Where(x => 
                     x.Attributes == FileAttributes.Archive &&
-                    x.FileName.Contains("/questions/"));
+                    x.FileName.Contains("questions/"));
 
                 XmlDocument document = new XmlDocument();
 
@@ -98,19 +98,19 @@ namespace LearningSystem.App.Controllers
 
                 var archivedExercises = zipFile.Entries.Where(x =>
                     x.Attributes == FileAttributes.Archive &&
-                    x.FileName.Contains("/exercises/"));
+                    x.FileName.Contains("exercises/"));
 
                 ParseExercises(exercises, questions, archivedExercises, document);
 
                 var archivedLessons = zipFile.Entries.Where(x =>
                     x.Attributes == FileAttributes.Archive &&
-                    x.FileName.Contains("/lessons/"));
+                    x.FileName.Contains("lessons/"));
 
                 ParseLessons(lessons, exercises, archivedLessons, document);
 
                 var archivedSkill = zipFile.Entries.Single(x =>
                    x.Attributes == FileAttributes.Archive &&
-                   x.FileName.Contains("/skill"));
+                   x.FileName.Contains("skill"));
 
                 Skill skill = new Skill();
 
