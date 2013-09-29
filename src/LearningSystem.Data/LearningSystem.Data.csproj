@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201309291020345_add models.Designer.cs">
       <DependentUpon>201309291020345_add models.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309291056366_many-to-many-relationship.cs" />
+    <Compile Include="Migrations\201309291056366_many-to-many-relationship.Designer.cs">
+      <DependentUpon>201309291056366_many-to-many-relationship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UoWLearningSystem.cs" />
@@ -87,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309291020345_add models.resx">
       <DependentUpon>201309291020345_add models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309291056366_many-to-many-relationship.resx">
+      <DependentUpon>201309291056366_many-to-many-relationship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

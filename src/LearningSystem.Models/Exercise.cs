@@ -30,9 +30,12 @@ namespace LearningSystem.Models
 
         public virtual ICollection<Question> Questions { get; set; }
 
+        public virtual ICollection<ApplicationUser> Users { get; set; }
+
         public Exercise()
         {
             this.Questions = new HashSet<Question>();
+            this.Users = new HashSet<ApplicationUser>();
         }
     }
 }
