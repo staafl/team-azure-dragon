@@ -55,8 +55,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountViewModels.cs" />
+    <Compile Include="AnswerType.cs" />
     <Compile Include="ApplicationUser.cs" />
+    <Compile Include="Exercise.cs" />
+    <Compile Include="Lesson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Question.cs" />
+    <Compile Include="Skill.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
