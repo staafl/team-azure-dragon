@@ -102,6 +102,7 @@ namespace LearningSystem.App.Controllers
                 Response.Write(ex.ToString());
             }
 
+
             return Content("");
         }
 
