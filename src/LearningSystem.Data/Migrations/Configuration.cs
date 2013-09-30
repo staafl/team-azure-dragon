@@ -9,8 +9,8 @@ namespace LearningSystem.Data.Migrations
     {
         public Configuration()
         {
-            this.AutomaticMigrationsEnabled = true;
-            this.AutomaticMigrationDataLossAllowed = true;
+            // this.AutomaticMigrationsEnabled = true;
+            // this.AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(LearningSystem.Data.LearningSystemContext context)
