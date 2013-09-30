@@ -6,3 +6,17 @@
 
 <h2>Index</h2>
 
+<div class="row-fluid">
+    @foreach (var group in Model.Lessons)
+    {
+        <div class="row-fluid">
+
+            @foreach (var item in group)
+	        {
+                <button class="btn btn-info">@item.Name</button>
+	        }
+
+        </div>
+    }
+</div>
+<br/>

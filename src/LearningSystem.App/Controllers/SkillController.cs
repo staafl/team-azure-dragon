@@ -28,17 +28,18 @@ namespace LearningSystem.App.Controllers
             var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
 
             var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
+            List<LessonViewModel> sortedLessons = new List<LessonViewModel>();
 
             if (skill != null && skill.Users.Contains(user))
             {
                 var lessons = skill.Lessons.ToList();
-                List<LessonViewModel> sortedLessons = new List<LessonViewModel>();
                 HashSet<Lesson> added = new HashSet<Lesson>();
                 var parentlessLessons = lessons.Where(x => x.Requirements.Count == 0).ToList();
 
-                sortedLessons.AddRange(parentlessLessons.ToLessonViewModel());
+                sortedLessons.AddRange(parentlessLessons.ToLessonViewModel(0));
                 parentlessLessons.ForEach(x => added.Add(x));
 
+                int levelInSkillTree = 1;
                 int notInPlace = lessons.Count - added.Count;
 
                 while (notInPlace > 0)
@@ -49,17 +50,16 @@ namespace LearningSystem.App.Controllers
                         {
                             if (item.Requirements.Count == 0 || RequirementsAlreadyAdded(item.Requirements, added))
                             {
-                                sortedLessons.Add(item.ToLessonViewModel());
+                                sortedLessons.Add(item.ToLessonViewModel(levelInSkillTree));
                                 added.Add(item);
                                 notInPlace--;
+
                             }
                         }
+                        
                     }
-
+                    levelInSkillTree++;
                 }
-
-
-                int a = 5;//debugger is shit;
             }
             else
             {
@@ -71,8 +71,13 @@ namespace LearningSystem.App.Controllers
                 });
             }
 
+            SkillViewModel vm = new SkillViewModel();
 
-            return View();
+            
+
+            vm.SkillId = skill.SkillId;
+            vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree); ;
+            return View(vm);
         }
 
         private bool RequirementsAlreadyAdded(ICollection<Lesson> requirements, HashSet<Lesson> added)
