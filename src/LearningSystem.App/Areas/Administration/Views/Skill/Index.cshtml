@@ -5,43 +5,47 @@
 }
 
 <h2>Skills</h2>
-@Html.AntiForgeryToken()
 
-@(Html.Kendo().Grid<LearningSystem.Models.Skill>()
-.Name("Grid")
-.Columns(columns =>
-    {        
-        columns.Bound(b => b.Name);
-        columns.Bound(b => b.Description);
-        ////columns.Bound(b => b.SkillId).Title("Select").ClientTemplate("<a href=Skill/Details/#=SkillId#>Tst</a>");
-        //columns.Bound(b => b.SkillId).Title("Lessons").ClientTemplate(@Html.ActionLink("Lessons", "Index", "Lesson", null, new { ID = "#=SkillId#" }).ToHtmlString());
-        //columns.Bound(b => b.SkillId).Title("Select").ClientTemplate(@Html.ActionLink("Details", "Details", new { ID = "#=SkillId#" }).ToHtmlString());
-        columns.Command(commands =>
-        {
-            commands.Edit();
-            commands.Destroy();
-            commands.Custom("ViewDetails").Click("showDetails");
-            commands.Custom("Lessons").Click("showLessons");
-        }).Title("Commands").Width(350);
-    })
-.ToolBar(toolbar => toolbar.Create())
-.Editable(editable => editable.Mode(GridEditMode.InLine))
-.DataSource(datasource => datasource
-.Ajax()
-.Model(model =>
+@using(Html.BeginForm())
 {
-    model.Id(skill => skill.SkillId);
-    model.Field(skill => skill.SkillId).Editable(false);
-})
-.ServerOperation(false)
-.Read(read => read.Action("Read", "Skill"))
-    .Create(create => create.Action("Create", "Skill"))
-    .Update(update => update.Action("Edit", "Skill"))
-    .Destroy(destroy => destroy.Action("Delete", "Skill"))
-)
-.Pageable()
-.Sortable()
-)
+    @(Html.Kendo().Grid<LearningSystem.Models.Skill>()
+    .Name("Grid")
+    .Columns(columns =>
+        {        
+            columns.Bound(b => b.Name);
+            columns.Bound(b => b.Description);
+            ////columns.Bound(b => b.SkillId).Title("Select").ClientTemplate("<a href=Skill/Details/#=SkillId#>Tst</a>");
+            //columns.Bound(b => b.SkillId).Title("Lessons").ClientTemplate(@Html.ActionLink("Lessons", "Index", "Lesson", null, new { ID = "#=SkillId#" }).ToHtmlString());
+            //columns.Bound(b => b.SkillId).Title("Select").ClientTemplate(@Html.ActionLink("Details", "Details", new { ID = "#=SkillId#" }).ToHtmlString());
+            columns.Command(commands =>
+            {
+                commands.Edit();
+                commands.Destroy();
+                commands.Custom("ViewDetails").Click("showDetails");
+                commands.Custom("Lessons").Click("showLessons");
+            }).Title("Commands").Width(350);
+        })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .DataSource(datasource => datasource
+    .Ajax()
+    .Model(model =>
+    {
+        model.Id(skill => skill.SkillId);
+        model.Field(skill => skill.SkillId).Editable(false);
+    })
+    .ServerOperation(false)
+    .Read(read => read.Action("Read", "Skill"))
+        .Create(create => create.Action("Create", "Skill"))
+        .Update(update => update.Action("Edit", "Skill"))
+        .Destroy(destroy => destroy.Action("Delete", "Skill"))
+    )
+    .Pageable()
+    .Sortable()
+    )
+@Html.AntiForgeryToken()
+}
+
 
 <script>
     function showDetails(e) {
