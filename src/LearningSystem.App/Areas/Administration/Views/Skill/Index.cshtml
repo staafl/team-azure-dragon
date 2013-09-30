@@ -5,20 +5,24 @@
 }
 
 <h2>Skills</h2>
+@Html.AntiForgeryToken()
 
 @(Html.Kendo().Grid<LearningSystem.Models.Skill>()
 .Name("Grid")
 .Columns(columns =>
-    {
+    {        
         columns.Bound(b => b.Name);
         columns.Bound(b => b.Description);
+        ////columns.Bound(b => b.SkillId).Title("Select").ClientTemplate("<a href=Skill/Details/#=SkillId#>Tst</a>");
+        //columns.Bound(b => b.SkillId).Title("Lessons").ClientTemplate(@Html.ActionLink("Lessons", "Index", "Lesson", null, new { ID = "#=SkillId#" }).ToHtmlString());
+        //columns.Bound(b => b.SkillId).Title("Select").ClientTemplate(@Html.ActionLink("Details", "Details", new { ID = "#=SkillId#" }).ToHtmlString());
         columns.Command(commands =>
         {
             commands.Edit();
             commands.Destroy();
-            commands.Custom("Details").Action("Details", "Skill", new { id = "#=SkillId" });
-            commands.Custom("Add Lessons").Action("Index", "Lesson", new { id = "#=SkillId" });
-        }).Title("Commands").Width(200);
+            commands.Custom("ViewDetails").Click("showDetails");
+            commands.Custom("Lessons").Click("showLessons");
+        }).Title("Commands").Width(350);
     })
 .ToolBar(toolbar => toolbar.Create())
 .Editable(editable => editable.Mode(GridEditMode.InLine))
@@ -38,5 +42,21 @@
 .Pageable()
 .Sortable()
 )
+
+<script>
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = 'Skill/Details/' + dataItem.SkillId;
+    }
+
+    function showLessons(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = 'Lesson/Index/' + dataItem.SkillId;
+    }
+</script>
 
 

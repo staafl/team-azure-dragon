@@ -390,7 +390,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Splash\Index.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
-    <Content Include="Views\Skill\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Skill\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />

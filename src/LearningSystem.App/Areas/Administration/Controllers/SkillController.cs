@@ -45,15 +45,35 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModelSkills = db.Skills.All().ToList();
+            // Skill
+            //      SkillId
+            //      Name            - Name
+            //      Description     - Description
+            //      Lessons
+            //          LessonId
+            //          Name        - LessonName
+            //          Description
+            //          
+            var viewModelSkills = db.Skills.All().ToList()
+                        .Select(skill => Misc.SerializeToDictionary(skill,
+                                path =>
+                                {
+                                    if (path == "SkillId") return RecursiveSerializationOption.Assign;
+                                    if (path == "Name") return RecursiveSerializationOption.Assign;
+                                    if (path == "Description") return RecursiveSerializationOption.Assign;
+                                    if (path == "Lessons") return RecursiveSerializationOption.Foreach;
+                                    if (path == "Lessons.Name") return RecursiveSerializationOption.Assign;
+                                    if (path == "Lessons.LessonId") return RecursiveSerializationOption.Assign;
+                                    return RecursiveSerializationOption.Skip;
+                                }));
 
-            //foreach (var item in viewModelSkills)
-            //{
-            //    if (item.Description != null && item.Description.Length > 20)
-            //    {
-            //        item.Description = item.Description.Substring(0, 20);
-            //    }
-            //}
+            foreach (var item in viewModelSkills)
+            {
+                if (item["Description"] != null && item["Description"].ToString().Length > 20)
+                {
+                    item["Description"] = item["Description"].ToString().Substring(0, 20);
+                }
+            }
 
             DataSourceResult result = viewModelSkills.ToDataSourceResult(request);
 
@@ -61,10 +81,10 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         }
 
         // POST: /Administration/Skill/Create
-		// To protect from over posting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		// 
-		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
+        // To protect from over posting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // 
+        // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, Skill skill)
@@ -80,10 +100,10 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         }
 
         // POST: /Administration/Skill/Edit/5
-		// To protect from over posting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		// 
-		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
+        // To protect from over posting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // 
+        // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Skill skill)
@@ -107,6 +127,21 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             return View(new[] { skill }.ToDataSourceResult(request, ModelState));
         }
 
+        //public ActionResult Lessons([DataSourceRequest]DataSourceRequest request, int id)
+        //{
+        //    var viewModelLessons = db.Skills.All().ToList()
+        //                .Select(skill => Misc.SerializeToDictionary(skill,
+        //                    path =>
+        //                        {
+        //                            if (path == "SkillId") return RecursiveSerializationOption.Assign;
+        //                            if (path == "Lessons") return RecursiveSerializationOption.Assign;
+        //                            return RecursiveSerializationOption.Skip;
+        //                        }));
+        
+        //    DataSourceResult result = viewModelLessons.ToDataSourceResult(request);
+
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

@@ -30,13 +30,12 @@
         @foreach (var item in Model.Lessons)
         {
             <dd>
-                @Html.RouteLink(item.Name, "~/Administration/Lesson/Detail", new { id = "LessonId" })
+                @Html.ActionLink(item.Name, "Details", "Lesson", new { id = "LessonId" })
             </dd>
         }       
 
     </dl>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SkillId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

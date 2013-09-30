@@ -17,7 +17,8 @@ namespace LearningSystem.App.Areas.Administration
             context.MapRoute(
                 "Administration_default",
                 "Administration/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new [] { "LearningSystem.App.Areas.Administration.Controllers"}
             );
         }
     }
