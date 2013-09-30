@@ -28,12 +28,15 @@ namespace LearningSystem.App.Controllers
 
             var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
             List<LessonViewModel> sortedLessons = new List<LessonViewModel>();
+            IEnumerable<Lesson> learnedLessons;
 
             if (skill != null && skill.Users.Contains(user))
             {
                 var lessons = skill.Lessons.ToList();
                 HashSet<Lesson> added = new HashSet<Lesson>();
                 var parentlessLessons = lessons.Where(x => x.Requirements.Count == 0).ToList();
+
+                learnedLessons  = user.Lessons.Where(x => x.SkillId == skill.SkillId && lessons.Any(y => y.LessonId == x.LessonId));
 
                 sortedLessons.AddRange(parentlessLessons.ToLessonViewModel(0));
                 parentlessLessons.ForEach(x => added.Add(x));
@@ -52,10 +55,8 @@ namespace LearningSystem.App.Controllers
                                 sortedLessons.Add(item.ToLessonViewModel(levelInSkillTree));
                                 added.Add(item);
                                 notInPlace--;
-
                             }
                         }
-                        
                     }
                     levelInSkillTree++;
                 }
@@ -72,8 +73,15 @@ namespace LearningSystem.App.Controllers
 
             SkillViewModel vm = new SkillViewModel();
 
-            
+            foreach (var item in sortedLessons)
+            {
+                if(learnedLessons.Any(x => x.LessonId == item.Id))
+                {
+                    item.IsLearned = true;
+                }
+            }
 
+            vm.SkillName = skill.Name;
             vm.SkillId = skill.SkillId;
             vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree);
             return View(vm);
