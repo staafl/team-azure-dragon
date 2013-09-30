@@ -63,14 +63,13 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     if (path == "Name") return RecursiveSerializationOption.Assign;
                                     if (path == "Description") return RecursiveSerializationOption.Assign;
                                     if (path == "Lessons") return RecursiveSerializationOption.ForeachRecurse;
-                                    if (path == "Lessons.Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "Lessons.LessonId") return RecursiveSerializationOption.Assign;
+                                    //if (path == "Lessons.Name") return RecursiveSerializationOption.Assign;
                                     return RecursiveSerializationOption.Skip;
-                                }));
+                                })).ToList();
 
-            foreach (var item in viewModelSkills)
+            for (int i = 0; i < viewModelSkills.Count(); i++)
             {
-                item["Description"] = item["Description"].ToString().Abbreviate(20);
+                viewModelSkills[i]["Description"] = viewModelSkills[i]["Description"].ToString().Abbreviate(30);
             }
 
             DataSourceResult result = viewModelSkills.ToDataSourceResult(request);
