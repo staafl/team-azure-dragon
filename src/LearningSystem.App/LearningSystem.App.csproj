@@ -213,6 +213,7 @@
     </Compile>
     <Compile Include="AppLogic\IAnswerHandler.cs" />
     <Compile Include="AppLogic\TextAnswerHandler.cs" />
+    <Compile Include="AppLogic\XmlParser.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\SkillController.cs" />

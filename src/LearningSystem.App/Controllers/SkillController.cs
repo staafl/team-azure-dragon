@@ -1,5 +1,6 @@
 ﻿using LearningSystem.App.Models;
 using LearningSystem.App.ViewModels;
+using LearningSystem.Data;
 using LearningSystem.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -14,8 +15,8 @@ namespace LearningSystem.App.Controllers
 {
     public class SkillController : Controller
     {
-        IUnitOfWork db;
-        public SkillController(IUnitOfWork db)
+        IUoWLearningSystem db;
+        public SkillController(IUoWLearningSystem db)
         {
             this.db = db;
         }
@@ -24,9 +25,9 @@ namespace LearningSystem.App.Controllers
         [Authorize]
         public ActionResult Index(int skillId)
         {
-            var user = db._<User>().All().Single(x => x.UserName == User.Identity.Name);
+            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
 
-            var skill = db._<Skill>().All().FirstOrDefault(x => x.SkillId == skillId);
+            var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
 
             if (skill != null && skill.Users.Contains(user))
             {

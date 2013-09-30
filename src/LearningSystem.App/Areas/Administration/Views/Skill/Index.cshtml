@@ -1,4 +1,5 @@
-﻿@model IEnumerable<LearningSystem.Models.Skill>
+﻿@using TeamAzureDragon.Utils;
+@model IEnumerable<LearningSystem.Models.Skill>
 
 @{
     ViewBag.Title = "Index";
@@ -26,7 +27,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.LabelFor(modelItem => item.Description, item.Description.Abbreviate(30))
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.SkillId }) |
