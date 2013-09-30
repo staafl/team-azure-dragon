@@ -22,13 +22,17 @@ namespace LearningSystem.App.AppLogic
             message.Subject = "Confirm your account - " + model.UserName;
             message.IsBodyHtml = true;
 
+            // todo: construct link url
             message.Body = string.Format(
 @"<p>Hi {0},</p>
 
-To start using LearningSystem, you need to verify your account. Please click the link or paste it into your browser's address bar:
+<p>To start using LearningSystem, you need to verify your account. Please click the link or paste it into your browser's address bar:</p>
 
-Love,
-The LearningSystem crew");
+<p><a href='{1}'>{1}</a></p>
+
+<p>Love,</p>
+<p>The LearningSystem crew</p>", model.UserName, "");
+
             var result = client.SendMail(message);
             return result;
         }
