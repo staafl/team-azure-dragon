@@ -16,5 +16,17 @@ namespace TeamAzureDragon.Utils
             return (T)(new XmlSerializer(typeof(T))
                 .Deserialize(new StringReader(xml)));
         }
+
+        public static string Abbreviate(this string text, int maxLength)
+        {
+            if (text.Length <= maxLength)
+                return text;
+            if (maxLength < 3)
+                throw new ArgumentException();
+
+            text = text.Substring(0, maxLength - 3) + "...";
+
+            return text;
+        }
     }
 }
