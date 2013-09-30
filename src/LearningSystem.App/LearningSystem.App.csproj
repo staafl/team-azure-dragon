@@ -139,6 +139,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0-rc1\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Typesafe.Mailgun">
+      <HintPath>..\packages\mnailgun.0.4.0\lib\4.0\Typesafe.Mailgun.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivator">
       <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
     </Reference>
@@ -205,6 +208,7 @@
     <Compile Include="AppLogic\AnswerHandlerFactory.cs" />
     <Compile Include="AppLogic\AnswerValidationResult.cs" />
     <Compile Include="AppLogic\CSharpAnswerHandler.cs" />
+    <Compile Include="AppLogic\EmailService.cs" />
     <Compile Include="AppLogic\IAnswerHandler.cs" />
     <Compile Include="AppLogic\TextAnswerHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
