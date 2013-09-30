@@ -6,12 +6,12 @@
 
 <h2>Skills</h2>
 
-@using(Html.BeginForm())
+@using (Html.BeginForm())
 {
     @(Html.Kendo().Grid<LearningSystem.Models.Skill>()
     .Name("Grid")
     .Columns(columns =>
-        {        
+        {
             columns.Bound(b => b.Name);
             columns.Bound(b => b.Description);
             ////columns.Bound(b => b.SkillId).Title("Select").ClientTemplate("<a href=Skill/Details/#=SkillId#>Tst</a>");
@@ -43,7 +43,7 @@
     .Pageable()
     .Sortable()
     )
-@Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 }
 
 
