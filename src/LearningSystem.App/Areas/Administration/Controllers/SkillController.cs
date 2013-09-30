@@ -69,10 +69,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 
             foreach (var item in viewModelSkills)
             {
-                if (item["Description"] != null && item["Description"].ToString().Length > 20)
-                {
-                    item["Description"] = item["Description"].ToString().Substring(0, 20);
-                }
+                item["Description"] = item["Description"].ToString().Abbreviate(20);
             }
 
             DataSourceResult result = viewModelSkills.ToDataSourceResult(request);
