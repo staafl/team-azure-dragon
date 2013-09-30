@@ -55,7 +55,7 @@ namespace LearningSystem.App.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUnitOfWork>().To<UoWLearningSystem>();
+            kernel.Bind<IUoWLearningSystem>().To<UoWLearningSystem>();
         }        
     }
 }

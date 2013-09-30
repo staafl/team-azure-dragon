@@ -17,8 +17,8 @@ namespace LearningSystem.App.Controllers
 {
     public class HomeController : Controller
     {
-        IUnitOfWork db;
-        public HomeController(IUnitOfWork db)
+        IUoWLearningSystem db;
+        public HomeController(IUoWLearningSystem db)
         {
             this.db = db;
         }
