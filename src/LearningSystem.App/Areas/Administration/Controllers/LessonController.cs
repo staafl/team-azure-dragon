@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LearningSystem.Models;
 using LearningSystem.Data;
+using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.ValidateAntiForgeryTokenAttribute;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
