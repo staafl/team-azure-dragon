@@ -216,7 +216,6 @@
     <Compile Include="AppLogic\XmlParser.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
-    <Compile Include="Areas\Administration\Controllers\LessonController.cs" />
     <Compile Include="Areas\Administration\Controllers\SkillController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -260,8 +259,6 @@
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\Skill\Index.cshtml" />
-    <Content Include="Areas\Administration\Views\Lesson\Details.cshtml" />
-    <Content Include="Areas\Administration\Views\Lesson\Index.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -390,7 +387,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Splash\Index.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
-    <Content Include="Areas\Administration\Views\Skill\Details.cshtml" />
+    <Content Include="Views\Shared\_Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />

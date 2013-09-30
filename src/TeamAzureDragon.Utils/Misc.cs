@@ -15,7 +15,8 @@ namespace TeamAzureDragon.Utils
     {
         Recurse,
         Assign,
-        Foreach,
+        ForeachAssign,
+        ForeachRecurse,
         Skip
     }
 
@@ -43,64 +44,63 @@ namespace TeamAzureDragon.Utils
 
         public static Dictionary<string, object> SerializeToDictionary(object from,
             Func<string, RecursiveSerializationOption> customHandler = null,
-            Func<string, string> keyGetter = null,
+            Func<string, string, string> keyGetter = null,
             string basePath = "")
         {
             var dict = new Dictionary<string, object>();
 
-            var stack = new Stack<Tuple<string, PropertyInfo, object>>();
-
             const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
 
-            stack.Push(Tuple.Create(basePath, (PropertyInfo)null, from));
-
-            while (stack.Count() > 0)
+            foreach (PropertyInfo prop in from.GetType().GetProperties(flags))
             {
-                var pair = stack.Pop();
+                var name = prop.Name;
 
-                var nameAbove = pair.Item1;
-                var prop = pair.Item2;
-                var owner = pair.Item3;
+                var path = string.IsNullOrWhiteSpace(basePath) ? name : basePath + "." + name;
 
-                if (prop == null)
-                {
-                    foreach (PropertyInfo ownerProp in owner.GetType().GetProperties(flags))
-                    {
-                        stack.Push(Tuple.Create(nameAbove, ownerProp, owner));
-                    }
-                    continue;
-                }
-
-
-                var result = customHandler == null ? RecursiveSerializationOption.Assign : customHandler(prop.Name);
+                var result = customHandler == null ? RecursiveSerializationOption.Assign : customHandler(path);
 
                 if (result == RecursiveSerializationOption.Skip)
                     continue;
 
                 var value = prop.GetValue(from);
 
+                var key = keyGetter == null ? name : keyGetter(path, name);
 
-                var name = string.IsNullOrWhiteSpace(nameAbove) ? prop.Name : nameAbove + "." + prop.Name;
+                if (value == null)
+                {
+                    dict[name] = null;
+                    continue;
+                }
 
                 if (typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
                 {
-                    if (result == RecursiveSerializationOption.Foreach)
+                    if (result == RecursiveSerializationOption.ForeachAssign)
+                    {
+                        var list = new List<object>();
+                        dict[name] = list;
+                        foreach (object elem in (value as IEnumerable) ?? new object[0])
+                        {
+                            list.Add(elem);
+                        }
+                        continue;
+                    }
+                    if (result == RecursiveSerializationOption.ForeachRecurse)
                     {
                         var list = new List<Dictionary<string, object>>();
                         dict[name] = list;
                         foreach (object elem in (value as IEnumerable) ?? new object[0])
                         {
-                            list.Add(Misc.SerializeToDictionary(elem, customHandler, keyGetter, name));
+                            list.Add(Misc.SerializeToDictionary(elem, customHandler, keyGetter, path));
                         }
                         continue;
                     }
                 }
-                if (result == RecursiveSerializationOption.Foreach)
+                if (result == RecursiveSerializationOption.ForeachAssign ||
+                    result == RecursiveSerializationOption.ForeachRecurse)
                 {
-                    throw new Exception();
+                    throw new ApplicationException();
                 }
 
-                var key = keyGetter == null ? name : keyGetter(name);
 
                 if (result == RecursiveSerializationOption.Assign)
                 {
@@ -110,16 +110,10 @@ namespace TeamAzureDragon.Utils
 
                 if (result == RecursiveSerializationOption.Recurse)
                 {
-                    if (value == null)
-                    {
-                        dict[name] = null;
-                        continue;
-                    }
-
-                    dict[name] = SerializeToDictionary(value, customHandler, keyGetter, name);
+                    dict[name] = SerializeToDictionary(value, customHandler, keyGetter, path);
                 }
 
-                throw new Exception();
+                throw new ApplicationException();
             }
             //if (typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
             //{
