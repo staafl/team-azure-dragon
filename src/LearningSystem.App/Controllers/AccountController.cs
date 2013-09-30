@@ -89,7 +89,12 @@ namespace LearningSystem.App.Controllers
             if (ModelState.IsValid)
             {
                 // Create a local login before signing in the user
-                var user = new ApplicationUser() { UserName = model.UserName};
+                var user = new ApplicationUser() 
+                { 
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    Facebook = model.Facebook
+                };
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
