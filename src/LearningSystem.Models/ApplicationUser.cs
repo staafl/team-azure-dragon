@@ -31,6 +31,8 @@ namespace LearningSystem.Models
         [ScaffoldColumn(false)]
         public virtual ICollection<Exercise> Exercises { get; set; }
 
+        public bool IsConfirmed { get; set; }
+
         public ApplicationUser()
         {
             this.Skills = new HashSet<Skill>();
