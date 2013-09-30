@@ -11,6 +11,7 @@ using TeamAzureDragon.Utils;
 using LearningSystem.Data;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.ValidateAntiForgeryTokenAttribute;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -137,7 +138,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         //                            if (path == "Lessons") return RecursiveSerializationOption.Assign;
         //                            return RecursiveSerializationOption.Skip;
         //                        }));
-        
+
         //    DataSourceResult result = viewModelLessons.ToDataSourceResult(request);
 
         //    return Json(result, JsonRequestBehavior.AllowGet);
