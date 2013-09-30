@@ -1,5 +1,4 @@
-﻿using LearningSystem.App.Models;
-using LearningSystem.App.ViewModels;
+﻿using LearningSystem.App.ViewModels;
 using LearningSystem.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;

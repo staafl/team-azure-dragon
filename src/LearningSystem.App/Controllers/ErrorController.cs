@@ -1,4 +1,4 @@
-﻿using LearningSystem.App.Models;
+﻿using LearningSystem.App.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
