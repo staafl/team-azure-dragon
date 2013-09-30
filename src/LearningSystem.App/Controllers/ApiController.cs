@@ -11,8 +11,8 @@ namespace LearningSystem.App
 {
     public class ApiController : System.Web.Http.ApiController
     {
-        IUnitOfWork db;
-        public ApiController(IUnitOfWork db)
+        IUoWLearningSystem db;
+        public ApiController(IUoWLearningSystem db)
         {
             this.db = db;
         }
