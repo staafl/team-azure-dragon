@@ -23,8 +23,10 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        @if(User.IsInRole("Admin")){
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                        }
+                        <li>@Html.ActionLink("Skill", "Index", "Administration/Skill")</li>
                         <li></li>
                     </ul>
                     @RenderSection("loginSubmenu", required: false)

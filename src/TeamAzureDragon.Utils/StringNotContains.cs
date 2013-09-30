@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace LearningSystem.Models
+namespace TeamAzureDragon.Utils
 {
     public class StringNotContainsAttribute : ValidationAttribute
     {
