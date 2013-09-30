@@ -1,0 +1,54 @@
+@{
+    ViewBag.Title = "Free education for the world";
+}
+
+<div id="splash-wrapper">
+    <hgroup>
+        <h1>@ViewBag.Title</h1>
+        <h2>Fight the dragon of the stupidity</h2>
+    </hgroup>
+    <div id="register">
+        @(Ajax.ActionLink("Register", "Register", "Account",
+    new AjaxOptions
+    {
+        UpdateTargetId = "register",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET"
+    }))
+    </div>
+</div>
+
+<script>
+    function redirectToHome(data) {
+        //TODO: Better redirection
+        if (data == "Loading...") {
+            window.location = "/Home/Index"
+        }
+    }
+</script>
+
+@section loginSubmenu {
+    <div id="kendo-menu-holder" class="pull-right">
+
+        @(Html.Kendo().Menu()
+            .Name("login-submenu")
+                    .Animation(animation =>
+                    {
+                        animation.Open(open =>
+                        {
+                            open.Expand(ExpandDirection.Vertical);
+                        });
+                    })
+            .OpenOnClick(true)
+            .Direction(MenuDirection.Bottom)
+            .Items(items =>
+            {
+                items.Add().Text("Login").Content(@<div id="login-form-ajax">@Html.Action("Login", "Account")</div>);
+            }))
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

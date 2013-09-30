@@ -57,3 +57,33 @@ input[type="checkbox"].input-validation-error {
     background-color:rgba(255,255,255,0.5);
     background-position:top;
 }*/
+
+
+/* Splash page beginning*/
+#splash-wrapper {
+    /*text-align: center;*/
+    padding-top: 300px;
+    background-image: url("../img/dragon-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+#splash-wrapper hgroup {
+    margin: 20px;
+}
+
+#splash-wrapper a {
+    font-size: 2.6rem;
+    margin-left: 20px;
+}
+
+#login-form-menu {
+    padding: 20px;
+}
+
+#kendo-menu-holder {
+    display: inline-block;
+}
+
+/* Splash page end*/
+

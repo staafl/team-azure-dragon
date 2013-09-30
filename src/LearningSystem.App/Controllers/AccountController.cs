@@ -37,11 +37,13 @@ namespace LearningSystem.App.Controllers
 
         //
         // GET: /Account/Login
+        [ChildActionOnly]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return PartialView("_Login");
         }
 
         //
@@ -57,7 +59,7 @@ namespace LearningSystem.App.Controllers
                 IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, model.UserName, model.Password, model.RememberMe);
                 if (result.Success)
                 {
-                    return RedirectToLocal(returnUrl);
+                    return Content("Loading...");
                 }
                 else
                 {
@@ -66,7 +68,7 @@ namespace LearningSystem.App.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return PartialView("_Login", model);
         }
 
         //
@@ -74,7 +76,7 @@ namespace LearningSystem.App.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return PartialView("_Register");
         }
 
         //
@@ -92,7 +94,7 @@ namespace LearningSystem.App.Controllers
                 if (result.Success)
                 {
                     await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return Content("Loading...");
                 }
                 else
                 {
@@ -101,7 +103,7 @@ namespace LearningSystem.App.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return PartialView("_Register", model);
         }
 
         //
