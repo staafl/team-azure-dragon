@@ -55,16 +55,17 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             //    }
             //}
 
-            DataSourceResult result = viewModelSkills.ToDataSourceResult(request);
+            DataSourceResult result = viewModelSkills.ToDataSourceResult(request,
+                s => new { Skill = Ids.SkillId });
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         // POST: /Administration/Skill/Create
-		// To protect from over posting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		// 
-		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
+        // To protect from over posting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // 
+        // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, Skill skill)
@@ -80,10 +81,10 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         }
 
         // POST: /Administration/Skill/Edit/5
-		// To protect from over posting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		// 
-		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
+        // To protect from over posting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // 
+        // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Skill skill)
