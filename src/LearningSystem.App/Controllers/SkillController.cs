@@ -76,7 +76,7 @@ namespace LearningSystem.App.Controllers
             
 
             vm.SkillId = skill.SkillId;
-            vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree); ;
+            vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree);
             return View(vm);
         }
 
