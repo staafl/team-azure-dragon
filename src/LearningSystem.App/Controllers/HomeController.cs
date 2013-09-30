@@ -28,108 +28,60 @@ namespace LearningSystem.App.Controllers
             return View();
         }
 
-        public string Status()
-        {
-            return "System online";
-        }
-
-        [HttpPut]
-        public string WipeDatabase(string sure)
-        {
-            if (sure.ToLower() == "yes")
-            {
-                string[] tables =
-                {
-                    "dbo.AspNetUserRoles",
-                    "dbo.AspNetTokens",
-                    "dbo.AspNetUserClaims",
-                    "dbo.AspNetUserLogins",
-                    "dbo.AspNetUserManagement",
-                    "dbo.AspNetUserSecrets",
-                    "dbo.AspNetUsers",
-                    "dbo.AspNetRoles",
-                };
-                using (var context = new LearningSystemContext())
-
-                    foreach (var tableName in new string[0])
-                    {
-                        context.Database.ExecuteSqlCommand(string.Format("DELETE FROM {0}", tableName));
-                    }
-                return "Database successfully cleared.";
-            }
-            throw new HttpException(400, "");
-        }
-
-        [HttpPost]
-        public void Kill(string sure)
-        {
-            if (sure.ToLower() == "yes")
-            {
-                Environment.Exit(0);
-                throw new ApplicationException("Shouldn't happen");
-            }
-            throw new HttpException(400, "");
-        }
-
         public ActionResult SaveSkill()
         {
             Response.Expires = -1;
-            try
-            {
-                HttpPostedFileBase file = Request.Files["skills-uploader"];
+            HttpPostedFileBase file = Request.Files["skills-uploader"];
 
-                ZipFile zipFile = ZipFile.Read(file.InputStream);
-                StringBuilder zipContent = new StringBuilder();
+            ZipFile zipFile = ZipFile.Read(file.InputStream);
+            StringBuilder zipContent = new StringBuilder();
 
 
-                Dictionary<int, Lesson> lessons = new Dictionary<int, Lesson>();
+            Dictionary<int, Lesson> lessons = new Dictionary<int, Lesson>();
 
-                Dictionary<int, Exercise> exercises = new Dictionary<int, Exercise>();
-                
-                Dictionary<int, Question> questions = new Dictionary<int, Question>();
+            Dictionary<int, Exercise> exercises = new Dictionary<int, Exercise>();
 
-                var archivedQuestions = zipFile.Entries.Where(x => 
-                    x.Attributes == FileAttributes.Archive &&
-                    x.FileName.Contains("questions/"));
+            Dictionary<int, Question> questions = new Dictionary<int, Question>();
 
-                XmlDocument document = new XmlDocument();
+            var archivedQuestions = zipFile.Entries.Where(x =>
+                x.Attributes == FileAttributes.Archive &&
+                x.FileName.Contains("questions/"));
 
-                ParseQuestions(questions, archivedQuestions, document);
+            XmlDocument document = new XmlDocument();
 
-                var archivedExercises = zipFile.Entries.Where(x =>
-                    x.Attributes == FileAttributes.Archive &&
-                    x.FileName.Contains("exercises/"));
+            ParseQuestions(questions, archivedQuestions, document);
 
-                ParseExercises(exercises, questions, archivedExercises, document);
+            var archivedExercises = zipFile.Entries.Where(x =>
+                x.Attributes == FileAttributes.Archive &&
+                x.FileName.Contains("exercises/"));
 
-                var archivedLessons = zipFile.Entries.Where(x =>
-                    x.Attributes == FileAttributes.Archive &&
-                    x.FileName.Contains("lessons/"));
+            ParseExercises(exercises, questions, archivedExercises, document);
 
-                ParseLessons(lessons, exercises, archivedLessons, document);
+            var archivedLessons = zipFile.Entries.Where(x =>
+                x.Attributes == FileAttributes.Archive &&
+                x.FileName.Contains("lessons/"));
 
-                var archivedSkill = zipFile.Entries.Single(x =>
-                   x.Attributes == FileAttributes.Archive &&
-                   x.FileName.Contains("skill"));
+            ParseLessons(lessons, exercises, archivedLessons, document);
 
-                Skill skill = new Skill();
+            var archivedSkill = zipFile.Entries.Single(x =>
+               x.Attributes == FileAttributes.Archive &&
+               x.FileName.Contains("skill"));
 
-                ParseSkill(skill, archivedSkill, document);
+            Skill skill = new Skill();
 
-                skill.Lessons = lessons.Values;
+            ParseSkill(skill, archivedSkill, document);
 
-                db._<Skill>().Add(skill);
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.ToString());
-            }
+            skill.Lessons = lessons.Values;
 
+            db._<Skill>().Add(skill);
+            db.SaveChanges();
 
             return Content("");
         }
 
+
+        // todo: refactor
+        // todo: should these be here?
         private static void ParseQuestions(Dictionary<int, Question> questions, IEnumerable<ZipEntry> archivedQuestions, XmlDocument document)
         {
             foreach (var question in archivedQuestions)
@@ -177,7 +129,7 @@ namespace LearningSystem.App.Controllers
                 document.Load(memoryStream);
                 var e = document.SelectSingleNode("exercise");
 
-                
+
 
 
                 int id = int.Parse(e["id"].InnerText);
@@ -295,7 +247,7 @@ namespace LearningSystem.App.Controllers
 
             skill.Name = name;
             skill.Description = description;
-            
+
 
             memoryStream.Close();
         }
