@@ -16,6 +16,8 @@
         {
             commands.Edit();
             commands.Destroy();
+            commands.Custom("Details").Action("Details", "Skill", new { id = "#=SkillId" });
+            commands.Custom("Add Lessons").Action("Index", "Lesson", new { id = "#=SkillId" });
         }).Title("Commands").Width(200);
     })
 .ToolBar(toolbar => toolbar.Create())
