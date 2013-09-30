@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SkillController.cs" />
     <Compile Include="Controllers\SplashController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +225,9 @@
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ConvertToViewModel.cs" />
+    <Compile Include="ViewModels\LessonViewModel.cs" />
+    <Compile Include="ViewModels\SkillViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -367,6 +371,7 @@
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Splash\Index.cshtml" />
+    <Content Include="Views\Skill\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

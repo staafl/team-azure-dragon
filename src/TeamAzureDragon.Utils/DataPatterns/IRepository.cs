@@ -6,6 +6,8 @@
     {
         IQueryable<T> All();
 
+        IQueryable<T> All(params string[] include);
+
         T GetById(int id);
 
         void Add(T entity);

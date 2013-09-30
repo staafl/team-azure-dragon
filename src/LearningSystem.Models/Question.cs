@@ -13,7 +13,7 @@ namespace LearningSystem.Models
 
         [Required(ErrorMessage = "Question statement is required!")]
         [StringLength(3000)]
-        [StringNotContains("<script>")]
+        //[StringNotContains("<script>")]
         public string Statement { get; set; }
 
         [Required(ErrorMessage = "Order is required!")]
