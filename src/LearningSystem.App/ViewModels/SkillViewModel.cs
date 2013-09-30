@@ -7,5 +7,7 @@ namespace LearningSystem.App.ViewModels
 {
     public class SkillViewModel
     {
+        public IEnumerable<IGrouping<int, LessonViewModel>> Lessons { get; set; }
+        public int SkillId { get; set; }
     }
 }

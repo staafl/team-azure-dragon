@@ -10,9 +10,9 @@ namespace LearningSystem.Models
 {
     public class ApplicationUser : User
     {
-        [RegularExpression(@"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" + 
+        [RegularExpression(@"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                 @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,24}))$",
-                ErrorMessage="You must enter a valid e-mail address.")]
+                ErrorMessage = "You must enter a valid e-mail address.")]
         public string Email { get; set; }
 
         [RegularExpression(@"(www\.|http?://(www\.))?facebook\.com/(profile\.php\?id=)?([^/#?]+)(\n|$)",
@@ -30,6 +30,8 @@ namespace LearningSystem.Models
 
         [ScaffoldColumn(false)]
         public virtual ICollection<Exercise> Exercises { get; set; }
+
+        public bool? IsConfirmed { get; set; }
 
         public ApplicationUser()
         {

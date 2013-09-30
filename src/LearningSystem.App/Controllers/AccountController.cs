@@ -99,7 +99,7 @@ namespace LearningSystem.App.Controllers
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
-                    await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
+                    //await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
                     return Content("Loading...");
                 }
                 else
