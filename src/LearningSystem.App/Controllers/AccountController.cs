@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LearningSystem.Models;
 using LearningSystem.Data;
+using LearningSystem.App.ViewModels;
 
 namespace LearningSystem.App.Controllers
 {

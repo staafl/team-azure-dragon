@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LearningSystem.Models 
+namespace LearningSystem.App.ViewModels 
 {
     public class ExternalLoginConfirmationViewModel
     {
