@@ -104,4 +104,12 @@ input[type="checkbox"].input-validation-error {
     
 
 }
+
+#search-input {
+    margin-bottom: 0px;
+}
+
+.skill-label {
+    padding:8px;
+}
 /**/
