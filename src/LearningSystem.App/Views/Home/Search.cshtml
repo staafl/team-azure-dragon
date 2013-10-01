@@ -18,11 +18,11 @@
     }
 
     <div class="input-group">
-        @using (Ajax.BeginForm(options))
+        @using (Ajax.BeginForm("Search", null, options, new { @class = "input-append" }))
         {
             <i class="icon-large icon-search"></i>
-            <div class="btn-group ">
-                @Html.TextBoxFor(Model => Model.Query, new { id = "search-input" })
+            <div class="btn-group" id="search-input">
+                @Html.TextBoxFor(Model => Model.Query)
                 <button type="submit" class="btn">Search</button>
             </div>
         }
