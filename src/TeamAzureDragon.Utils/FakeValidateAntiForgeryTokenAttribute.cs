@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace TeamAzureDragon.Utils
 {
-    public class ValidateAntiForgeryTokenAttribute : Attribute { }
+    public class FakeValidateAntiForgeryTokenAttribute : Attribute { }
 }
