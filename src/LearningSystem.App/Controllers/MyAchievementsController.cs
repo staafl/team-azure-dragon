@@ -1,3 +1,4 @@
+using LearningSystem.App.ViewModels;
 using LearningSystem.Data;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,13 @@ namespace LearningSystem.App.Controllers
         {
             //get skills of the logged user
             //TODO: fix n+1
-            var currentSkills = db.Skills.All().Where(s => s.Users.Any(u => u.UserName == User.Identity.Name));
+            var currentSkills = db.Skills.All().Where(s => s.Users.Any(u => u.UserName == User.Identity.Name))
+                .Select(s => new SkillViewModel
+                {
+                    SkillId = s.SkillId,
+                    SkillName = s.Name,
+                    SkillDescription = s.Description
+                });
 
             return View(currentSkills);
         }

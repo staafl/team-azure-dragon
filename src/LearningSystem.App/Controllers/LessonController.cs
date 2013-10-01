@@ -1,4 +1,5 @@
-﻿using LearningSystem.Data;
+﻿using LearningSystem.App.ViewModels;
+using LearningSystem.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,20 @@ namespace LearningSystem.App.Controllers
         // GET: /Lesson/
         public ActionResult Index(int lessonId)
         {
-            return View();
+            List<ExcerciseViewModel> excercises = new List<ExcerciseViewModel>();
+            var dbEx = db.Exercises.All().Where(ex => ex.LessonId == lessonId).OrderBy(ex => ex.Order);
+            foreach (var excercise in dbEx)
+            {
+                excercises.Add(new ExcerciseViewModel
+                {
+                    Name = excercise.Name,
+                    Description = excercise.Description,
+                    ExerciseId = excercise.LessonId,
+                    IsCompleted = excercise.Users.Any(u => u.UserName == User.Identity.Name) ? true : false
+                });
+            }
+
+            return View(excercises);
         }
 	}
 }
