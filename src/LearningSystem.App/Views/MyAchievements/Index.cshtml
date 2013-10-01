@@ -1,0 +1,55 @@
+@model IEnumerable<LearningSystem.Models.Skill>
+
+@{
+    ViewBag.Title = "My Achievements";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (Model.Any())
+{
+    <h3>Skills you've completed</h3>
+    <table class="table" id="learned-skills">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="/Skill/Index?skillId=@item.SkillId" title="Click here to see more info for this skill" class="btn" >
+                @Html.DisplayFor(modelItem => item.Name)
+            </a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+    </tr>
+}
+
+</table>
+}
+else
+{
+    <h3>You don't have any completed skills. Go to our skills page and improve your qualities!</h3>
+}
+
+
+@(Html.Kendo().Tooltip()
+        .For("#learned-skills")
+        .Filter("a")
+        .Position(TooltipPosition.Right)
+        .Width(300)
+)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#agglomerations").data("kendoTooltip");
+    });
+</script>

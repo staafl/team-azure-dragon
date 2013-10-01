@@ -229,6 +229,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LessonController.cs" />
+    <Compile Include="Controllers\MyAchievementsController.cs" />
     <Compile Include="Controllers\SkillController.cs" />
     <Compile Include="Controllers\SplashController.cs" />
     <Compile Include="Global.asax.cs">
@@ -400,6 +401,7 @@
     <Content Include="Views\Splash\Index.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
     <Content Include="Views\Shared\_Confirmation.cshtml" />
+    <Content Include="Views\MyAchievements\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
