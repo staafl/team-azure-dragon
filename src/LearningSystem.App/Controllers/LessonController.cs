@@ -19,13 +19,13 @@ namespace LearningSystem.App.Controllers
         // GET: /Lesson/
         public ActionResult Index(int lessonId)
         {
-            List<ExcerciseViewModel> excercises = new List<ExcerciseViewModel>();
-            var dbEx = db.Exercises.All().Where(ex => ex.LessonId == lessonId).OrderBy(ex => ex.Order);
+            List<ExerciseViewModel> exercises = new List<ExerciseViewModel>();
+            var dbEx = db.Exercises.All("Users").Where(ex => ex.LessonId == lessonId).OrderBy(ex => ex.Order);
 
             bool isAvailable = true;
             foreach (var excercise in dbEx)
             {
-                var excerciseVM = new ExcerciseViewModel
+                var exerciseVM = new ExerciseViewModel
                 {
                     Name = excercise.Name,
                     Description = excercise.Description,
@@ -34,15 +34,15 @@ namespace LearningSystem.App.Controllers
                     IsAvailable = isAvailable
                 };
 
-                if (excerciseVM.IsCompleted == false)
+                if (exerciseVM.IsCompleted == false)
                 {
                     isAvailable = false;
                 }
 
-                excercises.Add(excerciseVM);
+                exercises.Add(exerciseVM);
             }
 
-            return View(excercises);
+            return View(exercises);
         }
 	}
 }

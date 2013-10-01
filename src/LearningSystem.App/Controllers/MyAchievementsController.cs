@@ -22,7 +22,7 @@ namespace LearningSystem.App.Controllers
         {
             //get skills of the logged user
             //TODO: fix n+1
-            var currentSkills = db.Skills.All().Where(s => s.Users.Any(u => u.UserName == User.Identity.Name))
+            var currentSkills = db.Skills.All("Users").Where(s => s.Users.Any(u => u.UserName == User.Identity.Name))
                 .Select(s => new SkillViewModel
                 {
                     SkillId = s.SkillId,

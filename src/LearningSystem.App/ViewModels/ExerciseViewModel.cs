@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LearningSystem.App.ViewModels
 {
-    public class ExcerciseViewModel
+    public class ExerciseViewModel
     {
         public int ExerciseId { get; set; }
 
