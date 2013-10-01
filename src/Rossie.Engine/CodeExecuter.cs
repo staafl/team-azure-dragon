@@ -54,24 +54,23 @@ namespace Rossie.Engine
             var system = sandbox.Load("System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
 
             var compilation = Compilation.Create("foo", new CompilationOptions(outputKind: OutputKind.ConsoleApplication,
-                                        usings: ReadOnlyArray<string>.CreateFrom(
-                                            new[] { 
+                                        usings: new[] { 
                                     "System", 
                                     "System.IO", 
                                     "System.Net", 
                                     "System.Linq", 
                                     "System.Text", 
                                     "System.Text.RegularExpressions", 
-                                    "System.Collections.Generic" })),
+                                    "System.Collections.Generic" }),
                     new[]
         {
             SyntaxTree.ParseText(entryPoint),
             SyntaxTree.ParseText(script, options: new ParseOptions(kind: SourceCodeKind.Interactive))
         },
                     new MetadataReference[] { 
-            new AssemblyFileReference(typeof(object).Assembly.Location),
-            new AssemblyFileReference(core.Location), 
-            new AssemblyFileReference(system.Location)
+            MetadataReference.CreateAssemblyReference(typeof(object).Assembly.Location),
+            MetadataReference.CreateAssemblyReference(core.Location), 
+            MetadataReference.CreateAssemblyReference(system.Location)
         }
         );
 
