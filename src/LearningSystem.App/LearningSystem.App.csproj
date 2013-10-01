@@ -390,6 +390,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Splash\Index.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
+    <Content Include="Views\Shared\_Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />

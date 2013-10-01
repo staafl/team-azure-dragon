@@ -12,15 +12,18 @@ using Microsoft.Owin.Security;
 using LearningSystem.Models;
 using LearningSystem.Data;
 using LearningSystem.App.ViewModels;
+using LearningSystem.App.AppLogic;
 
 namespace LearningSystem.App.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController() 
+        IUoWLearningSystem db;
+        public AccountController(IUoWLearningSystem db) 
         {
             IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new LearningSystemContext()));
+            this.db = db;
         }
 
         public AccountController(AuthenticationIdentityManager manager)
@@ -35,6 +38,8 @@ namespace LearningSystem.App.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+        
 
         //
         // GET: /Account/Login
@@ -56,6 +61,12 @@ namespace LearningSystem.App.Controllers
         {
             if (ModelState.IsValid)
             {
+                //check if user account is confirmed
+                var user = db.Users.All().SingleOrDefault(u => u.UserName == model.UserName);
+                if (user != null)
+                {
+                    AddErrors(new IdentityResult("The user account is not confirmed"));
+                }
                 // Validate the password
                 IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, model.UserName, model.Password, model.RememberMe);
                 if (result.Success)
@@ -70,6 +81,17 @@ namespace LearningSystem.App.Controllers
 
             // If we got this far, something failed, redisplay form
             return PartialView("_Login", model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult> Confirm(string userId)
+        {
+            var user = db.Users.All().SingleOrDefault(u => u.Id == userId);
+            user.IsConfirmed = true;
+            var result = await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
+
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -99,8 +121,9 @@ namespace LearningSystem.App.Controllers
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
+                    EmailService.SendConfirmationEmail(model, user.Id);
                     //await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
-                    return Content("Loading...");
+                    return PartialView("_Confirmation");
                 }
                 else
                 {
