@@ -403,6 +403,7 @@
     <Content Include="Views\Shared\_Confirmation.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\_SearchResults.cshtml" />
+    <Content Include="Views\Skill\_SignUpForSkill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
