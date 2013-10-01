@@ -112,4 +112,10 @@ input[type="checkbox"].input-validation-error {
 .skill-label {
     padding:8px;
 }
+
+.signup-skill {
+    position:absolute;
+    margin-top:5px;
+    margin-left:-70px;
+}
 /**/

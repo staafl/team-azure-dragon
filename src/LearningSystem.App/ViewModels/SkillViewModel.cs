@@ -10,7 +10,7 @@ namespace LearningSystem.App.ViewModels
         public IEnumerable<IGrouping<int, LessonViewModel>> Lessons { get; set; }
         public int SkillId { get; set; }
         public string SkillName { get; set; }
-
         public string SkillDescription { get; set; }
+        public bool OwnedByUser { get; set; }
     }
 }
