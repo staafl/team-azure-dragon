@@ -257,10 +257,6 @@
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Administration\Views\Skill\Create.cshtml" />
-    <Content Include="Areas\Administration\Views\Skill\Delete.cshtml" />
-    <Content Include="Areas\Administration\Views\Skill\Details.cshtml" />
-    <Content Include="Areas\Administration\Views\Skill\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\Skill\Index.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -389,6 +385,7 @@
     <Content Include="Views\Account\_Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Splash\Index.cshtml" />
+    <Content Include="Views\Skill\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />

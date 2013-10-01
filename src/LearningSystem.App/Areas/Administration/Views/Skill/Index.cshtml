@@ -1,40 +1,40 @@
 ﻿@using TeamAzureDragon.Utils;
-@model IEnumerable<LearningSystem.Models.Skill>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Skills</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+@(Html.Kendo().Grid<LearningSystem.Models.Skill>()
+.Name("Grid")
+.Columns(columns =>
+    {
+        columns.Bound(b => b.Name);
+        columns.Bound(b => b.Description);
+        columns.Command(commands =>
+        {
+            commands.Edit();
+            commands.Destroy();
+        }).Title("Commands").Width(200);
+    })
+.ToolBar(toolbar => toolbar.Create())
+.Editable(editable => editable.Mode(GridEditMode.InLine))
+.DataSource(datasource => datasource
+.Ajax()
+.Model(model =>
+{
+    model.Id(skill => skill.SkillId);
+    model.Field(skill => skill.SkillId).Editable(false);
+})
+.ServerOperation(false)
+.Read(read => read.Action("Read", "Skill"))
+    .Create(create => create.Action("Create", "Skill"))
+    .Update(update => update.Action("Edit", "Skill"))
+    .Destroy(destroy => destroy.Action("Delete", "Skill"))
+)
+.Pageable()
+.Sortable()
+)
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.LabelFor(modelItem => item.Description, item.Description.Abbreviate(30))
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SkillId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SkillId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SkillId })
-        </td>
-    </tr>
-}
 
-</table>

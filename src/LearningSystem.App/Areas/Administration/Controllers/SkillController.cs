@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using LearningSystem.Models;
 using TeamAzureDragon.Utils;
 using LearningSystem.Data;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -41,10 +43,21 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             return View(skill);
         }
 
-        // GET: /Administration/Skill/Create
-        public ActionResult Create()
+        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            return View();
+            var viewModelSkills = db.Skills.All().ToList();
+
+            //foreach (var item in viewModelSkills)
+            //{
+            //    if (item.Description != null && item.Description.Length > 20)
+            //    {
+            //        item.Description = item.Description.Substring(0, 20);
+            //    }
+            //}
+
+            DataSourceResult result = viewModelSkills.ToDataSourceResult(request);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         // POST: /Administration/Skill/Create
@@ -54,7 +67,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Skill skill)
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, Skill skill)
         {
             if (ModelState.IsValid)
             {
@@ -63,22 +76,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(skill);
-        }
-
-        // GET: /Administration/Skill/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Skill skill = db.Skills.GetById(id.Value);
-            if (skill == null)
-            {
-                return HttpNotFound();
-            }
-            return View(skill);
+            return View(new[] { skill }.ToDataSourceResult(request, ModelState));
         }
 
         // POST: /Administration/Skill/Edit/5
@@ -88,39 +86,25 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Skill skill)
+        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Skill skill)
         {
             if (ModelState.IsValid)
             {
                 db.Skills.Update(skill);
                 return RedirectToAction("Index");
             }
-            return View(skill);
+            return View(new[] { skill }.ToDataSourceResult(request, ModelState));
         }
 
         // GET: /Administration/Skill/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, Skill skill)
         {
-            if (id == null)
+            if (ModelState.IsValid)
             {
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Skills.Delete(skill);
             }
-            Skill skill = db.Skills.GetById(id.Value);
-            if (skill == null)
-            {
-                return HttpNotFound();
-            }
-            return View(skill);
-        }
 
-        // POST: /Administration/Skill/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            db.Skills.Delete(id);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View(new[] { skill }.ToDataSourceResult(request, ModelState));
         }
 
         protected override void Dispose(bool disposing)

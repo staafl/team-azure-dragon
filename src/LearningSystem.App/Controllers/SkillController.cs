@@ -1,5 +1,4 @@
-﻿using LearningSystem.App.Models;
-using LearningSystem.App.ViewModels;
+﻿using LearningSystem.App.ViewModels;
 using LearningSystem.Data;
 using LearningSystem.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -76,7 +75,7 @@ namespace LearningSystem.App.Controllers
             
 
             vm.SkillId = skill.SkillId;
-            vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree); ;
+            vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree);
             return View(vm);
         }
 
