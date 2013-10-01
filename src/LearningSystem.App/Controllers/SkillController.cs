@@ -99,6 +99,31 @@ namespace LearningSystem.App.Controllers
             return true;
         }
 
+        [Authorize]
+        public ActionResult SignUpForSkill(int skillId)
+        {
+            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
+
+            var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
+
+
+
+            if (!user.Skills.Contains(skill))
+            {
+                user.Skills.Add(skill);
+                db.SaveChanges();
+                ViewBag.Message = "Skill successfully assigned!";
+                ViewBag.Success = true;
+            }
+            else
+            {
+                ViewBag.Message = "You already learn this skill!";
+                ViewBag.Success = false;
+            }
+
+            return PartialView("_SignUpForSkill");
+        }
+
         
     }
 }

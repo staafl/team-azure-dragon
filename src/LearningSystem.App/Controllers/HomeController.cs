@@ -13,6 +13,8 @@ using TeamAzureDragon.Utils;
 using LearningSystem.Models;
 using System.Xml;
 using LearningSystem.App.AppLogic;
+using System.Reflection;
+using LearningSystem.App.ViewModels;
 
 namespace LearningSystem.App.Controllers
 {
@@ -80,8 +82,42 @@ namespace LearningSystem.App.Controllers
             return Content("");
         }
 
+        public ActionResult About()
+        {
 
-        
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var nameTokens = assembly.FullName.Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var name = string.Join(",", nameTokens[0], nameTokens[1]);
+
+            ViewBag.Name = name;
+
+            return View();
+        }
+
+
+        public ActionResult Search()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Search(SearchViewModel text)
+        {
+            var skills = db.Skills.All().Where(x => x.Name.ToLower().Contains(text.Query.ToLower()));
+
+            var toCollection = skills.Select(x => new SkillViewModel
+            {
+                SkillId = x.SkillId,
+                SkillDescription = x.Description,
+                SkillName = x.Name
+            });
+
+
+            return PartialView("_SearchResults", toCollection);
+        }
 
 
     }
