@@ -35,17 +35,17 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
 
-            ViewData["requerments"] = db.Lessons.All().ToList()
-                        .Select(lesson => Misc.SerializeToDictionary(lesson,
-                                path =>
-                                {
-                                    if (path == "LessonId") return RecursiveSerializationOption.Assign;
-                                    if (path == "SkillId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Name") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList(); 
+            //ViewData["requerments"] = db.Lessons.All().ToList()
+            //            .Select(lesson => Misc.SerializeToDictionary(lesson,
+            //                    path =>
+            //                    {
+            //                        if (path == "LessonId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "SkillId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Name") return RecursiveSerializationOption.Assign;
+            //                        return RecursiveSerializationOption.Skip;
+            //                    })).ToList(); 
 
-            return View(db.Lessons.All().ToList());
+            return View(db.Lessons.All("Skill").ToList());
         }
 
         // GET: /Administration/Skill/Details/5
@@ -66,7 +66,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var viewModelLessons = db.Lessons.All("Skill").ToList()
-                        .Select(skill => Misc.SerializeToDictionary(skill,
+                        .Select(lesson => Misc.SerializeToDictionary(lesson,
                                 path =>
                                 {
                                     if (path == "LessonId") return RecursiveSerializationOption.Assign;
@@ -122,12 +122,14 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             Lesson oldlesson = db.Lessons.GetById(lesson.LessonId);
             if (ModelState.IsValid)
             {
-                lesson.Requirements = oldlesson.Requirements;
-                lesson.Exercises = oldlesson.Exercises;
-                lesson.Users = oldlesson.Users;
+                oldlesson.Name = lesson.Name;
+                oldlesson.Description = lesson.Description;
+                oldlesson.SkillId = lesson.SkillId;
+                oldlesson.Skill = lesson.Skill;
+                db.Lessons.Update(oldlesson);
                 return RedirectToAction("Index");
             }
-            return View(new[] { lesson }.ToDataSourceResult(request, ModelState));
+            return View(new[] { oldlesson }.ToDataSourceResult(request, ModelState));
         }
 
         // GET: /Administration/Skill/Delete/5

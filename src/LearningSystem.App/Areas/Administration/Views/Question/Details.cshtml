@@ -1,0 +1,65 @@
+﻿@model LearningSystem.Models.Question
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Question</legend>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Exercise.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exercise.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Statement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Statement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Points)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Points)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnswerType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnswerType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnswerContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnswerContent)
+        </dd>
+
+    </dl>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.QuestionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

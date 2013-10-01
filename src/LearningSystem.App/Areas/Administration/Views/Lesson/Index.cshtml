@@ -30,7 +30,7 @@
     {
         model.Id(lesson => lesson.LessonId);
         model.Field(lesson => lesson.LessonId).Editable(false);
-        model.Field(lesson => lesson.Requirements).Editable(false);
+        //model.Field(lesson => lesson.Requirements).Editable(false);
     })
     .ServerOperation(false)
     .Read(read => read.Action("Read", "Lesson"))
