@@ -9,6 +9,13 @@ using System.Xml.Serialization;
 
 namespace TeamAzureDragon.Utils
 {
+    public enum RecursiveSerializationOption
+    {
+        Recurse,
+        Assign,
+        Skip
+    }
+
     public static class Misc
     {
         public static T ParseVersioned<T>(string versionedData)
@@ -28,6 +35,20 @@ namespace TeamAzureDragon.Utils
             text = text.Substring(0, maxLength - 3) + "...";
 
             return text;
+        }
+
+
+        public static Dictionary<string, string> SerializeToDictionary(object source,
+            Func<string, RecursiveSerializationOption> customHandler)
+        {
+            var dict = new Dictionary<string, string>();
+
+            var stack = new Stack<Tuple<string, object>>();
+
+
+
+            return dict;
+
         }
 
         public static void Fill(object me, object from, bool ignoreEmpty = false, params string[] ignoreHeaders)

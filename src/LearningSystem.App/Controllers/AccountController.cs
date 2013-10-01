@@ -63,15 +63,20 @@ namespace LearningSystem.App.Controllers
             {
                 //check if user account is confirmed
                 var user = db.Users.All().SingleOrDefault(u => u.UserName == model.UserName);
-                if (user != null)
-                {
-                    AddErrors(new IdentityResult("The user account is not confirmed"));
-                }
+
                 // Validate the password
                 IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, model.UserName, model.Password, model.RememberMe);
-                if (result.Success)
+                if (user == null)
+                {
+                    AddErrors(result);
+                }
+                else if (result.Success && user.IsConfirmed == true)
                 {
                     return Content("Loading...");
+                }
+                else if (user.IsConfirmed != true)
+                {
+                    AddErrors(new IdentityResult("The user account is not confirmed."));
                 }
                 else
                 {
@@ -89,6 +94,7 @@ namespace LearningSystem.App.Controllers
         {
             var user = db.Users.All().SingleOrDefault(u => u.Id == userId);
             user.IsConfirmed = true;
+            db.SaveChanges();
             var result = await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
 
             return RedirectToAction("Index", "Home");
@@ -121,8 +127,15 @@ namespace LearningSystem.App.Controllers
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
-                    EmailService.SendConfirmationEmail(model, user.Id);
-                    //await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
+                    try
+                    {
+                        EmailService.SendConfirmationEmail(model, user.Id);
+                    }
+                    catch(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException ex)
+                    {
+                        //do nothing - mail service bug
+                    }
+
                     return PartialView("_Confirmation");
                 }
                 else
