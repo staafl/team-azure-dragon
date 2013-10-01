@@ -11,5 +11,6 @@ namespace LearningSystem.App.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public int LevelInSkillTree { get; set; }
+        public bool IsLearned { get; set; }
     }
 }
