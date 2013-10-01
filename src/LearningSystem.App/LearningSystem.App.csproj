@@ -216,6 +216,7 @@
     <Compile Include="AppLogic\XmlParser.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\LessonController.cs" />
     <Compile Include="Areas\Administration\Controllers\SkillController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
@@ -258,7 +259,9 @@
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\Skill\Index.cshtml" />

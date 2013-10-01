@@ -12,7 +12,7 @@ using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.ValidateAntiForg
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
-    public class LessonController : Controller
+    public class LessonController : AdminController
     {
         private LearningSystemContext db = new LearningSystemContext();
 

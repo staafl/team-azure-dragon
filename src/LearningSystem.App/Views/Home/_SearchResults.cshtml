@@ -1,0 +1,19 @@
+﻿@model IEnumerable<LearningSystem.App.ViewModels.SkillViewModel>
+
+@foreach (var item in Model)
+{
+    <h4 >
+        <span class="label label-info skill-label" data-toggle="tooltip" data-placement="right"
+              title="@item.SkillDescription">
+
+            @item.SkillName
+        </span>
+    </h4>
+}
+
+<script>
+    $(document).ready(function () {
+        $(".skill-label").tooltip();
+    });
+
+</script>
