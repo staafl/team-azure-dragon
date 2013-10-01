@@ -3,13 +3,16 @@
 @foreach (var item in Model)
 {
     <h4>
-        @Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
-       {
-           HttpMethod = "GET",
+        @if (!item.OwnedByUser)
+        {
+           @Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
+           {
+               HttpMethod = "GET",
 
-           InsertionMode = InsertionMode.Replace,
-           UpdateTargetId = "signup-message"
-       })
+               InsertionMode = InsertionMode.Replace,
+               UpdateTargetId = "signup-message"
+           }, new { @class = "signup-skill" })
+        }
         <span class="label label-info skill-label" data-toggle="tooltip" data-placement="right"
               title="@item.SkillDescription">
 
@@ -17,7 +20,6 @@
         </span>
     </h4>
 }
-<div id=""></div>
 
 <script>
     $(document).ready(function () {
