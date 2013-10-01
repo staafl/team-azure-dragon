@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20617.1 PREVIEW
+VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.App", "LearningSystem.App\LearningSystem.App.csproj", "{097D9FF2-6C10-4BDA-8FC7-7692E816262C}"
 EndProject
@@ -17,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Models", "LearningSystem.Models\LearningSystem.Models.csproj", "{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Data", "LearningSystem.Data\LearningSystem.Data.csproj", "{B7D009E7-D120-4C19-8A1B-717DAE55868B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.Scratch", "TeamAzureDragon.Scratch\TeamAzureDragon.Scratch.csproj", "{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

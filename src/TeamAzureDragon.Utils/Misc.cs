@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,10 +10,12 @@ using System.Xml.Serialization;
 
 namespace TeamAzureDragon.Utils
 {
+    // TODO: Flags
     public enum RecursiveSerializationOption
     {
         Recurse,
         Assign,
+        Foreach,
         Skip
     }
 
@@ -38,14 +41,106 @@ namespace TeamAzureDragon.Utils
         }
 
 
-        public static Dictionary<string, string> SerializeToDictionary(object source,
-            Func<string, RecursiveSerializationOption> customHandler)
+        public static Dictionary<string, object> SerializeToDictionary(object from,
+            Func<string, RecursiveSerializationOption> customHandler = null,
+            Func<string, string> keyGetter = null,
+            string basePath = "")
         {
-            var dict = new Dictionary<string, string>();
+            var dict = new Dictionary<string, object>();
 
-            var stack = new Stack<Tuple<string, object>>();
+            var stack = new Stack<Tuple<string, PropertyInfo, object>>();
+
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+
+            stack.Push(Tuple.Create(basePath, (PropertyInfo)null, from));
+
+            while (stack.Count() > 0)
+            {
+                var pair = stack.Pop();
+
+                var nameAbove = pair.Item1;
+                var prop = pair.Item2;
+                var owner = pair.Item3;
+
+                if (prop == null)
+                {
+                    foreach (PropertyInfo ownerProp in owner.GetType().GetProperties(flags))
+                    {
+                        stack.Push(Tuple.Create(nameAbove, ownerProp, owner));
+                    }
+                    continue;
+                }
 
 
+                var result = customHandler == null ? RecursiveSerializationOption.Assign : customHandler(prop.Name);
+
+                if (result == RecursiveSerializationOption.Skip)
+                    continue;
+
+                var value = prop.GetValue(from);
+
+
+                var name = string.IsNullOrWhiteSpace(nameAbove) ? prop.Name : nameAbove + "." + prop.Name;
+
+                if (typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
+                {
+                    if (result == RecursiveSerializationOption.Foreach)
+                    {
+                        var list = new List<Dictionary<string, object>>();
+                        dict[name] = list;
+                        foreach (object elem in (value as IEnumerable) ?? new object[0])
+                        {
+                            list.Add(Misc.SerializeToDictionary(elem, customHandler, keyGetter, name));
+                        }
+                        continue;
+                    }
+                }
+                if (result == RecursiveSerializationOption.Foreach)
+                {
+                    throw new Exception();
+                }
+
+                var key = keyGetter == null ? name : keyGetter(name);
+
+                if (result == RecursiveSerializationOption.Assign)
+                {
+                    dict[key] = value;
+                    continue;
+                }
+
+                if (result == RecursiveSerializationOption.Recurse)
+                {
+                    if (value == null)
+                    {
+                        dict[name] = null;
+                        continue;
+                    }
+
+                    dict[name] = SerializeToDictionary(value, customHandler, keyGetter, name);
+                }
+
+                throw new Exception();
+            }
+            //if (typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
+            //{
+
+            //}
+
+
+            //if (hisProps.TryGetValue(prop.Name, out his))
+            //{
+            //    
+            //    if (ignoreEmpty)
+            //    {
+            //        if (value == null)
+            //            continue;
+            //        if (value == "")
+            //            continue;
+            //        if (prop.PropertyType.IsValueType && value.Equals(Activator.CreateInstance(prop.PropertyType)))
+            //            continue;
+            //    }
+            //    prop.SetValue(from, value, null);
+            //}
 
             return dict;
 
@@ -71,7 +166,7 @@ namespace TeamAzureDragon.Utils
                     {
                         if (value == null)
                             continue;
-                        if (value == "")
+                        if ((string)value == "")
                             continue;
                         if (mine.PropertyType.IsValueType && value.Equals(Activator.CreateInstance(mine.PropertyType)))
                             continue;
