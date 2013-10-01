@@ -1,22 +1,37 @@
 ﻿@model LearningSystem.App.ViewModels.SkillViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Model.SkillName;
 }
 
-<h2>Index</h2>
+<h2>@Model.SkillName</h2>
 
 <div class="row-fluid pagination-centered">
     @foreach (var group in Model.Lessons)
     {
-        <div class="row-fluid">
+        <div class="row-fluid lesson-row">
 
             @foreach (var item in group)
             {
-                <button class="btn btn-info">@item.Name</button>
+                if (item.IsLearned)
+                {
+                    <a class="btn btn-inverse lesson" href="/Lesson?lessonId=@item.Id" data-toggle="tooltip" data-placement="bottom"
+                       title="@item.Description">@item.Name</a>
+                }
+                else
+                {
+                    <a class="btn btn-info lesson" href="/Lesson?lessonId=@item.Id" data-toggle="tooltip" data-placement="bottom"
+                       title="@item.Description">@item.Name</a>
+                }
             }
 
         </div>
     }
 </div>
-<br/>
+
+<script>
+    $(document).ready(function () {
+        $(".lesson").tooltip();
+    });
+
+</script>
