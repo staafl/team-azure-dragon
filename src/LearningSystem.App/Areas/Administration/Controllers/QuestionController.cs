@@ -11,7 +11,7 @@ using LearningSystem.Data;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using TeamAzureDragon.Utils;
-using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.ValidateAntiForgeryTokenAttribute;
+using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.FakeValidateAntiForgeryTokenAttribute;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
