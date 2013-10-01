@@ -15,7 +15,7 @@ using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.ValidateAntiForg
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
-    public class SkillController : Controller
+    public class SkillController : AdminController
     {
         IUoWLearningSystem db;
         public SkillController(IUoWLearningSystem db)
