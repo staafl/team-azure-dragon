@@ -15,7 +15,7 @@ using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.FakeValidateAnti
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
-    public class SkillController : Controller
+    public class SkillController : AdminController
     {
         IUoWLearningSystem db;
         public SkillController(IUoWLearningSystem db)
@@ -62,17 +62,16 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     if (path == "SkillId") return RecursiveSerializationOption.Assign;
                                     if (path == "Name") return RecursiveSerializationOption.Assign;
                                     if (path == "Description") return RecursiveSerializationOption.Assign;
-                                    if (path == "Lessons") return RecursiveSerializationOption.ForeachRecurse;
-                                    if (path == "Lessons.Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "Lessons.LessonId") return RecursiveSerializationOption.Assign;
+                                    //if (path == "Lessons") return RecursiveSerializationOption.ForeachRecurse;
+                                    //if (path == "Lessons.Name") return RecursiveSerializationOption.Assign;
                                     return RecursiveSerializationOption.Skip;
-                                }));
+                                })).ToList();
 
-            foreach (var item in viewModelSkills)
+            for (int i = 0; i < viewModelSkills.Count; i++)
             {
-                if (item["Description"] != null && item["Description"].ToString().Length > 20)
+                if (viewModelSkills[i]["Description"] != null)
                 {
-                    item["Description"] = item["Description"].ToString().Substring(0, 20);
+                    viewModelSkills[i]["Description"] = viewModelSkills[i]["Description"].ToString().Abbreviate(30);
                 }
             }
 

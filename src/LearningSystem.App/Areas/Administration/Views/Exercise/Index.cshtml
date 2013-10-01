@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Exercise</h2>
+
+@using (Html.BeginForm())
+{
+    @(Html.Kendo().Grid<LearningSystem.Models.Exercise>()
+    .Name("Grid")
+    .Columns(columns =>
+        {
+            columns.Bound(l => l.LessonId).ClientTemplate("#=Lesson.Name#").EditorTemplateName("LessonDropdown");
+            columns.Bound(l => l.Name);
+            columns.Bound(l => l.Description);
+            columns.Bound(l => l.Order);
+            columns.Command(commands =>
+            {
+                commands.Edit();
+                commands.Destroy();
+                commands.Custom("ViewDetails").Click("showDetails");
+                commands.Custom("Questions").Click("showQuestions");
+            }).Title("Commands").Width(350);
+        })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .DataSource(datasource => datasource
+    .Ajax()
+    .Model(model =>
+    {
+        model.Id(exercise => exercise.ExerciseId);
+        model.Field(exercise => exercise.ExerciseId).Editable(false);
+    })
+    .ServerOperation(false)
+        .Read(read => read.Action("Read", "Exercise"))
+        .Create(create => create.Action("Create", "Exercise"))
+        .Update(update => update.Action("Edit", "Exercise"))
+        .Destroy(destroy => destroy.Action("Delete", "Exercise"))
+    )
+    .Pageable()
+    .Sortable()
+    )
+    @Html.AntiForgeryToken()
+}
+
+
+<script>
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = 'Exercise/Details/' + dataItem.SkillId;
+    }
+
+    function showQuestions(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = 'Question/Index/' + dataItem.SkillId;
+    }
+</script>
+
+

@@ -36,7 +36,7 @@ namespace LearningSystem.App.Controllers
                 HashSet<Lesson> added = new HashSet<Lesson>();
                 var parentlessLessons = lessons.Where(x => x.Requirements.Count == 0).ToList();
 
-                learnedLessons  = user.Lessons.Where(x => x.SkillId == skill.SkillId && lessons.Any(y => y.LessonId == x.LessonId));
+                learnedLessons = user.Lessons.Where(x => x.SkillId == skill.SkillId && lessons.Any(y => y.LessonId == x.LessonId));
 
                 sortedLessons.AddRange(parentlessLessons.ToLessonViewModel(0));
                 parentlessLessons.ForEach(x => added.Add(x));
@@ -58,8 +58,17 @@ namespace LearningSystem.App.Controllers
                             }
                         }
                     }
+
+                    if (levelInSkillTree > notInPlace)
+                    {
+                        break;
+                    }
+
                     levelInSkillTree++;
                 }
+                var left = lessons.Except(added);
+                sortedLessons.AddRange(left.ToLessonViewModel(levelInSkillTree));
+
             }
             else
             {
@@ -75,7 +84,7 @@ namespace LearningSystem.App.Controllers
 
             foreach (var item in sortedLessons)
             {
-                if(learnedLessons.Any(x => x.LessonId == item.Id))
+                if (learnedLessons.Any(x => x.LessonId == item.Id))
                 {
                     item.IsLearned = true;
                 }
@@ -99,6 +108,31 @@ namespace LearningSystem.App.Controllers
             return true;
         }
 
-        
+        [Authorize]
+        public ActionResult SignUpForSkill(int skillId)
+        {
+            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
+
+            var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
+
+
+
+            if (!user.Skills.Contains(skill))
+            {
+                user.Skills.Add(skill);
+                db.SaveChanges();
+                ViewBag.Message = "Skill successfully assigned!";
+                ViewBag.Success = true;
+            }
+            else
+            {
+                ViewBag.Message = "You already learn this skill!";
+                ViewBag.Success = false;
+            }
+
+            return PartialView("_SignUpForSkill");
+        }
+
+
     }
 }

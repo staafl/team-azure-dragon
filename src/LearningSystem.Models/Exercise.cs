@@ -26,6 +26,7 @@ namespace LearningSystem.Models
         [Display(Name = "Lesson")]
         public int LessonId { get; set; }
 
+        //[UIHint("LessonDropdown")]
         public virtual Lesson Lesson { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }

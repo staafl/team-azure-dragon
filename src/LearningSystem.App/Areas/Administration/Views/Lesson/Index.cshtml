@@ -1,45 +1,75 @@
-﻿@model IEnumerable<LearningSystem.Models.Lesson>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lessons</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Skill.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Skill.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LessonId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LessonId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LessonId })
-        </td>
-    </tr>
+@using (Html.BeginForm())
+{
+    @(Html.Kendo().Grid<LearningSystem.Models.Lesson>()
+    .Name("Grid")
+    .Columns(columns =>
+        {
+            columns.Bound(l => l.SkillId).ClientTemplate("#=Skill.Name#").EditorTemplateName("SkillDropdown");
+            columns.Bound(l => l.Name);
+            columns.Bound(l => l.Description);
+            //columns.Bound(l => l.Requirements).ClientTemplate("#=generateRequirementTemplate(Requirements)#");//.EditorTemplateName("RequermentCheckBoxList");
+            columns.Command(commands =>
+            {
+                commands.Edit();
+                commands.Destroy();
+                commands.Custom("ViewDetails").Click("showDetails");
+                commands.Custom("Exercises").Click("showExercises");
+            }).Title("Commands").Width(350);
+        })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .DataSource(datasource => datasource
+    .Ajax()
+    .Model(model =>
+    {
+        model.Id(lesson => lesson.LessonId);
+        model.Field(lesson => lesson.LessonId).Editable(false);
+        //model.Field(lesson => lesson.Requirements).Editable(false);
+    })
+    .ServerOperation(false)
+    .Read(read => read.Action("Read", "Lesson"))
+            .Create(create => create.Action("Create", "Lesson"))
+            .Update(update => update.Action("Edit", "Lesson"))
+            .Destroy(destroy => destroy.Action("Delete", "Lesson"))
+    )
+    .Pageable()
+    .Sortable()
+    )
+    @Html.AntiForgeryToken()
 }
 
-</table>
+
+<script>
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = 'Lesson/Details/' + dataItem.SkillId;
+    }
+
+    function showExercises(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = 'Exercise/Index/' + dataItem.SkillId;
+    }
+
+    //function generateRequirementTemplate(data) {
+    //    var template = "";
+    //    if (data != null) {
+    //        for (var i = 0; i < data.length; i++) {
+    //            template = template + data[i].Name + "<br />";
+    //        }
+    //    }
+
+    //    return template;
+    //}
+</script>
+
+

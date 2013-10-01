@@ -13,6 +13,8 @@ using TeamAzureDragon.Utils;
 using LearningSystem.Models;
 using System.Xml;
 using LearningSystem.App.AppLogic;
+using System.Reflection;
+using LearningSystem.App.ViewModels;
 
 namespace LearningSystem.App.Controllers
 {
@@ -80,8 +82,52 @@ namespace LearningSystem.App.Controllers
             return Content("");
         }
 
+        public ActionResult About()
+        {
 
-        
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var nameTokens = assembly.FullName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var name = string.Join(",", nameTokens[0], nameTokens[1]);
+
+            ViewBag.Name = name;
+
+            return View();
+        }
+
+
+        public ActionResult Search()
+        {
+
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Search(SearchViewModel text)
+        {
+            var skills = db.Skills.All().Where(x => x.Name.ToLower().Contains(text.Query.ToLower()));
+
+            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
+
+
+
+            var toCollection = skills.Select(x => new SkillViewModel
+            {
+                SkillId = x.SkillId,
+                SkillDescription = x.Description,
+                SkillName = x.Name
+            }).ToList();
+
+            foreach (var item in toCollection)
+            {
+                item.OwnedByUser = user.Skills.Any(x => x.SkillId == item.SkillId);
+            }
+
+            return PartialView("_SearchResults", toCollection);
+        }
 
 
     }

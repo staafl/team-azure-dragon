@@ -1,9 +1,14 @@
-﻿using System;
+﻿using Roslyn.Scripting;
+using Roslyn.Scripting.CSharp;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
+using System.Security.Permissions;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -22,6 +27,54 @@ namespace TeamAzureDragon.Utils
 
     public static class Misc
     {
+        public static AppDomain CreateSandboxAppDomain()
+        {
+            var e = new Evidence();
+            e.AddHostEvidence(new Zone(SecurityZone.Internet));
+            var ps = SecurityManager.GetStandardSandbox(e);
+            var security = new SecurityPermission(SecurityPermissionFlag.Execution);
+            ps.AddPermission(security);
+            var setup = new AppDomainSetup
+            {
+                ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+            };
+
+            var sandbox = AppDomain.CreateDomain("Sandbox", null, setup, ps);
+            var core = sandbox.Load("System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+
+            var system = sandbox.Load("System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
+            return sandbox;
+
+        }
+        //public static byte[] CompileToAssembly(string code)
+        //{
+        //    var engine = new ScriptEngine();
+        //    var session = engine.CreateSession();
+
+        //    using (var memoryStream = new MemoryStream())
+        //    {
+        //        engine.CompileSubmission(code, session).Compilation.Emit(memoryStream);
+        //        var assembly = memoryStream.ToArray();
+        //        return assembly;
+        //    }
+        //}
+        // todo: command line arguments
+        //public static IEnumerable<string> ExecuteInAppDomain(byte[] assembly, IEnumerable<string> stdin)
+        //{
+
+        //}
+        public static object ThrowIfNull<T>(this object obj, Func<T> get) where T : Exception
+        {
+            if (obj == null)
+                throw get();
+            return obj;
+        }
+        public static object ThrowIfNull<T>(this object obj) where T : Exception
+        {
+            if (obj == null)
+                throw Activator.CreateInstance<T>();
+            return obj;
+        }
         public static T ParseVersioned<T>(string versionedData)
         {
             var xml = VersionedString.Read(versionedData).Data;
@@ -111,6 +164,7 @@ namespace TeamAzureDragon.Utils
                 if (result == RecursiveSerializationOption.Recurse)
                 {
                     dict[name] = SerializeToDictionary(value, customHandler, keyGetter, path);
+                    continue;
                 }
 
                 throw new ApplicationException();

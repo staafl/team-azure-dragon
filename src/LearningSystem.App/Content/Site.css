@@ -95,6 +95,11 @@ input[type="checkbox"].input-validation-error {
 
 /* Splash page end*/
 
+.navigation {
+    background-image: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+}
+
+
 /**/
 .lesson-row {
     margin-top:20px;
@@ -103,5 +108,21 @@ input[type="checkbox"].input-validation-error {
 .lesson {
     
 
+}
+
+#search-input {
+    margin-top: 15px;
+    margin-left:15px;
+}
+
+.skill-label {
+    padding:8px;
+}
+
+.signup-skill {
+    position:absolute;
+    margin-top:6px;
+    margin-left:-70px;
+    text-decoration:underline;
 }
 /**/
