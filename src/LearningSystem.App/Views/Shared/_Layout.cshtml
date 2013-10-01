@@ -23,6 +23,7 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Search", "Search", "Home")</li>
                             @if (User.IsInRole("admin"))
                             {
                                 <li class="dropdown">
