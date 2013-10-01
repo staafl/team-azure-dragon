@@ -1,0 +1,26 @@
+﻿@model LearningSystem.Models.Lesson
+@*@(Html.Kendo().ListView((System.Collections.Generic.IEnumerable<Dictionary<string, object>>)ViewData["requerments"])
+    .Name("Skill") // Name of the widget should be the same as the name of the property
+    .TagName("div")
+    .ClientTemplateId("template")
+    .ToClientTemplate()
+    //.BindTo((System.Collections.IEnumerable)ViewData["requerments"]) // A list of all employees which is populated in the controller
+)*@
+
+@*<script type="text/x-kendo-tmpl" id="template">
+    <div>#: data.Name #</div>
+    # console.log (data) #
+        @Html.CheckBox(item["Name"].ToString())
+</script>*@
+
+@{
+    var list = ((System.Collections.Generic.List<Dictionary<string, object>>)ViewData["requerments"]);
+}
+
+@for (int i = 0; i < list.Count; i++)
+{
+    <div>
+        @Html.CheckBox("list", new { value = list[i]["LessonId"]}) 
+        @list[i]["Name"]
+    </div>
+}
