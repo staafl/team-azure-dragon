@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Data", "Lear
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.Scratch", "TeamAzureDragon.Scratch\TeamAzureDragon.Scratch.csproj", "{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rossie.Engine", "Rossie.Engine\Rossie.Engine.csproj", "{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
