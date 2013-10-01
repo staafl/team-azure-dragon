@@ -25,18 +25,19 @@
     .ToolBar(toolbar => toolbar.Create())
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .DataSource(datasource => datasource
-    .Ajax()
-    .Model(model =>
-    {
-        model.Id(lesson => lesson.LessonId);
-        model.Field(lesson => lesson.LessonId).Editable(false);
-        //model.Field(lesson => lesson.Requirements).Editable(false);
-    })
-    .ServerOperation(false)
-    .Read(read => read.Action("Read", "Lesson"))
-            .Create(create => create.Action("Create", "Lesson"))
-            .Update(update => update.Action("Edit", "Lesson"))
-            .Destroy(destroy => destroy.Action("Delete", "Lesson"))
+        .Ajax()
+        .PageSize(5)
+        .Model(model =>
+        {
+            model.Id(lesson => lesson.LessonId);
+            model.Field(lesson => lesson.LessonId).Editable(false);
+            //model.Field(lesson => lesson.Requirements).Editable(false);
+        })
+        .ServerOperation(false)
+        .Read(read => read.Action("Read", "Lesson"))
+        .Create(create => create.Action("Create", "Lesson"))
+        .Update(update => update.Action("Edit", "Lesson"))
+        .Destroy(destroy => destroy.Action("Delete", "Lesson"))
     )
     .Pageable()
     .Sortable()
@@ -50,14 +51,14 @@
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Lesson/Details/' + dataItem.SkillId;
+        window.location.href = 'Lesson/Details/' + dataItem.LessonId;
     }
 
     function showExercises(e) {
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Exercise/Index/' + dataItem.SkillId;
+        window.location.href = 'Exercise/Index/' + dataItem.LessonId;
     }
 
     //function generateRequirementTemplate(data) {

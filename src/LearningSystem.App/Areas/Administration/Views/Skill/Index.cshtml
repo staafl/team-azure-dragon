@@ -27,6 +27,7 @@
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .DataSource(datasource => datasource
     .Ajax()
+    .PageSize(5)
     .Model(model =>
     {
         model.Id(skill => skill.SkillId);

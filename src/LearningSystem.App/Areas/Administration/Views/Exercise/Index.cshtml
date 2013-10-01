@@ -25,20 +25,21 @@
     .ToolBar(toolbar => toolbar.Create())
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .DataSource(datasource => datasource
-    .Ajax()
-    .Model(model =>
-    {
-        model.Id(exercise => exercise.ExerciseId);
-        model.Field(exercise => exercise.ExerciseId).Editable(false);
-    })
-    .ServerOperation(false)
+        .Ajax()
+        .PageSize(5)
+        .Model(model =>
+        {
+            model.Id(exercise => exercise.ExerciseId);
+            model.Field(exercise => exercise.ExerciseId).Editable(false);
+        })
+        .ServerOperation(false)
         .Read(read => read.Action("Read", "Exercise"))
         .Create(create => create.Action("Create", "Exercise"))
         .Update(update => update.Action("Edit", "Exercise"))
         .Destroy(destroy => destroy.Action("Delete", "Exercise"))
-    )
-    .Pageable()
-    .Sortable()
+        )
+        .Pageable()
+        .Sortable()
     )
     @Html.AntiForgeryToken()
 }
@@ -49,14 +50,14 @@
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Exercise/Details/' + dataItem.SkillId;
+        window.location.href = 'Exercise/Details/' + dataItem.ExerciseId;
     }
 
     function showQuestions(e) {
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Question/Index/' + dataItem.SkillId;
+        window.location.href = 'Question/Index/' + dataItem.ExerciseId;
     }
 </script>
 
