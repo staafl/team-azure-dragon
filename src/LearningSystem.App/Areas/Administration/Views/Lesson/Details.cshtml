@@ -10,7 +10,7 @@
     <legend>Lesson</legend>
     <dl>
         <dt>
-            @Html.LabelFor(model => model.Skill.Name, "Skill name")
+            <strong>Skill name</strong>
         </dt>
 
         <dd>
@@ -38,7 +38,8 @@
         @foreach (var item in Model.Requirements)
         {
             <dd>
-                @Html.ActionLink(item.Name, "Details", "Lesson", new { id = "LessonId" })
+                @*@Html.ActionLink(item.Name, "Details", "Lesson", new { id = "LessonId" })*@
+                @Html.Label(item.Name)
             </dd>
         }      
         <dt>
@@ -54,6 +55,6 @@
     </dl>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.LessonId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LessonId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
