@@ -22,10 +22,10 @@ namespace LearningSystem.App
 
                 ));
 
-            bundles.IgnoreList.Clear();
-            bundles.IgnoreList.Ignore("*.intellisense.js");
-            bundles.IgnoreList.Ignore("*-vsdoc.js");
-            bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
+            //bundles.IgnoreList.Clear();
+            //bundles.IgnoreList.Ignore("*.intellisense.js");
+            //bundles.IgnoreList.Ignore("*-vsdoc.js");
+            //bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
