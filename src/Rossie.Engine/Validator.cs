@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Roslyn.Compilers.CSharp;
-
+using System.Linq;
 namespace Rossie.Engine
 {
     public static class Validator
@@ -16,7 +16,7 @@ namespace Rossie.Engine
         {
             foreach (var syntaxNode in syntaxNodes)
             {
-                if (syntaxNode.HasChildren)
+                if (syntaxNode.ChildNodes().Any())
                 {
                     if (!ScanSyntax(syntaxNode.ChildNodes())) return false;
                 }
