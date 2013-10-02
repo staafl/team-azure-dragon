@@ -14,15 +14,15 @@ namespace TeamAzureDragon.Utils
 
         public override string ToString()
         {
-            return this.Version + ";" + this.Data;
+            return this.Version + "\a" + this.Data;
         }
 
         public static int CurrentVersion { get; set; }
         public static int? DefaultVersion { get; set; }
 
-        public static VersionedString Read(string rawData, bool allowDefaultVersion = false, int? overrideDefaultVersion = null)
+        public static VersionedString Read(string rawData, bool allowDefaultVersion = true, int? overrideDefaultVersion = null)
         {
-            int ix = rawData.IndexOf(';');
+            int ix = rawData.IndexOf('\a');
             int version;
             string data;
             if (ix == -1)
