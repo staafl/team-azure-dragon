@@ -5,19 +5,30 @@
     <h4>
         @if (!item.OwnedByUser)
         {
-           @Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
-           {
-               HttpMethod = "GET",
+            @Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
+            {
+                HttpMethod = "GET",
 
-               InsertionMode = InsertionMode.Replace,
-               UpdateTargetId = "signup-message"
-           }, new { @class = "signup-skill" })
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "signup-message"
+            }, new { @class = "signup-skill" })
+            
+            <span class="label label-info skill-label" data-toggle="tooltip" data-placement="right"
+                  title="@item.SkillDescription">
+                <i class="icon  icon-plus-sign"></i> @item.SkillName
+            </span>
         }
-        <span class="label label-info skill-label" data-toggle="tooltip" data-placement="right"
-              title="@item.SkillDescription">
+        else
+        {
+            
+            @Html.ActionLink("Signed", "Index", "Skill", new { skillId = item.SkillId }, new { @class = "signup-skill" })
+            
+            <span class="label label-success skill-label" data-toggle="tooltip" data-placement="right"
+                  title="@item.SkillDescription">
+                <i class="icon icon-ok"></i> @item.SkillName
+            </span>
+        }
 
-            @item.SkillName
-        </span>
     </h4>
 }
 

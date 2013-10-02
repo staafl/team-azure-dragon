@@ -5,15 +5,21 @@ using LearningSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
+using TeamAzureDragon.Utils;
 
 namespace LearningSystem.App.Controllers
 {
-    public class ExerciseController : Controller
+    public class ExerciseController : LearningSystemControllerBase
     {
-        IUoWLearningSystem db;
-        public ExerciseController(IUoWLearningSystem db)
+        public ExerciseController(IUoWLearningSystem db) : base(db) { }
+
+        //
+        // GET: /Exercise/
+        public ActionResult Index()
         {
             this.db = db;
         }
