@@ -5,13 +5,13 @@
     <h4>
         @if (!item.OwnedByUser)
         {
-            @Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
+            @*@Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
             {
                 HttpMethod = "GET",
 
                 InsertionMode = InsertionMode.Replace,
                 UpdateTargetId = "signup-message"
-            }, new { @class = "signup-skill" })
+            }, new { @class = "signup-skill" })*@
 
             
             
@@ -24,12 +24,9 @@
         }
         else
         {
-
-            @Html.ActionLink("Signed", "Index", "Skill", new { skillId = item.SkillId }, new { @class = "signup-skill" })
-
             <span class="label label-success skill-label" data-toggle="tooltip" data-placement="right"
                   title="@item.SkillDescription">
-                <i class="icon icon-ok"></i> @item.SkillName
+                <i class="icon icon-ok"></i> @Html.ActionLink(@item.SkillName, "Index", "Skill", new { skillId = @item.SkillId }, new { @class = "signup-skill" })
             </span>
         }
 

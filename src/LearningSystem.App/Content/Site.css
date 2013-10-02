@@ -136,9 +136,8 @@ input[type="checkbox"].input-validation-error {
 }
 
 .signup-skill {
-    position:absolute;
     margin-top:6px;
-    margin-left:-70px;
     text-decoration:underline;
+    color:white;
 }
 /**/
