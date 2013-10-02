@@ -24,6 +24,7 @@ namespace LearningSystem.Models
         [Display(Name = "Skill")]
         public int SkillId { get; set; }
 
+        [UIHint("SkillDropdown")]
         public virtual Skill Skill { get; set; }
 
         public virtual ICollection<Exercise> Exercises { get; set; }

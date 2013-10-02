@@ -164,6 +164,7 @@ namespace TeamAzureDragon.Utils
                 if (result == RecursiveSerializationOption.Recurse)
                 {
                     dict[name] = SerializeToDictionary(value, customHandler, keyGetter, path);
+                    continue;
                 }
 
                 throw new ApplicationException();
