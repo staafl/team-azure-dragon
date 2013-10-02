@@ -26,15 +26,15 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // GET: /Administration/Skill/
         public ActionResult Index()
         {
-            ViewData["skills"] = db.Skills.All().ToList()
-                        .Select(skill => Misc.SerializeToDictionary(skill,
-                                path =>
-                                {
-                                    //if (path == "Skill") return RecursiveSerializationOption.Assign;
-                                    if (path == "SkillId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Name") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList();
+            //ViewData["skills"] = db.Skills.All().ToList()
+            //            .Select(skill => Misc.SerializeToDictionary(skill,
+            //                    path =>
+            //                    {
+            //                        //if (path == "Skill") return RecursiveSerializationOption.Assign;
+            //                        if (path == "SkillId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Name") return RecursiveSerializationOption.Assign;
+            //                        return RecursiveSerializationOption.Skip;
+            //                    })).ToList();
 
             //ViewData["requerments"] = db.Lessons.All().ToList()
             //            .Select(lesson => Misc.SerializeToDictionary(lesson,
@@ -62,6 +62,23 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                 return HttpNotFound();
             }
             return View(lesson);
+        }
+
+        public ActionResult GetSkills([DataSourceRequest]DataSourceRequest request)
+        {
+            var viewModelSkills = db.Skills.All().ToList()
+                        .Select(skill => Misc.SerializeToDictionary(skill,
+                                path =>
+                                {
+                                    //if (path == "Skill") return RecursiveSerializationOption.Assign;
+                                    if (path == "SkillId") return RecursiveSerializationOption.Assign;
+                                    if (path == "Name") return RecursiveSerializationOption.Assign;
+                                    return RecursiveSerializationOption.Skip;
+                                })).ToList();
+
+            //DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
+
+            return Json(viewModelSkills, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)

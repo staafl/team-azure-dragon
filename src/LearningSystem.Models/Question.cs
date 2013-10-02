@@ -13,6 +13,7 @@ namespace LearningSystem.Models
         public int QuestionId { get; set; }
 
         [Required(ErrorMessage = "Question statement is required!")]
+        [DataType(DataType.MultilineText)]
         [StringLength(3000)]
         //[StringNotContains("<script>")]
         public string Statement { get; set; }
@@ -29,9 +30,10 @@ namespace LearningSystem.Models
 
         [StringLength(2000)]
         [Display(Name = "Answer content")]
+        [DataType(DataType.MultilineText)]
         public string AnswerContent { get; set; }
 
-        [Display(Name = "Answer content version")]
+        [Display(Name = "Content version")]
         public int AnswerContentVersion { get; set; }
 
         [Display(Name = "Exercise")]

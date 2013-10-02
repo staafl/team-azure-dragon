@@ -26,7 +26,12 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // GET: /Administration/Skill/
         public ActionResult Index()
         {
-            ViewData["exercises"] = db.Exercises.All().ToList()
+            return View(db.Questions.All("Exercise").ToList());
+        }
+
+        public ActionResult GetExercises([DataSourceRequest]DataSourceRequest request)
+        {
+            var viewModelExercises = db.Exercises.All().ToList()
                         .Select(exerciese => Misc.SerializeToDictionary(exerciese,
                                 path =>
                                 {
@@ -35,7 +40,9 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
 
-            return View(db.Questions.All("Exercise").ToList());
+            //DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
+
+            return Json(viewModelExercises, JsonRequestBehavior.AllowGet);
         }
 
         // GET: /Administration/Skill/Details/5

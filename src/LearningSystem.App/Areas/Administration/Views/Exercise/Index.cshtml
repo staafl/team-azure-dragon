@@ -15,7 +15,7 @@
             columns.Bound(l => l.Lesson).ClientTemplate("#= data.Lesson ? data.Lesson.Name : ''#").EditorTemplateName("LessonDropdown");
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
-            columns.Bound(l => l.Order);
+            columns.Bound(l => l.Order).EditorTemplateName("_intTextEditorTemplate");
             columns.Command(commands =>
             {
                 commands.Edit();
