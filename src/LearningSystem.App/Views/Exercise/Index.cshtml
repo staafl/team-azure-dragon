@@ -1,12 +1,10 @@
 @model LearningSystem.App.ViewModels.QuestionViewModel
 
-@Html.Hidden("questionId", Model.QuestionId)
-
 @{
     ViewBag.Title = "Welcome to our exercises!";
 }
 
-<h2>ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
 
 <div id="question-container">
@@ -20,16 +18,21 @@
         $.ajax({
             "url": "/Exercise/HandleQuestionInput",
             "content-type": "application/json",
+            type: "POST",
             data: {
                 questionId: $("#questionId").val(),
-                answerInput: $("#answer-input").val()
+                input: $("#answer-input").val()
             },
             success: function (data) {
-                debugger;
-                $("#question-container").html = data;
+                if (data.Success) {
+                    $("#question-container").html("<h2> Congratulations! Correct answer! </h2>");
+                }
+                else {
+                    $("#question-container").html(data.ErrorContent);
+                }
             },
             error: function (err) {
-                $("#question-container").html = data;
+                //error
             }
         });
     });

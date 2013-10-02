@@ -31,7 +31,7 @@ namespace LearningSystem.App.AppLogic
         public string RenderInputHtml()
         {
             return
-@"<input type='text' name='answer-input' class='answer-input-textfield' />";
+@"<input type='text' id='answer-input' name='answer-input' class='answer-input-textfield' />";
         }
     }
 }
