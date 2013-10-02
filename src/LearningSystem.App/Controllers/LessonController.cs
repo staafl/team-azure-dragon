@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LearningSystem.App.Controllers
 {
+    [Authorize]
     public class LessonController : Controller
     {
         IUoWLearningSystem db;

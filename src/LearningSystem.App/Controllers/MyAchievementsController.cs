@@ -9,6 +9,7 @@ using System.Web.Security;
 
 namespace LearningSystem.App.Controllers
 {
+    [Authorize]
     public class MyAchievementsController : Controller
     {
         IUoWLearningSystem db;
