@@ -29,7 +29,7 @@ namespace LearningSystem.App.Controllers
                 {
                     Name = excercise.Name,
                     Description = excercise.Description,
-                    ExerciseId = excercise.LessonId,
+                    ExerciseId = excercise.ExerciseId,
                     IsCompleted = excercise.Users.Any(u => u.UserName == User.Identity.Name) ? true : false,
                     IsAvailable = isAvailable
                 };
