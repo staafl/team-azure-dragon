@@ -14,10 +14,9 @@
     <div class="navbar navbar-inverse navbar-fixed-top ">
         <div class="navbar-inner">
             <div class="container">
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "brand" })
+                @Html.ActionLink("Learning System", "Index", "Splash", null, new { @class = "brand" })
 
                 <ul class="nav nav-collapse">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Search", "Search", "Home")</li>
                     @if (User.IsInRole("admin"))
                     {

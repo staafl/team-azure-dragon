@@ -21,6 +21,11 @@ namespace LearningSystem.App.Controllers
 
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "MyAchievements");
+            }
+
             return View();
         }
 	}

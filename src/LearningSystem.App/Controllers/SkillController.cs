@@ -12,6 +12,7 @@ using TeamAzureDragon.Utils;
 
 namespace LearningSystem.App.Controllers
 {
+    [Authorize]
     public class SkillController : Controller
     {
         IUoWLearningSystem db;
