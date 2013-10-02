@@ -14,6 +14,7 @@
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
             //columns.Bound(l => l.Requirements).ClientTemplate("#=generateRequirementTemplate(Requirements)#");//.EditorTemplateName("RequermentCheckBoxList");
+            columns.Bound(l => l.Requirements).ClientTemplate("#= generateRequirementTemplate(Requirements) #").EditorTemplateName("MultiSelectRequierments");
             columns.Command(commands =>
             {
                 commands.Edit();
@@ -61,16 +62,16 @@
         window.location.href = 'Exercise/Index/' + dataItem.LessonId;
     }
 
-    //function generateRequirementTemplate(data) {
-    //    var template = "";
-    //    if (data != null) {
-    //        for (var i = 0; i < data.length; i++) {
-    //            template = template + data[i].Name + "<br />";
-    //        }
-    //    }
+    function generateRequirementTemplate(data) {
+        var template = "";
+        if (data != null) {
+            for (var i = 0; i < data.length; i++) {
+                template = template + data[i].Name + "<br />";
+            }
+        }
 
-    //    return template;
-    //}
+        return template;
+    }
 </script>
 
 

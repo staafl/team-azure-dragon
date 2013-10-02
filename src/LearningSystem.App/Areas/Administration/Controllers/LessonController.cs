@@ -81,6 +81,23 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             return Json(viewModelSkills, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetRequirements([DataSourceRequest]DataSourceRequest request)
+        {
+            var viewModelReqirements = db.Lessons.All().ToList()
+                        .Select(lesson => Misc.SerializeToDictionary(lesson,
+                                path =>
+                                {
+                                    if (path == "LessonId") return RecursiveSerializationOption.Assign;
+                                    //if (path == "SkillId") return RecursiveSerializationOption.Assign;
+                                    if (path == "Name") return RecursiveSerializationOption.Assign;
+                                    return RecursiveSerializationOption.Skip;
+                                })).ToList(); 
+
+            //DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
+
+            return Json(viewModelReqirements, JsonRequestBehavior.AllowGet);
+        }        
+
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var viewModelLessons = db.Lessons.All("Skill").ToList()
@@ -94,9 +111,9 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     if (path == "Skill.SkillId") return RecursiveSerializationOption.Assign;
                                     if (path == "Skill.Name") return RecursiveSerializationOption.Assign;
                                     if (path == "SkillId") return RecursiveSerializationOption.Assign;
-                                    //if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;
-                                    //if (path == "Requirements.LessonId") return RecursiveSerializationOption.Assign;
-                                    //if (path == "Requirements.Name") return RecursiveSerializationOption.Assign;
+                                    if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;
+                                    if (path == "Requirements.LessonId") return RecursiveSerializationOption.Assign;
+                                    if (path == "Requirements.Name") return RecursiveSerializationOption.Assign;
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
 

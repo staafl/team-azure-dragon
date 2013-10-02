@@ -1,0 +1,8 @@
+﻿@(Html.Kendo()
+        .MultiSelect()
+        .Name("Requirements")
+        .DataTextField("Name")
+        .DataValueField("LessonId")
+        .Placeholder("Select ...")
+        .DataSource(datasource => datasource.Read(read => read.Action("GetRequirements", "Lesson")))
+)
