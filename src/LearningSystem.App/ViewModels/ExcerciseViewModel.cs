@@ -14,5 +14,7 @@ namespace LearningSystem.App.ViewModels
         public string Description { get; set; }
 
         public bool IsCompleted { get; set; }
+
+        public bool IsAvailable { get; set; }
     }
 }

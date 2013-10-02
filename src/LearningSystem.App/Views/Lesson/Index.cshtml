@@ -21,24 +21,42 @@
     {
         <tr>
             <td>
-                <a href="/Questions/Index?exId=@item.ExerciseId" class="btn excercise btn-inverse" data-toggle="tooltip" data-placement="bottom" 
-                   title="@item.Description">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </a>
+                @if (item.IsAvailable)
+                {
+                    <a href="/Excercise/Index?exId=@item.ExerciseId" class="btn excercise btn-inverse" data-toggle="tooltip" data-placement="bottom"
+                       title="@item.Description">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                }
+                else
+                {
+                    <span class="btn excercise btn-inverse" data-toggle="tooltip" data-placement="bottom"
+                          title="You must complete the previous lessons first!">
+                        @Html.DisplayFor(modelitem => item.Name)
+                    </span>
 
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @if (item.IsCompleted)
+                @if (item.IsAvailable)
                 {
-                    <p>This lesson is completed!</p>
+                    if (item.IsCompleted)
+                    {
+                        <p>This lesson is completed!</p>
+                    }
+                    else
+                    {
+                        <p>Not completed yet!</p>
+                    }
                 }
                 else
                 {
-                    <p>Not completed yet!</p>
+                    <p>You must complete the previous lessons first!</p>
                 }
+
             </td>
         </tr>
     }

@@ -21,15 +21,25 @@ namespace LearningSystem.App.Controllers
         {
             List<ExcerciseViewModel> excercises = new List<ExcerciseViewModel>();
             var dbEx = db.Exercises.All().Where(ex => ex.LessonId == lessonId).OrderBy(ex => ex.Order);
+
+            bool isAvailable = true;
             foreach (var excercise in dbEx)
             {
-                excercises.Add(new ExcerciseViewModel
+                var excerciseVM = new ExcerciseViewModel
                 {
                     Name = excercise.Name,
                     Description = excercise.Description,
                     ExerciseId = excercise.LessonId,
-                    IsCompleted = excercise.Users.Any(u => u.UserName == User.Identity.Name) ? true : false
-                });
+                    IsCompleted = excercise.Users.Any(u => u.UserName == User.Identity.Name) ? true : false,
+                    IsAvailable = isAvailable
+                };
+
+                if (excerciseVM.IsCompleted == false)
+                {
+                    isAvailable = false;
+                }
+
+                excercises.Add(excerciseVM);
             }
 
             return View(excercises);
