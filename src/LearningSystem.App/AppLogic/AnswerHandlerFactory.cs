@@ -11,7 +11,7 @@ namespace LearningSystem.App.AppLogic
 {
     public static class AnswerHandlerFactory
     {
-        static public IAnswerHandler GetHandler(AnswerType type, string answerContent)
+        static public IAnswerHandler GetHandler(AnswerType type, string answerContent, int version = 0)
         {
             // TODO: arg validation
             switch (type)
@@ -37,9 +37,9 @@ namespace LearningSystem.App.AppLogic
         }
 
 
-        static IAnswerHandler GetTextAnswerHandler(string data)
+        static IAnswerHandler GetTextAnswerHandler(string data, int version = 0)
         {
-            return new TextAnswerHandler { Text = VersionedString.Read(data).Data, IgnoreCase = true, NormalizeWhiteSpace = false }; // Misc.ParseVersioned<TextAnswerHandler>(data);
+            return new TextAnswerHandler { Text = data, IgnoreCase = true, NormalizeWhiteSpace = false }; // Misc.ParseVersioned<TextAnswerHandler>(data);
         }
 
     }
