@@ -1,0 +1,14 @@
+@{
+    ViewBag.Title = "Congratulations! You've successfully finished the exercise!";
+}
+
+<h1>@ViewBag.Title</h1>
+
+@*put some image here and more text*@
+<p>Maybe you've expected a <strong>mighty dragon cup</strong> for passing the exercise? Here's one for you.</p>
+<br />
+<img src="~/img/dragon-cup.jpg" alt="Mighty dragon cup" />
+<br />
+
+@Html.ActionLink("Back to the lesson", "BackToLesson", new { exId = ViewBag.ExId })
+

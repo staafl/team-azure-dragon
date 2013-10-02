@@ -95,6 +95,14 @@ input[type="checkbox"].input-validation-error {
 
 /* Splash page end*/
 
+/* Questions page beginning */
+#question-count, #wrong-questions {
+    padding: 10px;
+    font-size: 1.2rem;
+    color: darkcyan
+}
+/*Questions page end*/
+
 .navigation {
 
 }

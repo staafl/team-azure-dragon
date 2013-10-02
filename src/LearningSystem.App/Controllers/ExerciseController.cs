@@ -17,36 +17,13 @@ namespace LearningSystem.App.Controllers
     {
         public ExerciseController(IUoWLearningSystem db) : base(db) { }
 
-        public ActionResult Index(int exId)
+        private int CountQuestions(int exId)
         {
-            var question = Db.Questions.All("Users")
-                .Where(q => q.ExerciseId == exId)
-                .OrderBy(q => q.Order)
-                .Skip(1)
-                .Take(1)
-                .Select(q => new QuestionViewModel
-                {
-                    QuestionId = q.QuestionId,
-                    Statement = q.Statement,
-                    AnswerType = q.AnswerType,
-                    AnswerContent = q.AnswerContent,
-                    ExerciseId = q.ExerciseId
-                })
-                .FirstOrDefault();
-
-            if (question == null)
-            {
-                //logic
-            }
-
-            var handler = AnswerHandlerFactory.GetHandler(question.AnswerType, question.AnswerContent);
-            question.InputHtml = handler.RenderInputHtml();
-
-            ViewBag.ExId = exId;
-            return View(question);
+            int count = Db.Exercises.GetById(exId).Questions.Count;
+            return count;
         }
 
-        public ActionResult GetQuestion(int exId, int toSkip = 0)
+        private QuestionViewModel GetCurrentQuestion(int exId, int toSkip)
         {
             var question = Db.Questions.All("Users")
                 .Where(q => q.ExerciseId == exId)
@@ -63,15 +40,70 @@ namespace LearningSystem.App.Controllers
                 })
                 .FirstOrDefault();
 
+            return question;
+        }
+
+        public ActionResult Index(int exId)
+        {
+            var question = GetCurrentQuestion(exId, 0);
+
             if (question == null)
             {
-                //logic
+                return HttpNotFound();
+            }
+
+            var handler = AnswerHandlerFactory.GetHandler(question.AnswerType, question.AnswerContent);
+            question.InputHtml = handler.RenderInputHtml();
+
+            ViewBag.CurrentQuestionOrder = 0;
+            ViewBag.ExId = exId;
+            ViewBag.QuestionsCount = this.CountQuestions(exId);
+            //TODO implement passable errors logic in database
+            ViewBag.PassableErrors = 0;
+            return View(question);
+        }
+
+        public ActionResult GetQuestion(int exId, int toSkip)
+        {
+            var question = GetCurrentQuestion(exId, toSkip);
+
+            if (question == null)
+            {
+                return HttpNotFound();
             }
 
             var handler = AnswerHandlerFactory.GetHandler(question.AnswerType, question.AnswerContent);
             question.InputHtml = handler.RenderInputHtml();
 
             return PartialView("_Question", question);
+        }
+
+        public ActionResult FinishExercise(int exId)
+        {
+            var exercise = Db.Exercises.GetById(exId);
+
+            var user = Db.Users.All().SingleOrDefault(u => u.UserName == User.Identity.Name);
+            exercise.Users.Add(user);
+            Db.SaveChanges();
+
+            ViewBag.ExId = exId;
+
+            return PartialView("_FinishExercise");
+        }
+
+        public ActionResult FailedExercise(int exId)
+        {
+            ViewBag.ExId = exId;
+
+            return PartialView("_FailedExercise");
+        }
+
+        public ActionResult BackToLesson(int exId)
+        {
+            var exercise = Db.Exercises.GetById(exId);
+            var lessonId = exercise.LessonId;
+            //TODO check if lesson is finished in the redirected action
+            return RedirectToAction("Index", "Lesson", new { lessonId = lessonId });
         }
 
         [System.Web.Mvc.HttpPostAttribute]
@@ -104,6 +136,7 @@ namespace LearningSystem.App.Controllers
                 var user = this.GetCurrentUser();
                 user.Exercises.Add(exercise);
             }
+
             return new JsonResult { Data = dict };
         }
 	}
