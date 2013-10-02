@@ -291,7 +291,6 @@
     <Content Include="Areas\Administration\Views\Question\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Exercise\EditorTemplates\LessonDropdown.cshtml" />
     <Content Include="Areas\Administration\Views\Question\EditorTemplates\ExerciseDropdown.cshtml" />
-    <Content Include="Areas\Administration\Views\Lesson\EditorTemplates\_LessonTemplate.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

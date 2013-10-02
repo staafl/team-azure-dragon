@@ -74,6 +74,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     if (path == "Name") return RecursiveSerializationOption.Assign;
                                     if (path == "Description") return RecursiveSerializationOption.Assign;
                                     if (path == "Skill") return RecursiveSerializationOption.Recurse;
+                                    if (path == "Skill.SkillId") return RecursiveSerializationOption.Assign;
                                     if (path == "Skill.Name") return RecursiveSerializationOption.Assign;
                                     if (path == "SkillId") return RecursiveSerializationOption.Assign;
                                     //if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;

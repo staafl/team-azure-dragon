@@ -30,7 +30,7 @@
         @foreach (var item in Model.Lessons)
         {
             <dd>
-                @Html.ActionLink(item.Name, "Details", "Lesson", new { id = "LessonId" })
+                @Html.ActionLink(item.Name, "Details", "Lesson", new { area = "Administration" }, new { LessonId = "LessonId" })
             </dd>
         }       
 

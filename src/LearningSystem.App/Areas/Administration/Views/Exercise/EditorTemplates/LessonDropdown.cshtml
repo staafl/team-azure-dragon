@@ -3,4 +3,5 @@
     .DataValueField("LessonId") // The value of the dropdown is taken from the EmployeeID property
     .DataTextField("Name") // The text of the items is taken from the EmployeeName property
     .BindTo((System.Collections.IEnumerable)ViewData["lessons"]) // A list of all employees which is populated in the controller
+    .OptionLabel(" ")// "Please select:"
 )
