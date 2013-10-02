@@ -65,6 +65,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     if (path == "Points") return RecursiveSerializationOption.Assign;
                                     if (path == "AnswerType") return RecursiveSerializationOption.Assign;
                                     if (path == "AnswerContent") return RecursiveSerializationOption.Assign;
+                                    if (path == "AnswerContentVersion") return RecursiveSerializationOption.Assign;
                                     if (path == "Exercise") return RecursiveSerializationOption.Recurse;
                                     if (path == "Exercise.ExerciseId") return RecursiveSerializationOption.Assign;
                                     if (path == "Exercise.Name") return RecursiveSerializationOption.Assign;
