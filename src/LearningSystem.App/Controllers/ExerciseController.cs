@@ -15,18 +15,12 @@ namespace LearningSystem.App.Controllers
 {
     public class ExerciseController : LearningSystemControllerBase
     {
+        
         public ExerciseController(IUoWLearningSystem db) : base(db) { }
-
-        //
-        // GET: /Exercise/
-        public ActionResult Index()
-        {
-            this.db = db;
-        }
 
         public ActionResult Index(int exId)
         {
-            var question = db.Questions.All("Users")
+            var question = Db.Questions.All("Users")
                 .Where(q => q.ExerciseId == exId)
                 .OrderBy(q => q.Order)
                 .Skip(1)
@@ -55,7 +49,7 @@ namespace LearningSystem.App.Controllers
 
         public ActionResult GetQuestion(int exId, int toSkip = 0)
         {
-            var question = db.Questions.All("Users")
+            var question = Db.Questions.All("Users")
                 .Where(q => q.ExerciseId == exId)
                 .OrderBy(q => q.Order)
                 .Skip(toSkip)
