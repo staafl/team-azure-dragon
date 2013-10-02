@@ -75,12 +75,12 @@ namespace TeamAzureDragon.Utils
                 throw Activator.CreateInstance<T>();
             return obj;
         }
-        public static T ParseVersioned<T>(string versionedData)
-        {
-            var xml = VersionedString.Read(versionedData).Data;
-            return (T)(new XmlSerializer(typeof(T))
-                .Deserialize(new StringReader(xml)));
-        }
+        //public static T ParseVersioned<T>(string versionedData)
+        //{
+        //    var xml = VersionedString.Read(versionedData).Data;
+        //    return (T)(new XmlSerializer(typeof(T))
+        //        .Deserialize(new StringReader(xml)));
+        //}
 
         public static string Abbreviate(this string text, int maxLength)
         {

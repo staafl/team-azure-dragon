@@ -20,8 +20,8 @@ namespace LearningSystem.App
     {
         protected void Application_Start()
         {
-            VersionedString.CurrentVersion = 1;
-            VersionedString.DefaultVersion = 1;
+            //VersionedString.CurrentVersion = 1;
+            //VersionedString.DefaultVersion = 1;
 
             Database.SetInitializer<LearningSystemContext>(new MigrateDatabaseToLatestVersion<LearningSystemContext, Configuration>());
 
