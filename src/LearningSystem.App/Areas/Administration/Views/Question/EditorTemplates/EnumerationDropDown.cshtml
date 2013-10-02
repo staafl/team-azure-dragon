@@ -1,0 +1,6 @@
+﻿@using LearningSystem.App.Areas.Administration.Controllers
+@(Html.Kendo().DropDownList()
+    .Name("AnswerType")
+    .BindTo(QuestionController.EnumToDropDownList(typeof(LearningSystem.Models.AnswerType)))
+    .HtmlAttributes(new { style = "min-width:100px, max-width:200px" })
+)

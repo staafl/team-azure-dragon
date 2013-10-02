@@ -5,5 +5,5 @@
     .DataSource(datasource => datasource.Read(read => read.Action("GetExercises", "Question")))
     //.BindTo((System.Collections.IEnumerable)ViewData["exercises"]) // A list of all employees which is populated in the controller
     .OptionLabel(" ")// "Please select:"
-    .HtmlAttributes(new { style="min-width:100px, max-width:200px"})
+    .HtmlAttributes(new { style="width:150px, max-width:200px"})
 )

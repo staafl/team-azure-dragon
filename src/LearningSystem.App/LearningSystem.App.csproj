@@ -294,6 +294,7 @@
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\_intTextEditorTemplate.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\_stringShortTextEditorTemplate.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\_stringLongTextEditorTemplate.cshtml" />
+    <Content Include="Areas\Administration\Views\Question\EditorTemplates\EnumerationDropDown.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

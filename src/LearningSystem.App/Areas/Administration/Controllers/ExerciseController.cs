@@ -129,15 +129,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                Lesson lesson;
-                if (exercise.Lesson == null)
-                {
-                    lesson = db.Lessons.GetById(1);
-                }
-                else
-                {
-                    lesson = db.Lessons.GetById(exercise.Lesson.LessonId);
-                }
+                Lesson lesson = db.Lessons.GetById(exercise.Lesson.LessonId);
                 exercise.Lesson.SkillId = lesson.SkillId;
                 db.Exercises.Add(exercise);
                 db.SaveChanges();

@@ -68,7 +68,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                 {
                                     if (path == "QuestionId") return RecursiveSerializationOption.Assign;
                                     if (path == "Statement") return RecursiveSerializationOption.Assign;
-                                    if (path == "Oreder") return RecursiveSerializationOption.Assign;
+                                    if (path == "Order") return RecursiveSerializationOption.Assign;
                                     if (path == "Points") return RecursiveSerializationOption.Assign;
                                     if (path == "AnswerType") return RecursiveSerializationOption.Assign;
                                     if (path == "AnswerContent") return RecursiveSerializationOption.Assign;
@@ -94,6 +94,8 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, Question question)
         {
+            Exercise exercise = db.Exercises.GetById(question.Exercise.ExerciseId);
+            question.Exercise.LessonId = exercise.LessonId;
             if (ModelState.IsValid)
             {
                 db.Questions.Add(question);
@@ -113,9 +115,17 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Question question)
         {
+            Question oldquestion = db.Questions.GetById(question.QuestionId);
             if (ModelState.IsValid)
             {
-                db.Questions.Update(question);
+                oldquestion.Statement = question.Statement;
+                oldquestion.Order = question.Order;
+                oldquestion.Points = question.Points;
+                oldquestion.AnswerType = question.AnswerType;
+                oldquestion.AnswerContent = question.AnswerContent;
+                oldquestion.AnswerContentVersion = question.AnswerContentVersion;
+                oldquestion.ExerciseId = question.Exercise.ExerciseId;
+                db.Questions.Update(oldquestion);
                 return RedirectToAction("Index");
             }
             return View(new[] { question }.ToDataSourceResult(request, ModelState));
@@ -132,6 +142,16 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             return View(new[] { question }.ToDataSourceResult(request, ModelState));
         }
 
+        public static List<SelectListItem> EnumToDropDownList(Type enumType)
+        {
+            return Enum.GetValues(enumType)
+                .Cast<int>()
+                .Select(i => new SelectListItem
+                {
+                    Value = i.ToString(),
+                    Text = Enum.GetName(enumType, i),
+                }).ToList();
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

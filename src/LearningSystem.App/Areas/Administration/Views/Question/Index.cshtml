@@ -10,11 +10,11 @@
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? Exercise.Name : '' #").EditorTemplateName("ExerciseDropdown");
+            columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? data.Exercise.Name : '' #").EditorTemplateName("ExerciseDropdown");
             columns.Bound(l => l.Statement);
             columns.Bound(l => l.Order).EditorTemplateName("_intTextEditorTemplate"); ;
             columns.Bound(l => l.Points).EditorTemplateName("_intTextEditorTemplate"); ;
-            columns.Bound(l => l.AnswerType);
+            columns.Bound(l => l.AnswerType)/*.ClientTemplate("#= AnswerType.ToString() #");*/.EditorTemplateName("EnumerationDropdown");
             columns.Bound(l => l.AnswerContent);
             columns.Bound(l => l.AnswerContentVersion).EditorTemplateName("_intTextEditorTemplate"); ;
             columns.Command(commands =>
