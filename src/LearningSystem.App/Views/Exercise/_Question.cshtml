@@ -1,0 +1,7 @@
+@model LearningSystem.App.ViewModels.QuestionViewModel
+
+<h2>@Html.DisplayFor(m => m.Statement)</h2>
+
+<div id="user-input-container">
+    @Html.Raw(Model.InputHtml)
+</div>

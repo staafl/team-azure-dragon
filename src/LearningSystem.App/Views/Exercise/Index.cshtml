@@ -1,0 +1,36 @@
+@model LearningSystem.App.ViewModels.QuestionViewModel
+
+@Html.Hidden("questionId", Model.QuestionId)
+
+@{
+    ViewBag.Title = "Welcome to our exercises!";
+}
+
+<h2>ViewBag.Title</h2>
+
+
+<div id="question-container">
+    @Html.Partial("_Question")
+</div>
+<a id="submit" href="#">Check Answer</a>
+
+<script>
+    var exerciseId = @ViewBag.ExId
+    $("#submit").click(function () {
+        $.ajax({
+            "url": "/Exercise/HandleQuestionInput",
+            "content-type": "application/json",
+            data: {
+                questionId: $("#questionId").val(),
+                answerInput: $("#answer-input").val()
+            },
+            success: function (data) {
+                debugger;
+                $("#question-container").html = data;
+            },
+            error: function (err) {
+                $("#question-container").html = data;
+            }
+        });
+    });
+</script>

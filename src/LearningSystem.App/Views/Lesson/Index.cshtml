@@ -23,7 +23,7 @@
             <td>
                 @if (item.IsAvailable)
                 {
-                    <a href="/Excercise/Index?exId=@item.ExerciseId" class="btn excercise btn-inverse" data-toggle="tooltip" data-placement="bottom"
+                    <a href="/Exercise/Index?exId=@item.ExerciseId" class="btn excercise btn-inverse" data-toggle="tooltip" data-placement="bottom"
                        title="@item.Description">
                         @Html.DisplayFor(modelItem => item.Name)
                     </a>

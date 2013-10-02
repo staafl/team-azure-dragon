@@ -39,7 +39,7 @@ namespace LearningSystem.App.AppLogic
 
         static IAnswerHandler GetTextAnswerHandler(string data)
         {
-            return Misc.ParseVersioned<TextAnswerHandler>(data);
+            return new TextAnswerHandler { Text = VersionedString.Read(data).Data, IgnoreCase = true, NormalizeWhiteSpace = false }; // Misc.ParseVersioned<TextAnswerHandler>(data);
         }
 
     }
