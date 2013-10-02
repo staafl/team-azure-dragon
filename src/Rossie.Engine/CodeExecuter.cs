@@ -13,6 +13,15 @@ using System.Diagnostics;
 
 namespace Rossie.Engine
 {
+    public enum CSharpCodeTemplate
+    {
+        Expression,
+        WholeProgram,
+        Class,
+        Method,
+        ClassBody,
+        MethodBody
+    }
     public sealed class ByteCodeLoader : MarshalByRefObject
     {
         public ByteCodeLoader()
@@ -52,6 +61,7 @@ namespace Rossie.Engine
             out IEnumerable<Diagnostic> compileErrors,
             out bool timedOut,
             out bool memoryCapHit,
+            CSharpCodeTemplate template = CSharpCodeTemplate.Expression,
             int? timeoutSeconds = 6,
             int? memoryCapMb = 15)
         {
@@ -64,8 +74,36 @@ namespace Rossie.Engine
             // sandbox appdomain
             var sandbox = CreateSandbox();
 
+            string entryPoint;
+
             // scaffold code
-            string entryPoint =
+
+            #region scaffold code templates
+            // expression
+            string entryPointExpression =
+@"using System; 
+public class EntryPoint 
+{ 
+    public static object Result {get;set;} 
+    public static Exception Exception {get;set;} 
+
+    public static void Main() 
+    {
+        try
+        {
+            Result = Eval(); 
+        }
+        catch (Exception ex)
+        {
+            Exception = ex;
+        }
+    }  
+    public static object Eval() { return " + code + @"; }
+    
+}";
+
+            // method body
+            string entryPointMethodBody =
 @"using System; 
 public class EntryPoint 
 { 
@@ -87,7 +125,47 @@ public class EntryPoint
     
 }";
 
+            string entryPointMethod =
+@"using System; 
+using System.Reflection;
+public class EntryPoint 
+{ 
+    public static object Result {get;set;} 
+    public static Exception Exception {get;set;} 
 
+    public static void Main() 
+    {
+        try
+        {
+            Result = Eval(); 
+        }
+        catch (Exception ex)
+        {
+            Exception = ex;
+        }
+    }  
+    public static object Eval() { return typeof(EntryPoint).GetMethod(%MethodName%).Apply(%Arguments%);  } // apply with reflection
+
+    " + code + @"
+    
+}";
+
+            // compiling an entire program will require a different structure
+            // ...
+
+            #endregion
+
+            switch (template)
+            {
+                case CSharpCodeTemplate.Expression: entryPoint = entryPointExpression; break;
+                case CSharpCodeTemplate.MethodBody: entryPoint = entryPointMethodBody; break;
+                case CSharpCodeTemplate.WholeProgram:
+                case CSharpCodeTemplate.Class:
+                case CSharpCodeTemplate.ClassBody:
+                case CSharpCodeTemplate.Method: throw new NotImplementedException();
+                default: throw new ArgumentException();
+
+            }
             // parse
             var syntaxTrees = new[] { SyntaxTree.ParseText(entryPoint) };
 
@@ -175,37 +253,47 @@ public class EntryPoint
 
         }
 
-        public object Execute(string code, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+        public object Execute(string code, CSharpCodeTemplate template = CSharpCodeTemplate.Expression, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+        {
+            bool success;
+            return Execute(code, out success, template, timeoutSeconds, memoryCapMb);
+        }
+
+        public object Execute(string code, out bool success, CSharpCodeTemplate template = CSharpCodeTemplate.Expression, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+
         {
             object result;
             Exception exception;
             IEnumerable<Diagnostic> compileErrors;
             bool timedOut, memoryCapHit;
 
-            Execute(code, out result, out exception, out compileErrors, out timedOut, out memoryCapHit, timeoutSeconds, memoryCapMb);
+            Execute(code, out result, out exception, out compileErrors, out timedOut, out memoryCapHit, template, timeoutSeconds, memoryCapMb);
+
+            success = false;
 
             if (compileErrors.Any())
             {
                 var errors = compileErrors.Select(x => x.Info.GetMessage().Replace("Eval()", "<Factory>()").ToString()).ToArray();
 
-                return string.Join(", ", errors);
+                return "Compilation errors: " + string.Join(", ", errors);
             }
 
             if (exception != null)
             {
-                return exception;
+                return "Unhandled exception: " + exception.Message;
             }
 
             if (timedOut)
             {
-                return "Timed out!";
+                return "Program timed out!";
             }
 
             if (memoryCapHit)
             {
-                return "Hit memory limit!";
+                return "Program hit memory limit!";
             }
 
+            success = true;
 
             return result;
         }

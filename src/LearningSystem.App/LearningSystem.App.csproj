@@ -446,6 +446,10 @@
       <Project>{1a5bab78-e243-455a-ad7c-23caa9d882c5}</Project>
       <Name>LearningSystem.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rossie.Engine\Rossie.Engine.csproj">
+      <Project>{1d5a2399-ebff-41ad-b1a1-38b60ffcd767}</Project>
+      <Name>Rossie.Engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj">
       <Project>{e77c8fc5-143f-4341-b8a7-b2b99f0061c6}</Project>
       <Name>TeamAzureDragon.Utils</Name>
