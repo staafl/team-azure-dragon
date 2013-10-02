@@ -12,17 +12,21 @@
                 InsertionMode = InsertionMode.Replace,
                 UpdateTargetId = "signup-message"
             }, new { @class = "signup-skill" })
+
+            
             
             <span class="label label-info skill-label" data-toggle="tooltip" data-placement="right"
                   title="@item.SkillDescription">
-                <i class="icon  icon-plus-sign"></i> @item.SkillName
+                <i class="icon  icon-plus-sign"></i> 
+                @Html.ActionLink(@item.SkillName, "PreviewSkill", "Skill", new { skillId = item.SkillId },
+                new { @class = "preview-link" })
             </span>
         }
         else
         {
-            
+
             @Html.ActionLink("Signed", "Index", "Skill", new { skillId = item.SkillId }, new { @class = "signup-skill" })
-            
+
             <span class="label label-success skill-label" data-toggle="tooltip" data-placement="right"
                   title="@item.SkillDescription">
                 <i class="icon icon-ok"></i> @item.SkillName

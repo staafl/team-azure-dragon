@@ -118,6 +118,14 @@ input[type="checkbox"].input-validation-error {
 
 }
 
+.absolute {
+    position:absolute;
+}
+
+.preview-link {
+    color:white;
+}
+
 #search-input {
     margin-top: 15px;
     margin-left:15px;

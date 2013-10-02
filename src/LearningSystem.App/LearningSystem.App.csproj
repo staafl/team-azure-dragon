@@ -430,6 +430,7 @@
     <Content Include="Views\Exercise\_CorrectAnswer.cshtml" />
     <Content Include="Views\Exercise\_FinishExercise.cshtml" />
     <Content Include="Views\Exercise\_FailedExercise.cshtml" />
+    <Content Include="Views\Skill\PreviewSkill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />

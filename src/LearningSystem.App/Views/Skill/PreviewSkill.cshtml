@@ -1,0 +1,41 @@
+﻿@model LearningSystem.App.ViewModels.SkillViewModel
+
+@{
+    ViewBag.Title = Model.SkillName;
+}
+
+<h2>@Model.SkillName -
+
+    @Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = Model.SkillId }, new AjaxOptions()
+            {
+                HttpMethod = "GET",
+
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "signup-message"
+            })
+    
+</h2>
+<div id="signup-message" class="span3 absolute"></div>
+<div class="row-fluid pagination-centered">
+    @foreach (var group in Model.Lessons)
+    {
+        <div class="row-fluid lesson-row">
+
+            @foreach (var item in group)
+            {
+
+                <a class="btn btn-info lesson" href="/Lesson?lessonId=@item.Id" data-toggle="tooltip" data-placement="bottom"
+                   title="@item.Description">@item.Name</a>
+
+            }
+
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".lesson").tooltip();
+    });
+
+</script>
