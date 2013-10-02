@@ -8,6 +8,7 @@ namespace LearningSystem.App.AppLogic
 {
     public class TextAnswerHandler : IAnswerHandler
     {
+        // version 0:
 
         public bool IgnoreCase { get; set; }
         public bool NormalizeWhiteSpace { get; set; }

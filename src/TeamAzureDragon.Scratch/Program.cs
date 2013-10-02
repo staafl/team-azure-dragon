@@ -11,11 +11,12 @@ namespace TeamAzureDragon.Scratch
     {
         static void Main(string[] args)
         {
-            var obj = new { A = "a", B = "b", C = new { A = "a" } };
+            //var obj = new { A = "a", B = "b", C = new { A = "a" } };
 
-            var dict = Misc.SerializeToDictionary(obj);
+            //var dict = Misc.SerializeToDictionary(obj);
 
-
+            var executer = new Rossie.Engine.CodeExecuter();
+            Console.WriteLine(executer.Execute("return 1 + 2;"));
         }
 
 

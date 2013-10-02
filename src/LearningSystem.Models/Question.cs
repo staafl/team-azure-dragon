@@ -28,8 +28,11 @@ namespace LearningSystem.Models
         public AnswerType AnswerType { get; set; }
 
         [StringLength(2000)]
-        [Display(Name="Answer content")]
+        [Display(Name = "Answer content")]
         public string AnswerContent { get; set; }
+
+        [Display(Name = "Answer content version")]
+        public int AnswerContentVersion { get; set; }
 
         [Display(Name = "Exercise")]
         public int ExerciseId { get; set; }

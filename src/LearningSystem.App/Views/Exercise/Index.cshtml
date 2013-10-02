@@ -6,34 +6,106 @@
 
 <h2>@ViewBag.Title</h2>
 
+<div id="question-count" class="pull-left">
+    Current question: <span id="current-question-number">1</span> / @ViewBag.QuestionsCount
+</div>
+<div id="wrong-questions" class="pull-right">
+    You've done <span id="current-errors">0</span> out of @ViewBag.PassableErrors allowable errors.
+</div>
 
-<div id="question-container">
+<div id="question-container" class="hero-unit">
     @Html.Partial("_Question")
 </div>
-<a id="submit" href="#">Check Answer</a>
 
 <script>
-    var exerciseId = @ViewBag.ExId
-    $("#submit").click(function () {
+    var postRequester = function(url, data, success, error) {
         $.ajax({
-            "url": "/Exercise/HandleQuestionInput",
+            "url": url,
             "content-type": "application/json",
             type: "POST",
-            data: {
-                questionId: $("#questionId").val(),
-                input: $("#answer-input").val()
-            },
-            success: function (data) {
-                if (data.Success) {
-                    $("#question-container").html("<h2> Congratulations! Correct answer! </h2>");
+            data: data,
+            success: success,
+            error: error
+        });
+    };
+
+    var exerciseId = @ViewBag.ExId;
+    var nextQuestionOrder = @(ViewBag.CurrentQuestionOrder);
+    var currentErrors = 0;
+
+    $("#question-container").on("click", "#submit", function () {
+        var data = {
+            questionId: $("#questionId").val(),
+            input: $("#answer-input").val()
+        };
+
+        postRequester("/Exercise/HandleQuestionInput", data, function (data) {
+            if (data.exerciseFinished) {
+                finishExercise();
+            }
+            else if (data.Success) {
+                //TODO return it from the controller
+                $("#question-container").html("@(Html.Partial("_CorrectAnswer"))");
+
+            }
+            else {
+                currentErrors = currentErrors + 1;
+
+                if (currentErrors > @(ViewBag.PassableErrors)) {
+                    failedExercise();
                 }
                 else {
+
                     $("#question-container").html(data.ErrorContent);
+                    $("#current-errors").html(currentErrors);
                 }
-            },
-            error: function (err) {
-                //error
             }
+        }, function (err) {
+            //error
         });
     });
+
+    $("#question-container").on("click", "#next-question", function () {
+
+        nextQuestionOrder = nextQuestionOrder + 1;
+
+        var data = {
+            exId: @(ViewBag.ExId),
+            toSkip: nextQuestionOrder
+        };
+
+        postRequester("/Exercise/GetQuestion", data, function (data) {
+            $("#question-container").html(data);
+            $("#current-question-number").html(nextQuestionOrder + 1);
+        },
+        function (err) {
+            //error
+            console.log(err);
+        });
+    });
+
+    var finishExercise = function() {
+        var data = {
+            exId: @(ViewBag.ExId)
+        };
+        
+        postRequester("/Exercise/FinishExercise", data, function (data) {
+            $("#question-container").html(data);
+        }, function (err) {
+            //error
+            console.log(err);
+        });
+    };
+    var failedExercise = function() {
+        var data = {
+            exId: @(ViewBag.ExId)
+        };
+
+        postRequester("/Exercise/FailedExercise", data, function (data) {
+            $("#question-container").html(data);
+        }, function (err) {
+            //error
+            console.log(err);
+        });
+    };
 </script>

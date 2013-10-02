@@ -264,6 +264,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\Azure_Dragon.jpg" />
     <Content Include="img\dragon-bg.jpg" />
+    <Content Include="img\dragon-cup.jpg" />
+    <Content Include="img\failed.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -426,6 +428,9 @@
     <Content Include="Views\Lesson\Index.cshtml" />
     <Content Include="Views\Exercise\Index.cshtml" />
     <Content Include="Views\Exercise\_Question.cshtml" />
+    <Content Include="Views\Exercise\_CorrectAnswer.cshtml" />
+    <Content Include="Views\Exercise\_FinishExercise.cshtml" />
+    <Content Include="Views\Exercise\_FailedExercise.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
