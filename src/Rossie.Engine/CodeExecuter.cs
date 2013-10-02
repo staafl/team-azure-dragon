@@ -27,6 +27,7 @@ namespace Rossie.Engine
         }
     }
 
+    // http://blog.filipekberg.se/2011/12/08/hosted-execution-of-smaller-code-snippets-with-roslyn/
     public class CodeExecuter
     {
         private static AppDomain CreateSandbox()
@@ -42,37 +43,52 @@ namespace Rossie.Engine
             var setup = new AppDomainSetup { ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) };
             return AppDomain.CreateDomain("Sandbox", null, setup, ps);
         }
-        public object Execute(string code)
+        public object Execute(string code, int timeout = 6000)
         {
+            // sandbox appdomain
             var sandbox = CreateSandbox();
 
-            const string entryPoint =
-                "using System.Reflection; public class EntryPoint { public static object Result {get;set;} public static void Main() { Result = Script.Eval(); } }";
-            var script = "public static object Eval() {" + code + "}";
+            // scaffold code
+             string entryPoint =
+                "using System.Reflection; public class EntryPoint { public static object Result {get;set;} public static void Main() { Result = Eval(); }  public static object Eval() {" + code + "} }";
 
+            string script = "public static object Eval() {" + code + "}";
+            
+            // parse
+            var syntaxTrees = new[] { SyntaxTree.ParseText(entryPoint), 
+                // SyntaxTree.ParseText(script, options: new ParseOptions(kind: SourceCodeKind.Interactive))
+            };
+
+            // add references
             var core = sandbox.Load("System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
             var system = sandbox.Load("System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
 
-            var compilation = Compilation.Create("foo", new CompilationOptions(outputKind: OutputKind.ConsoleApplication,
-                                        usings: new[] { 
-                                    "System", 
+            var references = new[] { 
+                MetadataReference.CreateAssemblyReference(typeof(object).Assembly.FullName),
+                MetadataReference.CreateAssemblyReference(core.FullName), 
+                MetadataReference.CreateAssemblyReference(system.FullName)
+            };
+
+            
+            // compile
+
+            var usings = new[] { "System", 
                                     "System.IO", 
                                     "System.Net", 
                                     "System.Linq", 
                                     "System.Text", 
                                     "System.Text.RegularExpressions", 
-                                    "System.Collections.Generic" }),
-                    new[]
-        {
-            SyntaxTree.ParseText(entryPoint),
-            SyntaxTree.ParseText(script, options: new ParseOptions(kind: SourceCodeKind.Interactive))
-        },
-                    new MetadataReference[] { 
-            MetadataReference.CreateAssemblyReference(typeof(object).Assembly.Location),
-            MetadataReference.CreateAssemblyReference(core.Location), 
-            MetadataReference.CreateAssemblyReference(system.Location)
-        }
-        );
+                                    "System.Collections.Generic" };
+
+            var options = new CompilationOptions(outputKind: OutputKind.ConsoleApplication, usings: usings);
+
+            var compilation = Compilation.Create("foo", options: options,
+                                        syntaxTrees: syntaxTrees,
+                                        references: references);
+
+            var ep = compilation.GetEntryPoint(default(System.Threading.CancellationToken));
+
+            // emit
 
             byte[] compiledAssembly;
             using (var output = new MemoryStream())
@@ -91,8 +107,11 @@ namespace Rossie.Engine
 
             if (compiledAssembly.Length == 0) return "Incorrect data";
 
+            // get proxy loader
             var loader = (ByteCodeLoader)Activator.CreateInstance(sandbox, typeof(ByteCodeLoader).Assembly.FullName, typeof(ByteCodeLoader).FullName).Unwrap();
 
+            // run computation in sandboxed appdomain, on a separate thread
+            Exception hex = null;
             object result = null;
             try
             {
@@ -104,13 +123,14 @@ namespace Rossie.Engine
                     }
                     catch (Exception ex)
                     {
+                        hex = ex;
                         result = ex.Message;
                     }
                 });
 
                 scriptThread.Start();
 
-                if (!scriptThread.Join(6000))
+                if (!scriptThread.Join(timeout))
                 {
                     scriptThread.Abort();
                     AppDomain.Unload(sandbox);
@@ -121,6 +141,7 @@ namespace Rossie.Engine
                 result = ex.ToString();
             }
 
+            // cleanup
             AppDomain.Unload(sandbox);
 
             if (result == null || string.IsNullOrEmpty(result.ToString())) result = "null";
