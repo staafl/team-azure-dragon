@@ -113,8 +113,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                 oldexercise.Name = exercise.Name;
                 oldexercise.Description = exercise.Description;
                 oldexercise.Order = exercise.Order;
-                oldexercise.Lesson = exercise.Lesson;
-                oldexercise.LessonId = exercise.LessonId;
+                oldexercise.LessonId = exercise.Lesson.LessonId;
 
                 db.Exercises.Update(oldexercise);
                 return RedirectToAction("Index");

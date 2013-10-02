@@ -124,8 +124,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             {
                 oldlesson.Name = lesson.Name;
                 oldlesson.Description = lesson.Description;
-                oldlesson.SkillId = lesson.SkillId;
-                oldlesson.Skill = lesson.Skill;
+                oldlesson.SkillId = lesson.Skill.SkillId;
                 db.Lessons.Update(oldlesson);
                 return RedirectToAction("Index");
             }
