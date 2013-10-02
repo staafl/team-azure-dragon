@@ -8,6 +8,8 @@ using Roslyn.Compilers;
 using Roslyn.Compilers.CSharp;
 using System.Security;
 using System.Threading;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Rossie.Engine
 {
@@ -17,13 +19,13 @@ namespace Rossie.Engine
         {
         }
 
-        public object Run(byte[] compiledAssembly)
+        public void Run(byte[] compiledAssembly, out object result, out Exception ex)
         {
             var assembly = Assembly.Load(compiledAssembly);
             assembly.EntryPoint.Invoke(null, new object[] { });
-            var result = assembly.GetType("EntryPoint").GetProperty("Result").GetValue(null, null);
-
-            return result;
+            var type = assembly.GetType("EntryPoint");
+            result = type.GetProperty("Result").GetValue(null, null);
+            ex = (Exception)type.GetProperty("Exception").GetValue(null, null);
         }
     }
 
@@ -43,21 +45,51 @@ namespace Rossie.Engine
             var setup = new AppDomainSetup { ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) };
             return AppDomain.CreateDomain("Sandbox", null, setup, ps);
         }
-        public object Execute(string code, int timeout = 6000)
+        public void Execute(
+            string code,
+            out object result,
+            out Exception exception,
+            out IEnumerable<Diagnostic> compileErrors,
+            out bool timedOut,
+            out bool memoryCapHit,
+            int? timeoutSeconds = 6,
+            int? memoryCapMb = 15)
         {
+            result = null;
+            exception = null;
+            compileErrors = new Diagnostic[0];
+            timedOut = false;
+            memoryCapHit = false;
+
             // sandbox appdomain
             var sandbox = CreateSandbox();
 
             // scaffold code
-             string entryPoint =
-                "using System.Reflection; public class EntryPoint { public static object Result {get;set;} public static void Main() { Result = Eval(); }  public static object Eval() {" + code + "} }";
+            string entryPoint =
+@"using System; 
+public class EntryPoint 
+{ 
+    public static object Result {get;set;} 
+    public static Exception Exception {get;set;} 
 
-            string script = "public static object Eval() {" + code + "}";
-            
+    public static void Main() 
+    {
+        try
+        {
+            Result = Eval(); 
+        }
+        catch (Exception ex)
+        {
+            Exception = ex;
+        }
+    }  
+    public static object Eval() { " + code + @" }
+    
+}";
+
+
             // parse
-            var syntaxTrees = new[] { SyntaxTree.ParseText(entryPoint), 
-                // SyntaxTree.ParseText(script, options: new ParseOptions(kind: SourceCodeKind.Interactive))
-            };
+            var syntaxTrees = new[] { SyntaxTree.ParseText(entryPoint) };
 
             // add references
             var core = sandbox.Load("System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
@@ -69,7 +101,7 @@ namespace Rossie.Engine
                 MetadataReference.CreateAssemblyReference(system.FullName)
             };
 
-            
+
             // compile
 
             var usings = new[] { "System", 
@@ -97,54 +129,83 @@ namespace Rossie.Engine
 
                 if (!emitResult.Success)
                 {
-                    var errors = emitResult.Diagnostics.Select(x => x.Info.GetMessage().Replace("Eval()", "<Factory>()").ToString()).ToArray();
-
-                    return string.Join(", ", errors);
+                    compileErrors = emitResult.Diagnostics;
+                    return;
                 }
 
                 compiledAssembly = output.ToArray();
             }
 
-            if (compiledAssembly.Length == 0) return "Incorrect data";
+            if (compiledAssembly.Length == 0) throw new ApplicationException();
 
             // get proxy loader
             var loader = (ByteCodeLoader)Activator.CreateInstance(sandbox, typeof(ByteCodeLoader).Assembly.FullName, typeof(ByteCodeLoader).FullName).Unwrap();
 
             // run computation in sandboxed appdomain, on a separate thread
-            Exception hex = null;
-            object result = null;
-            try
+            Exception tempException = null;
+            object tempResult = null;
+
+            var scriptThread = new Thread(() =>
             {
-                var scriptThread = new Thread(() =>
-                {
-                    try
-                    {
-                        result = loader.Run(compiledAssembly);
-                    }
-                    catch (Exception ex)
-                    {
-                        hex = ex;
-                        result = ex.Message;
-                    }
-                });
+                loader.Run(compiledAssembly, out tempResult, out tempException);
+            });
 
-                scriptThread.Start();
+            scriptThread.Start();
 
-                if (!scriptThread.Join(timeout))
+            var sw = Stopwatch.StartNew();
+            while (true)
+            {
+                if (scriptThread.Join(1000))
+                    break;
+
+                // todo: check sandbox memory consumption
+
+                if (sw.ElapsedMilliseconds > timeoutSeconds * 1000)
                 {
                     scriptThread.Abort();
-                    AppDomain.Unload(sandbox);
+                    timedOut = true;
                 }
             }
-            catch (Exception ex)
-            {
-                result = ex.ToString();
-            }
+
+            result = tempResult;
+            exception = tempException;
 
             // cleanup
             AppDomain.Unload(sandbox);
 
-            if (result == null || string.IsNullOrEmpty(result.ToString())) result = "null";
+        }
+
+        public object Execute(string code, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+        {
+            object result;
+            Exception exception;
+            IEnumerable<Diagnostic> compileErrors;
+            bool timedOut, memoryCapHit;
+
+            Execute(code, out result, out exception, out compileErrors, out timedOut, out memoryCapHit, timeoutSeconds, memoryCapMb);
+
+            if (compileErrors.Any())
+            {
+                var errors = compileErrors.Select(x => x.Info.GetMessage().Replace("Eval()", "<Factory>()").ToString()).ToArray();
+
+                return string.Join(", ", errors);
+            }
+
+            if (exception != null)
+            {
+                return exception;
+            }
+
+            if (timedOut)
+            {
+                return "Timed out!";
+            }
+
+            if (memoryCapHit)
+            {
+                return "Hit memory limit!";
+            }
+
 
             return result;
         }
