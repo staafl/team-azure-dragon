@@ -81,6 +81,8 @@
                 this.DbSet.Attach(entity);
                 this.DbSet.Remove(entity);
             }
+
+            Context.SaveChanges();
         }
 
         public virtual void Delete(int id)
@@ -91,6 +93,8 @@
             {
                 this.Delete(entity);
             }
+
+            Context.SaveChanges();
         }
 
         public virtual void Detach(T entity)

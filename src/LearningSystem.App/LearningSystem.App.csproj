@@ -221,6 +221,8 @@
     <Compile Include="Areas\Administration\Controllers\LessonController.cs" />
     <Compile Include="Areas\Administration\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Administration\Controllers\SkillController.cs" />
+    <Compile Include="Areas\Administration\Views\Exercise\ViewModels\ExerciseVM.cs" />
+    <Compile Include="Areas\Administration\Views\Exercise\ViewModels\LessonVM.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -287,6 +289,7 @@
     <Content Include="Areas\Administration\Views\Question\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Exercise\EditorTemplates\LessonDropdown.cshtml" />
     <Content Include="Areas\Administration\Views\Question\EditorTemplates\ExerciseDropdown.cshtml" />
+    <Content Include="Areas\Administration\Views\Lesson\EditorTemplates\_LessonTemplate.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

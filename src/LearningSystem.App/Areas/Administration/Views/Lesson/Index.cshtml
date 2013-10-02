@@ -10,7 +10,7 @@
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.SkillId).ClientTemplate("#=Skill.Name#").EditorTemplateName("SkillDropdown");
+            columns.Bound(l => l.Skill).ClientTemplate("#= data.Skill ? data.Skill.Name : '' #").EditorTemplateName("SkillDropdown");
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
             //columns.Bound(l => l.Requirements).ClientTemplate("#=generateRequirementTemplate(Requirements)#");//.EditorTemplateName("RequermentCheckBoxList");
@@ -23,7 +23,7 @@
             }).Title("Commands").Width(350);
         })
     .ToolBar(toolbar => toolbar.Create())
-    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Editable(editable => editable.Mode(GridEditMode.InLine))//.TemplateName("_LessonTemplate"))
     .DataSource(datasource => datasource
         .Ajax()
         .PageSize(5)
