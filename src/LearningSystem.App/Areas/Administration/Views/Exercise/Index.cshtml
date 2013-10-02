@@ -7,10 +7,12 @@
 @using (Html.BeginForm())
 {
     @(Html.Kendo().Grid<LearningSystem.Models.Exercise>()
+    //@(Html.Kendo().Grid<LearningSystem.App.Areas.Administration.Views.ViewModels.ExerciseVM>()
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.LessonId).ClientTemplate("#=Lesson.Name#").EditorTemplateName("LessonDropdown");
+            //columns.Bound(l => l.LessonName).ClientTemplate("#: LessonName #").EditorTemplateName("LessonDropdown");
+            columns.Bound(l => l.Lesson).ClientTemplate("#= data.Lesson ? data.Lesson.Name : ''#").EditorTemplateName("LessonDropdown");
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
             columns.Bound(l => l.Order);
@@ -59,6 +61,7 @@
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         window.location.href = 'Question/Index/' + dataItem.ExerciseId;
     }
+
 </script>
 
 

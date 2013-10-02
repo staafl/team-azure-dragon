@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using TeamAzureDragon.Utils;
 
 namespace LearningSystem.App.AppLogic
 {
     public class TextAnswerHandler : IAnswerHandler
     {
-        // version 0:
+
 
         public bool IgnoreCase { get; set; }
         public bool NormalizeWhiteSpace { get; set; }
@@ -17,7 +18,7 @@ namespace LearningSystem.App.AppLogic
         public AnswerValidationResult ValidateInput(string input)
         {
             if (this.NormalizeWhiteSpace)
-                input = Regex.Replace(input, @"\s+", " ").Trim();
+                input = input.NormalizeWhiteSpace();
 
             if (String.Compare(input, this.Text, this.IgnoreCase) == 0)
                 return new AnswerValidationResult { Success = true };

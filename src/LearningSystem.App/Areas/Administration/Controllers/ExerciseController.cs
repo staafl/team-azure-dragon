@@ -12,6 +12,7 @@ using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using TeamAzureDragon.Utils;
 using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.FakeValidateAntiForgeryTokenAttribute;
+using LearningSystem.App.Areas.Administration.Views.ViewModels;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -30,12 +31,36 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                         .Select(lesson => Misc.SerializeToDictionary(lesson,
                                 path =>
                                 {
+                                    if (path == "Lesson") return RecursiveSerializationOption.Assign;
                                     if (path == "LessonId") return RecursiveSerializationOption.Assign;
                                     if (path == "Name") return RecursiveSerializationOption.Assign;
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
-            
+
             return View(db.Exercises.All("Lesson").ToList());
+
+            //ViewData["lessons"] = db.Lessons.All().Select(l => new LessonVM()
+            //{
+            //    LessonId = l.LessonId,
+            //    Name = l.Name
+            //})
+            //.OrderBy(l => l.LessonId);
+
+
+            //var model = db.Exercises.All("Lesson").Select(e => new ExerciseVM()
+            //{
+            //    Name = e.Name,
+            //    Description = e.Description,
+            //    Order = e.Order,
+            //    Lesson = new LessonVM()
+            //    {
+            //        LessonId = e.LessonId,
+            //        Name = e.Name
+            //    },
+            //    LessonName = e.Lesson.Name
+            //});
+
+            //return View(model.ToList());
         }
 
         // GET: /Administration/Skill/Details/5
@@ -65,6 +90,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     if (path == "Order") return RecursiveSerializationOption.Assign;
                                     if (path == "Lesson") return RecursiveSerializationOption.Recurse;
                                     if (path == "Lesson.Name") return RecursiveSerializationOption.Assign;
+                                    if (path == "Lesson.LessonId") return RecursiveSerializationOption.Assign;
                                     if (path == "LessonId") return RecursiveSerializationOption.Assign;
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
@@ -73,6 +99,19 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             {
                 viewModelExercises[i]["Description"] = viewModelExercises[i]["Description"].ToString().Abbreviate(30);
             }
+
+            //var viewModelExercises = db.Exercises.All("Lesson").ToList().Select(e => new ExerciseVM()
+            //{
+            //    Name = e.Name,
+            //    Description = e.Description.Abbreviate(30),
+            //    Order = e.Order,
+            //    Lesson = new LessonVM()
+            //    {
+            //        LessonId = e.LessonId,
+            //        Name = e.Name
+            //    },
+            //    LessonName = e.Lesson.Name
+            //});
 
             DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
 
@@ -90,6 +129,16 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
+                Lesson lesson;
+                if (exercise.Lesson == null)
+                {
+                    lesson = db.Lessons.GetById(1);
+                }
+                else
+                {
+                    lesson = db.Lessons.GetById(exercise.Lesson.LessonId);
+                }
+                exercise.Lesson.SkillId = lesson.SkillId;
                 db.Exercises.Add(exercise);
                 db.SaveChanges();
                 return RedirectToAction("Index");

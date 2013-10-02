@@ -10,6 +10,7 @@ using System.Security;
 using System.Security.Permissions;
 using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -27,6 +28,10 @@ namespace TeamAzureDragon.Utils
 
     public static class Misc
     {
+        public static string NormalizeWhiteSpace(this string str)
+        {
+            return Regex.Replace(str, @"\s+", " ").Trim();
+        }
         public static AppDomain CreateSandboxAppDomain()
         {
             var e = new Evidence();

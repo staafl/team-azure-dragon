@@ -22,9 +22,10 @@ namespace LearningSystem.Models
         public string Description { get; set; }
 
         [Display(Name = "Skill")]
+        [UIHint("SkillDropdown")]
         public int SkillId { get; set; }
 
-        [UIHint("SkillDropdown")]
+        //[UIHint("SkillDropdown")]
         public virtual Skill Skill { get; set; }
 
         public virtual ICollection<Exercise> Exercises { get; set; }

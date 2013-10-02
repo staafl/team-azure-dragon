@@ -30,6 +30,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                         .Select(skill => Misc.SerializeToDictionary(skill,
                                 path =>
                                 {
+                                    //if (path == "Skill") return RecursiveSerializationOption.Assign;
                                     if (path == "SkillId") return RecursiveSerializationOption.Assign;
                                     if (path == "Name") return RecursiveSerializationOption.Assign;
                                     return RecursiveSerializationOption.Skip;
@@ -73,6 +74,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     if (path == "Name") return RecursiveSerializationOption.Assign;
                                     if (path == "Description") return RecursiveSerializationOption.Assign;
                                     if (path == "Skill") return RecursiveSerializationOption.Recurse;
+                                    if (path == "Skill.SkillId") return RecursiveSerializationOption.Assign;
                                     if (path == "Skill.Name") return RecursiveSerializationOption.Assign;
                                     if (path == "SkillId") return RecursiveSerializationOption.Assign;
                                     //if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;
@@ -81,9 +83,13 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
 
+
             for (int i = 0; i < viewModelLessons.Count(); i++)
             {
-                viewModelLessons[i]["Description"] = viewModelLessons[i]["Description"].ToString().Abbreviate(30);
+                if (viewModelLessons[i]["Description"] != null)
+                {
+                    viewModelLessons[i]["Description"] = viewModelLessons[i]["Description"].ToString().Abbreviate(30);
+                }
             }
 
             DataSourceResult result = viewModelLessons.ToDataSourceResult(request);
@@ -136,7 +142,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Lessons.Delete(lesson);
+                db.Lessons.Delete(lesson.LessonId);
             }
 
             return View(new[] { lesson }.ToDataSourceResult(request, ModelState));

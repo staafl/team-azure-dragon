@@ -48,6 +48,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LearningSystem.App\LearningSystem.App.csproj">
+      <Project>{097d9ff2-6c10-4bda-8fc7-7692e816262c}</Project>
+      <Name>LearningSystem.App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LearningSystem.Data\LearningSystem.Data.csproj">
+      <Project>{b7d009e7-d120-4c19-8a1b-717dae55868b}</Project>
+      <Name>LearningSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LearningSystem.Models\LearningSystem.Models.csproj">
+      <Project>{1a5bab78-e243-455a-ad7c-23caa9d882c5}</Project>
+      <Name>LearningSystem.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rossie.Engine\Rossie.Engine.csproj">
       <Project>{1d5a2399-ebff-41ad-b1a1-38b60ffcd767}</Project>
       <Name>Rossie.Engine</Name>
