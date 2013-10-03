@@ -276,6 +276,7 @@
     <Content Include="img\lesson-completed.gif" />
     <Content Include="img\lesson-not-completed.jpg" />
     <Content Include="img\main-bg-dragon.jpg" />
+    <Content Include="img\padlock.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Administration\Views\web.config">

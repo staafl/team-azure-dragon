@@ -7,6 +7,7 @@
 @Html.ActionLink("back to lessons", "Index", "Skill", new { skillId=ViewBag.SkillId }, new { @class = "btn" })
 
 <h1 class="text-center">@ViewBag.Title</h1>
+<hr />
 
 <section class="text-center">
 
@@ -35,7 +36,7 @@
         {
             <span class="btn excercise btn-warning skill-container" data-toggle="tooltip" data-placement="bottom"
                   title="You must complete the previous lessons first!">
-                <img src="~/img/lock.png" width="110" height="115" alt="Locked" />
+                <img src="~/img/padlock.png" width="110" height="115" alt="Locked" />
                 @Html.DisplayFor(modelitem => item.Name)
             </span>
 
