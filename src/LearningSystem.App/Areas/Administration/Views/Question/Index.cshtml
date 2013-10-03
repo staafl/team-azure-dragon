@@ -10,7 +10,7 @@
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.ExerciseId).ClientTemplate("#=Exercise.Name#").EditorTemplateName("ExerciseDropdown");
+            columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? Exercise.Name : '' #").EditorTemplateName("ExerciseDropdown");
             columns.Bound(l => l.Statement);
             columns.Bound(l => l.Order);
             columns.Bound(l => l.Points);

@@ -12,6 +12,7 @@ using TeamAzureDragon.Utils;
 
 namespace LearningSystem.App.Controllers
 {
+    [Authorize]
     public class SkillController : Controller
     {
         IUoWLearningSystem db;
@@ -33,41 +34,13 @@ namespace LearningSystem.App.Controllers
             if (skill != null && skill.Users.Contains(user))
             {
                 var lessons = skill.Lessons.ToList();
-                HashSet<Lesson> added = new HashSet<Lesson>();
-                var parentlessLessons = lessons.Where(x => x.Requirements.Count == 0).ToList();
+
+               
 
                 learnedLessons = user.Lessons.Where(x => x.SkillId == skill.SkillId && lessons.Any(y => y.LessonId == x.LessonId));
 
-                sortedLessons.AddRange(parentlessLessons.ToLessonViewModel(0));
-                parentlessLessons.ForEach(x => added.Add(x));
 
-                int levelInSkillTree = 1;
-                int notInPlace = lessons.Count - added.Count;
-
-                while (notInPlace > 0)
-                {
-                    foreach (var item in lessons)
-                    {
-                        if (!added.Contains(item))
-                        {
-                            if (item.Requirements.Count == 0 || RequirementsAlreadyAdded(item.Requirements, added))
-                            {
-                                sortedLessons.Add(item.ToLessonViewModel(levelInSkillTree));
-                                added.Add(item);
-                                notInPlace--;
-                            }
-                        }
-                    }
-
-                    if (levelInSkillTree > notInPlace)
-                    {
-                        break;
-                    }
-
-                    levelInSkillTree++;
-                }
-                var left = lessons.Except(added);
-                sortedLessons.AddRange(left.ToLessonViewModel(levelInSkillTree));
+                TopologicalSort(sortedLessons, lessons);
 
             }
             else
@@ -94,6 +67,43 @@ namespace LearningSystem.App.Controllers
             vm.SkillId = skill.SkillId;
             vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree);
             return View(vm);
+        }
+
+        private void TopologicalSort(List<LessonViewModel> sortedLessons, List<Lesson> lessons)
+        {
+            HashSet<Lesson> added = new HashSet<Lesson>();
+            var parentlessLessons = lessons.Where(x => x.Requirements.Count == 0).ToList();
+
+            sortedLessons.AddRange(parentlessLessons.ToLessonViewModel(0));
+            parentlessLessons.ForEach(x => added.Add(x));
+
+            int levelInSkillTree = 1;
+            int notInPlace = lessons.Count - added.Count;
+
+            while (notInPlace > 0)
+            {
+                foreach (var item in lessons)
+                {
+                    if (!added.Contains(item))
+                    {
+                        if (item.Requirements.Count == 0 || RequirementsAlreadyAdded(item.Requirements, added))
+                        {
+                            sortedLessons.Add(item.ToLessonViewModel(levelInSkillTree));
+                            added.Add(item);
+                            notInPlace--;
+                        }
+                    }
+                }
+
+                if (levelInSkillTree > notInPlace)
+                {
+                    break;
+                }
+
+                levelInSkillTree++;
+            }
+            var left = lessons.Except(added);
+            sortedLessons.AddRange(left.ToLessonViewModel(levelInSkillTree));
         }
 
         private bool RequirementsAlreadyAdded(ICollection<Lesson> requirements, HashSet<Lesson> added)
@@ -133,6 +143,27 @@ namespace LearningSystem.App.Controllers
             return PartialView("_SignUpForSkill");
         }
 
+        [Authorize]
+        public ActionResult PreviewSkill(int skillId)
+        {
+            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
+
+            var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
+            List<LessonViewModel> sortedLessons = new List<LessonViewModel>();
+
+            var lessons = skill.Lessons.ToList();
+
+            TopologicalSort(sortedLessons, lessons);
+
+            SkillViewModel vm = new SkillViewModel();
+
+            vm.SkillName = skill.Name;
+            vm.SkillId = skill.SkillId;
+            sortedLessons.ForEach(x => x.IsLearned = false);
+            vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree);
+
+            return View(vm);
+        }
 
     }
 }
