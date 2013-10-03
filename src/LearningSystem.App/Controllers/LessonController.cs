@@ -43,6 +43,8 @@ namespace LearningSystem.App.Controllers
                 exercises.Add(exerciseVM);
             }
 
+            ViewBag.SkillId = db.Lessons.GetById(lessonId).SkillId;
+
             return View(exercises);
         }
 	}

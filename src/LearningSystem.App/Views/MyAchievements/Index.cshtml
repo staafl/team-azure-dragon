@@ -4,31 +4,33 @@
     ViewBag.Title = "My Achievements";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1 class="text-center extra-margin-top">@ViewBag.Title</h1>
 
 @if (Model.Any())
 {
-    <h3>My Skills</h3>
+    <h2 class="text-center">My Skills</h2>
 
     <div class="text-center">
-
         @foreach (var item in Model)
         {
-        <a href="/Skill/Index?skillId=@item.SkillId" title="@item.SkillDescription" class="skill-container btn btn-lg"
-           data-toggle="tooltip" data-placement="bottom">
-            @if (item.CompletePercent == 100)
+            if (item.CompletePercent == 100)
             {
-                <img src="~/img/course-completed.jpg" alt="Not finished" />
+                <a href="/Skill/Index?skillId=@item.SkillId" title="@item.SkillDescription" class="skill-container btn btn-inverse"
+                   data-toggle="tooltip" data-placement="bottom">
+                    <img src="~/img/course-completed.jpg" width="110" height="115" alt="Finished" />
+                    @Html.DisplayFor(modelItem => item.SkillName) -
+                    @item.CompletePercent%
+                </a>
             }
             else
             {
-                <img src="~/img/course-not-finished.jpg" alt="Not finished" />
+                <a href="/Skill/Index?skillId=@item.SkillId" title="@item.SkillDescription" class="skill-container btn btn-info"
+                   data-toggle="tooltip" data-placement="bottom">
+                    <img src="~/img/course-not-finished.jpg" width="110" height="115" alt="Not finished" />
+                    @Html.DisplayFor(modelItem => item.SkillName) -
+                    @item.CompletePercent%
+                </a>
             }
-
-            @Html.DisplayFor(modelItem => item.SkillName) -
-            @item.CompletePercent%
-        </a>
-
         }
 
     </div>

@@ -2,26 +2,38 @@
 
 @{
     ViewBag.Title = Model.SkillName;
+    int currentLevel = 1;
 }
 
-<h2>@Model.SkillName</h2>
+@Html.ActionLink("back to achievements", "Index", "MyAchievements", null, new { @class = "btn" })
+<h1 class="text-center">Lessons</h1>
+
+<h2 class="text-center">@Model.SkillName</h2>
 
 <div class="row-fluid pagination-centered">
     @foreach (var group in Model.Lessons)
     {
+        <hr />
+        <h4>level @(currentLevel++)</h4>
         <div class="row-fluid lesson-row">
 
             @foreach (var item in group)
             {
                 if (item.IsLearned)
                 {
-                    <a class="btn btn-inverse lesson" href="/Lesson?lessonId=@item.Id" data-toggle="tooltip" data-placement="bottom"
-                       title="@item.Description">@item.Name</a>
+                    <a class="btn btn-inverse lesson skill-container" href="/Lesson?lessonId=@item.Id" data-toggle="tooltip" data-placement="bottom"
+                       title="@item.Description">
+                        <img src="~/img/lesson-completed.gif" width="110" height="115" alt="Finished" />
+                        @item.Name - Completed
+                    </a>
                 }
                 else
                 {
-                    <a class="btn btn-info lesson" href="/Lesson?lessonId=@item.Id" data-toggle="tooltip" data-placement="bottom"
-                       title="@item.Description">@item.Name</a>
+                    <a class="btn btn-info lesson skill-container" href="/Lesson?lessonId=@item.Id" data-toggle="tooltip" data-placement="bottom"
+                       title="@item.Description">
+                        <img src="~/img/lesson-not-completed.jpg" width="110" height="115" alt="Not finished" />
+                        @item.Name
+                    </a>
                 }
             }
 

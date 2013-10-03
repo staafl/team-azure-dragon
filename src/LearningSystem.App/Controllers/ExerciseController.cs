@@ -55,6 +55,7 @@ namespace LearningSystem.App.Controllers
             var handler = AnswerHandlerFactory.GetHandler(question.AnswerType, question.AnswerContent);
             question.InputHtml = handler.RenderInputHtml();
 
+            ViewBag.LessonId = Db.Exercises.GetById(exId).LessonId;
             ViewBag.CurrentQuestionOrder = 0;
             ViewBag.ExId = exId;
             ViewBag.QuestionsCount = this.CountQuestions(exId);

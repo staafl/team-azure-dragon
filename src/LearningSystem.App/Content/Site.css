@@ -12,6 +12,11 @@
     padding: 10px;
 }
 
+.extra-margin-top {
+    margin-top: 45px;
+}
+
+
 /* styles for validation helpers */
 .field-validation-error {
     color: #b94a48;

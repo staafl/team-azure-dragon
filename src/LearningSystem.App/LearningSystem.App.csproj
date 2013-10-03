@@ -268,9 +268,13 @@
     <Content Include="img\course-not-finished.jpg" />
     <Content Include="img\dragon-bg.jpg" />
     <Content Include="img\dragon-cup.jpg" />
+    <Content Include="img\exercise-completed.png" />
+    <Content Include="img\exercise-not-completed.png" />
     <Content Include="img\failed.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\lesson-completed.gif" />
+    <Content Include="img\lesson-not-completed.jpg" />
     <Content Include="img\main-bg-dragon.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
