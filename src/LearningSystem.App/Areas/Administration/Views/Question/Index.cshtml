@@ -4,17 +4,21 @@
 
 <h2>Question</h2>
 
+
+@* to change to inline template with editor template must move EnumerationDropdown and ExerciseDropdown to EditorTemplate folder and remove commentars*@
 @using (Html.BeginForm())
 {
     @(Html.Kendo().Grid<LearningSystem.Models.Question>()
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? data.Exercise.Name : '' #").EditorTemplateName("ExerciseDropdown");
+            columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? data.Exercise.Name : '' #");
+            //columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? data.Exercise.Name : '' #").EditorTemplateName("ExerciseDropdown");
             columns.Bound(l => l.Statement);
-            columns.Bound(l => l.Order).EditorTemplateName("_intTextEditorTemplate"); ;
-            columns.Bound(l => l.Points).EditorTemplateName("_intTextEditorTemplate"); ;
-            columns.Bound(l => l.AnswerType)/*.ClientTemplate("#= AnswerType.ToString() #");*/.EditorTemplateName("EnumerationDropdown");
+            columns.Bound(l => l.Order);//.EditorTemplateName("_intTextEditorTemplate"); ;
+            columns.Bound(l => l.Points);//.EditorTemplateName("_intTextEditorTemplate"); ;
+            columns.Bound(l => l.AnswerType);
+            //columns.Bound(l => l.AnswerType);/*.ClientTemplate("#= AnswerType.ToString() #");*/.EditorTemplateName("EnumerationDropdown");
             columns.Bound(l => l.AnswerContent);
             columns.Bound(l => l.AnswerContentVersion).EditorTemplateName("_intTextEditorTemplate"); ;
             columns.Command(commands =>
@@ -25,7 +29,11 @@
             }).Title("Commands").Width(350);
         })
     .ToolBar(toolbar => toolbar.Create())
-    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Editable(editable => editable.Mode(GridEditMode.PopUp)
+        .TemplateName("EditCreateQuestion")
+        .Window(w => w.Title("Create/Edit Question").HtmlAttributes(new { id = "proba", style = "width: 500px;" })))
+    .Events(ev => ev.Edit("setPopupPadding"))
+    //.Editable(editable => editable.Mode(GridEditMode.Inline))
     .DataSource(datasource => datasource
         .Ajax()
         .PageSize(5)
@@ -56,6 +64,11 @@
         var url = '@Url.Action("Details", "Question", new { id = "_id" })';
         window.location.href = url.replace('_id', dataItem.QuestionId);
     }
+
+    function setPopupPadding(ev) {
+        $(".k-edit-form-container").parent().css('padding-right',"40px").data("kendoWindow").center();
+    }
+
 </script>
 
 
