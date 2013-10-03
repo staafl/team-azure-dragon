@@ -37,14 +37,14 @@ namespace LearningSystem.App.AppLogic
             if (version == 0)
             {
                 var match = Regex.Match(answerContent,
-                    @"^(?ix)0;(Expression|WholeProgram|Class|Method);(true|false);(?<tests>[^~]+~)+");
+                    @"^(?ix)0;(?<template>Expression|WholeProgram|Class|Method);(?<normalize>true|false);(?<tests>[^~]+~)+$");
 
                 if (!match.Success)
-                    throw new ApplicationException("failed to match");
+                    throw new ArgumentException("failed to match");
 
-                var template = (CSharpCodeTemplate)Enum.Parse(typeof(CSharpCodeTemplate), match.Groups[0].Value);
-                var normalize = bool.Parse(match.Groups[1].Value);
-                var tests = match.Groups["tests"].Captures.Cast<Capture>().Select(c => c.Value);
+                var template = (CSharpCodeTemplate)Enum.Parse(typeof(CSharpCodeTemplate), match.Groups["template"].Value);
+                var normalize = bool.Parse(match.Groups["normalize"].Value);
+                var tests = match.Groups["tests"].Captures.Cast<Capture>().Select(c => c.Value.Substring(0, c.Value.Length - 1));
 
                 return new CSharpAnswerHandler
                 {
@@ -53,13 +53,38 @@ namespace LearningSystem.App.AppLogic
                     Tests = tests
                 };
             }
-            throw new ApplicationException();
+
+            throw new ArgumentException("version");
         }
 
 
         static IAnswerHandler GetTextAnswerHandler(string data, int version = 0)
         {
-            return new TextAnswerHandler { Text = data, IgnoreCase = true, NormalizeWhiteSpace = true };
+            bool ignoreCase;
+            bool normalize;
+            string text;
+            if (version == 0)
+            {
+                ignoreCase = true;
+                normalize = true;
+                text = data;
+            }
+            else if (version == 1)
+            {
+                var match = Regex.Match(data, @"(?ix)^1;(?<ignore>true|false);(?<normalize>true|false);(?<text>.*?);?$");
+
+                if (!match.Success)
+                    throw new ArgumentException("failed to match");
+
+                ignoreCase = bool.Parse(match.Groups["ignore"].Value);
+                normalize = bool.Parse(match.Groups["normalize"].Value);
+                text = match.Groups["text"].Value;
+            }
+            else
+            {
+                throw new ArgumentException("version");
+            }
+            return new TextAnswerHandler { Text = text, IgnoreCase = ignoreCase, NormalizeWhiteSpace = normalize };
         }
 
     }

@@ -16,7 +16,19 @@ namespace LearningSystem.App.AppLogic
 
         public AnswerValidationResult ValidateInput(string input)
         {
-            throw new NotImplementedException();
+            var executer = new Rossie.Engine.CodeExecuter();
+
+            bool ranOk;
+            var result = executer.Execute(input, out ranOk, this.CodeTemplate);
+            if (ranOk)
+            {
+                if (result == null || result.ToString() != Tests.FirstOrDefault())
+                    return new AnswerValidationResult { Success = false, ErrorContent = "Wrong answer!" };
+
+                return new AnswerValidationResult { Success = true };
+            }
+            else
+                return new AnswerValidationResult { Success = false, ErrorContent = result + "" };
         }
 
         public string RenderInputHtml()

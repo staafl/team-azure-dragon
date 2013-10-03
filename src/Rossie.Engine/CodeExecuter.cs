@@ -255,12 +255,21 @@ public class EntryPoint
 
         public object Execute(string code, CSharpCodeTemplate template = CSharpCodeTemplate.Expression, int? timeoutSeconds = 6, int? memoryCapMb = 15)
         {
+            bool success;
+            return Execute(code, out success, template, timeoutSeconds, memoryCapMb);
+        }
+
+        public object Execute(string code, out bool success, CSharpCodeTemplate template = CSharpCodeTemplate.Expression, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+
+        {
             object result;
             Exception exception;
             IEnumerable<Diagnostic> compileErrors;
             bool timedOut, memoryCapHit;
 
             Execute(code, out result, out exception, out compileErrors, out timedOut, out memoryCapHit, template, timeoutSeconds, memoryCapMb);
+
+            success = false;
 
             if (compileErrors.Any())
             {
@@ -284,6 +293,7 @@ public class EntryPoint
                 return "Program hit memory limit!";
             }
 
+            success = true;
 
             return result;
         }

@@ -18,12 +18,12 @@ namespace TeamAzureDragon.Scratch
 
             //var dict = Misc.SerializeToDictionary(obj);
 
-            var executer = new Rossie.Engine.CodeExecuter();
-            Console.WriteLine(executer.Execute("1 + 2", CSharpCodeTemplate.Expression));
+            //var executer = new Rossie.Engine.CodeExecuter();
+            //Console.WriteLine(executer.Execute("1 + 2", CSharpCodeTemplate.Expression));
 
-            // var handler = AnswerHandlerFactory.GetHandler(AnswerType.CSharpCode, @"0;Expression;true;3~3~", 0);
+            var handler = AnswerHandlerFactory.GetHandler(AnswerType.CSharpCode, @"0;Expression;true;3~3~", 0);
 
-            // Console.WriteLine(handler.ValidateInput("return 1 + 1"));
+            Console.WriteLine(handler.ValidateInput("1 + 2"));
         }
 
 
