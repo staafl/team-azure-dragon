@@ -52,14 +52,16 @@
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Exercise/Details/' + dataItem.ExerciseId;
+        var url = '@Url.Action("Details", "Exercise", new { id = "_id" })';
+        window.location.href = url.replace('_id', dataItem.ExerciseId);
     }
 
     function showQuestions(e) {
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Question/Index/' + dataItem.ExerciseId;
+        var url = '@Url.Action("Index", "Question", new { id = "_id" })';
+        window.location.href = url.replace('_id', dataItem.ExerciseId);
     }
 
 </script>

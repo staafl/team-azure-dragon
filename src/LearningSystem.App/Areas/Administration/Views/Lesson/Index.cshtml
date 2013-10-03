@@ -52,14 +52,16 @@
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Lesson/Details/' + dataItem.LessonId;
+        var url = '@Url.Action("Details", "Lesson", new { id = "_id" })';
+        window.location.href = url.replace('_id', dataItem.LessonId);
     }
 
     function showExercises(e) {
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Exercise/Index/' + dataItem.LessonId;
+        var url = '@Url.Action("Index", "Exercise", new { id = "_id" })';
+        window.location.href = url.replace('_id', dataItem.LessonId);
     }
 
     function generateRequirementTemplate(data) {

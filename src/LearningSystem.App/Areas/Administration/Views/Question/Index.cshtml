@@ -52,7 +52,9 @@
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Question/Details/' + dataItem.QuestionId;
+
+        var url = '@Url.Action("Details", "Question", new { id = "_id" })';
+        window.location.href = url.replace('_id', dataItem.QuestionId);
     }
 </script>
 
