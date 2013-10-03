@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using Rossie.Engine;
 namespace LearningSystem.App.AppLogic
 {
-    public enum CSharpCodeTemplate
-    {
-        Expression,
-        WholeProgram,
-        Class,
-        Method
-    }
     public class CSharpAnswerHandler : IAnswerHandler
     {
         public CSharpCodeTemplate CodeTemplate { get; set; }

@@ -80,11 +80,11 @@ namespace LearningSystem.App.Controllers
 
         public ActionResult FinishExercise(int exId)
         {
-            var exercise = Db.Exercises.GetById(exId);
+            //var exercise = Db.Exercises.GetById(exId);
 
-            var user = Db.Users.All().SingleOrDefault(u => u.UserName == User.Identity.Name);
-            exercise.Users.Add(user);
-            Db.SaveChanges();
+            //var user = Db.Users.All().SingleOrDefault(u => u.UserName == User.Identity.Name);
+            //exercise.Users.Add(user);
+            //Db.SaveChanges();
 
             ViewBag.ExId = exId;
 
@@ -123,6 +123,8 @@ namespace LearningSystem.App.Controllers
              *  success (bool),
              *  errorContent (string),
              *  exerciseFinished (bool)
+             *  lessonFinished (bool),
+             *  skillFinished (bool)
              *  }
              */
 
@@ -131,13 +133,25 @@ namespace LearningSystem.App.Controllers
                 var exercise = question.Exercise;
                 if (question.Order == exercise.Questions.Max(q => q.Order))
                 {
+                    var user = this.GetCurrentUser();
+
                     dict["exerciseFinished"] = true;
+                    user.Exercises.Add(exercise);
+
+                    var lesson = exercise.Lesson;
+                    if (exercise.Order == lesson.Exercises.Max(e => e.Order))
+                    {
+                        dict["lessonFinished"] = true;
+                        user.Lessons.Add(lesson);
+                        if (!lesson.Skill.Lessons.Select(l => l.LessonId).Except(user.Lessons.Select(l => l.LessonId)).Any())
+                        {
+
+                        }
+                    }
                 }
-                var user = this.GetCurrentUser();
-                user.Exercises.Add(exercise);
             }
 
             return new JsonResult { Data = dict };
         }
-	}
+    }
 }
