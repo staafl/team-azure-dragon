@@ -1,10 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Home Page";  
+    ViewBag.Title = "Home Page";
 }
 
 <div class="upload-skill">
     @(Html.Kendo().Upload()
-    .Name("skills-uploader")
-    .Async(async => async.Save("SaveSkill", "Home"))
+    .Name("attachments")
+    .Events(x => x.Upload("onUpload"))
+    .Async(async => async.Save("SaveSkill", "Upload"))
     )
 </div>
+
+<script>
+    function onUpload(e) {
+        var files = e.files;
+        $.each(files, function () {
+            if (this.extension.toLowerCase() != ".zip") {
+                alert("Only .zip files can be uploaded");
+                e.preventDefault();
+            }
+        });
+    }
+</script>
