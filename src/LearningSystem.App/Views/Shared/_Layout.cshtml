@@ -14,10 +14,10 @@
     <div class="navbar navbar-inverse navbar-fixed-top ">
         <div class="navbar-inner">
             <div class="container">
-                @Html.ActionLink("Learning System", "Index", "Splash", null, new { @class = "brand" })
+                @Html.ActionLink("Learning System", "Index", "Splash", new { area = "" }, new { @class = "brand" })
 
                 <ul class="nav nav-collapse">
-                    <li>@Html.ActionLink("Search", "Search", "Home")</li>
+                    <li>@Html.ActionLink("Search", "Search", "Home", new { area = "" }, null)</li>
                     @if (User.IsInRole("admin"))
                     {
                         <li class="dropdown">
@@ -31,7 +31,7 @@
                             </ul>
                         </li>
                     }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null )</li>
                 </ul>
                 @RenderSection("loginSubmenu", required: false)
                 @Html.Partial("_LoginPartial")
