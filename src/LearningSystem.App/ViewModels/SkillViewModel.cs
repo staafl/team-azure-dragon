@@ -12,5 +12,7 @@ namespace LearningSystem.App.ViewModels
         public string SkillName { get; set; }
         public string SkillDescription { get; set; }
         public bool OwnedByUser { get; set; }
+
+        public int? CompletePercent { get; set; }
     }
 }

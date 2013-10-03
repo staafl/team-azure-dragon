@@ -148,6 +148,8 @@ namespace LearningSystem.App.Controllers
                             dict["skillFinished"] = true;
                         }
                     }
+
+                    Db.SaveChanges();
                 }
             }
 

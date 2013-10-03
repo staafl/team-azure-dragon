@@ -8,32 +8,30 @@
 
 @if (Model.Any())
 {
-    <h3>Skills you've completed</h3>
-    <table class="table" id="learned-skills">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SkillName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SkillDescription)
-        </th>
-        <th></th>
-    </tr>
+    <h3>My Skills</h3>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <a href="/Skill/Index?skillId=@item.SkillId" title="Click here to see more info for this skill" class="btn" >
-                @Html.DisplayFor(modelItem => item.SkillName)
-            </a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SkillDescription)
-        </td>
-    </tr>
-}
+    <div class="text-center">
 
-</table>
+        @foreach (var item in Model)
+        {
+        <a href="/Skill/Index?skillId=@item.SkillId" title="@item.SkillDescription" class="skill-container btn btn-lg"
+           data-toggle="tooltip" data-placement="bottom">
+            @if (item.CompletePercent == 100)
+            {
+                <img src="~/img/course-completed.jpg" alt="Not finished" />
+            }
+            else
+            {
+                <img src="~/img/course-not-finished.jpg" alt="Not finished" />
+            }
+
+            @Html.DisplayFor(modelItem => item.SkillName) -
+            @item.CompletePercent%
+        </a>
+
+        }
+
+    </div>
 }
 else
 {
@@ -41,15 +39,9 @@ else
 }
 
 
-@(Html.Kendo().Tooltip()
-        .For("#learned-skills")
-        .Filter("a")
-        .Position(TooltipPosition.Right)
-        .Width(300)
-)
-
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
-        $("#agglomerations").data("kendoTooltip");
+        $(".skill-container").tooltip();
     });
+
 </script>

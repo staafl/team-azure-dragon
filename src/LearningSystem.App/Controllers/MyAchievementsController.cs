@@ -23,15 +23,18 @@ namespace LearningSystem.App.Controllers
         {
             //get skills of the logged user
             //TODO: fix n+1
-            var currentSkills = db.Skills.All("Users").Where(s => s.Users.Any(u => u.UserName == User.Identity.Name))
+            var currentSkills = db.Skills.All("Users", "Lessons").Where(s => s.Users.Any(u => u.UserName == User.Identity.Name))
                 .Select(s => new SkillViewModel
                 {
                     SkillId = s.SkillId,
                     SkillName = s.Name,
-                    SkillDescription = s.Description
+                    SkillDescription = s.Description,
+                    CompletePercent =
+                        (int)((double)s.Lessons.Where(l => l.Users.Any(u => u.UserName == User.Identity.Name)).Count() /
+                        s.Lessons.Count() * 100)
                 });
 
             return View(currentSkills);
         }
-	}
+    }
 }

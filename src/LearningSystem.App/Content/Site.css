@@ -1,6 +1,15 @@
 ﻿body {
     padding-top: 60px;
     padding-bottom: 40px;
+    background-image: url("../img/main-bg-dragon.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+.main-container {
+    background-color: rgba(255, 255, 224, 0.8);
+    border-radius: 5px;
+    padding: 10px;
 }
 
 /* styles for validation helpers */
@@ -94,6 +103,29 @@ input[type="checkbox"].input-validation-error {
 }
 
 /* Splash page end*/
+
+/* Skills/Achievements page beginning */
+.skill-container {
+    padding: 10px;
+    margin: 20px;
+
+    color: black;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.skill-container:hover {
+    border-color: burlywood;
+}
+
+.skill-container img {
+    border-radius: 5px;
+}
+
+.skill-container:hover {
+    text-decoration: none;
+}
+/* Skills/Achievements page end */
 
 /* Questions page beginning */
 #question-count, #wrong-questions {

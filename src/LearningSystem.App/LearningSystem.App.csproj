@@ -221,6 +221,7 @@
     <Compile Include="Areas\Administration\Controllers\LessonController.cs" />
     <Compile Include="Areas\Administration\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Administration\Controllers\SkillController.cs" />
+    <Compile Include="Areas\Administration\Controllers\UploadController.cs" />
     <Compile Include="Areas\Administration\Views\Exercise\ViewModels\ExerciseVM.cs" />
     <Compile Include="Areas\Administration\Views\Exercise\ViewModels\LessonVM.cs" />
     <Compile Include="Controllers\ApiController.cs" />
@@ -263,11 +264,14 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\Azure_Dragon.jpg" />
+    <Content Include="img\course-completed.jpg" />
+    <Content Include="img\course-not-finished.jpg" />
     <Content Include="img\dragon-bg.jpg" />
     <Content Include="img\dragon-cup.jpg" />
     <Content Include="img\failed.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\main-bg-dragon.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Administration\Views\web.config">
@@ -411,7 +415,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Upload\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />

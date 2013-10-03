@@ -313,7 +313,7 @@ namespace LearningSystem.App.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Splash");
         }
 
         //
