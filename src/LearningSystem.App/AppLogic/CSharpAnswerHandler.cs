@@ -35,7 +35,7 @@ namespace LearningSystem.App.AppLogic
         {
             // todo: duplication
             return
-@"<input type='text' name='answer-input' class='answer-input-textfield input-code' />";
+@"<input type='text' id='answer-input' name='answer-input' class='answer-input-textfield input-code' />";
         }
     }
 }

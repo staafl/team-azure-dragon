@@ -145,7 +145,7 @@ namespace LearningSystem.App.Controllers
                         user.Lessons.Add(lesson);
                         if (!lesson.Skill.Lessons.Select(l => l.LessonId).Except(user.Lessons.Select(l => l.LessonId)).Any())
                         {
-
+                            dict["skillFinished"] = true;
                         }
                     }
                 }
