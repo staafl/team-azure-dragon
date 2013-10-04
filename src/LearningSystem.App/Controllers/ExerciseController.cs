@@ -49,17 +49,24 @@ namespace LearningSystem.App.Controllers
 
             if (question == null)
             {
-                return HttpNotFound();
+                throw new ArgumentNullException("This exercise has no questions yet!");
             }
 
             var handler = AnswerHandlerFactory.GetHandler(question.AnswerType, question.AnswerContent);
             question.InputHtml = handler.RenderInputHtml();
 
+            ViewBag.LessonId = Db.Exercises.GetById(exId).LessonId;
             ViewBag.CurrentQuestionOrder = 0;
             ViewBag.ExId = exId;
-            ViewBag.QuestionsCount = this.CountQuestions(exId);
-            //TODO implement passable errors logic in database
-            ViewBag.PassableErrors = 0;
+            var questionsCount = this.CountQuestions(exId);
+            ViewBag.QuestionsCount = questionsCount;
+
+            var passableErrors = questionsCount / 4;
+            if (passableErrors == 0)
+	        {
+		        passableErrors = 1;
+	        }
+            ViewBag.PassableErrors = passableErrors;
             return View(question);
         }
 

@@ -4,64 +4,45 @@
     ViewBag.Title = "Excersices";
 }
 
-<h2>@ViewBag.Title</h2>
+@Html.ActionLink("back to lessons", "Index", "Skill", new { skillId=ViewBag.SkillId }, new { @class = "btn" })
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>Status</th>
-    </tr>
+<h1 class="text-center">@ViewBag.Title</h1>
+<hr />
+
+<section class="text-center">
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @if (item.IsAvailable)
-                {
-                    <a href="/Exercise/Index?exId=@item.ExerciseId" class="btn excercise btn-inverse" data-toggle="tooltip" data-placement="bottom"
-                       title="@item.Description">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </a>
-                }
-                else
-                {
-                    <span class="btn excercise btn-inverse" data-toggle="tooltip" data-placement="bottom"
-                          title="You must complete the previous lessons first!">
-                        @Html.DisplayFor(modelitem => item.Name)
-                    </span>
+        if (item.IsAvailable)
+        {
+            if (item.IsCompleted)
+            {
+                <a href="/Exercise/Index?exId=@item.ExerciseId" class="btn excercise btn-inverse skill-container" data-toggle="tooltip" data-placement="bottom"
+                   title="@item.Description">
+                    <img src="~/img/exercise-completed.png" width="110" height="115" alt="Completed" />
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            }
+            else
+            {
+                <a href="/Exercise/Index?exId=@item.ExerciseId" class="btn excercise btn-info skill-container" data-toggle="tooltip" data-placement="bottom"
+                   title="@item.Description">
+                    <img src="~/img/exercise-not-completed.png" width="110" height="115" alt="Not completed" />
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            }
+        }
+        else
+        {
+            <span class="btn excercise btn-warning skill-container" data-toggle="tooltip" data-placement="bottom"
+                  title="You must complete the previous lessons first!">
+                <img src="~/img/padlock.png" width="110" height="115" alt="Locked" />
+                @Html.DisplayFor(modelitem => item.Name)
+            </span>
 
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @if (item.IsAvailable)
-                {
-                    if (item.IsCompleted)
-                    {
-                        <p>This lesson is completed!</p>
-                    }
-                    else
-                    {
-                        <p>Not completed yet!</p>
-                    }
-                }
-                else
-                {
-                    <p>You must complete the previous lessons first!</p>
-                }
-
-            </td>
-        </tr>
+        }
     }
-
-</table>
+</section>
 
 <script>
     $(document).ready(function () {

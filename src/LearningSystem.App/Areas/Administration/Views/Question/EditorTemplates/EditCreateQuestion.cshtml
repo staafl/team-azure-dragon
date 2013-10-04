@@ -1,0 +1,63 @@
+﻿@model LearningSystem.Models.Question
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset class="form-horizontal">
+        <legend>Question</legend>
+
+        @Html.HiddenFor(model => model.QuestionId)
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.ExerciseId, "Exercise", new { @class = "control-label" })
+            <div class="controls">
+                @Html.Partial("ExerciseDropdown")
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Statement, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Statement)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Order, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Order, null, new { @class = "k-input k-textbox", style = "width:70px" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Points, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Points)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.AnswerType, new { @class = "control-label" })
+            <div class="controls">
+                @Html.Partial("EnumerationDropdown")
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.AnswerContent, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.AnswerContent)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.AnswerContentVersion, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.AnswerContentVersion)
+            </div>
+        </div>
+    </fieldset>
+}
+
+

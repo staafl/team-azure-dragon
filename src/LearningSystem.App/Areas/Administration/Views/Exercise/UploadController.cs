@@ -31,12 +31,12 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             return View();
         }
 
-        public ActionResult SaveSkill()
+        [HttpPost]
+        public ActionResult SaveSkill(HttpPostedFileBase attachments)
         {
-            Response.Expires = -1;
-            HttpPostedFileBase file = Request.Files["skills-uploader"];
+            //Response.Expires = -1;
 
-            ZipFile zipFile = ZipFile.Read(file.InputStream);
+            ZipFile zipFile = ZipFile.Read(attachments.InputStream);
             StringBuilder zipContent = new StringBuilder();
 
 

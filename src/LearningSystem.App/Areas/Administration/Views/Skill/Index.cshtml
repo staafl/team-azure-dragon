@@ -51,14 +51,16 @@
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Skill/Details/' + dataItem.SkillId;
+        var url = '@Url.Action("Details", "Skill", new { id = "_id" })';
+        window.location.href = url.replace('_id', dataItem.SkillId);
     }
 
     function showLessons(e) {
         e.preventDefault();
 
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href = 'Lesson/Index/' + dataItem.SkillId;
+        var url = '@Url.Action("Index", "Lesson", new { id = "_id" })';
+        window.location.href = url.replace('_id', dataItem.SkillId);
     }
 </script>
 

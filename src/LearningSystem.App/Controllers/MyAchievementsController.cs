@@ -32,7 +32,8 @@ namespace LearningSystem.App.Controllers
                     CompletePercent =
                         (int)((double)s.Lessons.Where(l => l.Users.Any(u => u.UserName == User.Identity.Name)).Count() /
                         s.Lessons.Count() * 100)
-                });
+                })
+                .OrderByDescending(sel => sel.CompletePercent);
 
             return View(currentSkills);
         }
