@@ -68,7 +68,7 @@ namespace LearningSystem.App.Controllers
             return View(vm);
         }
 
-        private void TopologicalSort(List<LessonViewModel> sortedLessons, List<Lesson> lessons)
+        public void TopologicalSort(List<LessonViewModel> sortedLessons, List<Lesson> lessons)
         {
             Dictionary<Lesson, int> added = new Dictionary<Lesson, int>();
             var parentlessLessons = lessons.Where(x => x.Requirements.Count == 0).ToList();
@@ -76,7 +76,6 @@ namespace LearningSystem.App.Controllers
             sortedLessons.AddRange(parentlessLessons.ToLessonViewModel(0));
             parentlessLessons.ForEach(x => added.Add(x, 0));
 
-            int levelInSkillTree = 1;
             int notInPlace = lessons.Count - added.Count;
 
             while (notInPlace > 0)
@@ -91,13 +90,6 @@ namespace LearningSystem.App.Controllers
                         notInPlace--;
                     }
                 }
-
-                if (levelInSkillTree > notInPlace)
-                {
-                    break;
-                }
-
-                levelInSkillTree++;
             }
         }
 
