@@ -19,7 +19,7 @@
             {
                 commands.Edit();
                 commands.Destroy();
-                commands.Custom("ViewDetails").Click("showDetails");
+                commands.Custom("View Details").Click("showDetails");
                 commands.Custom("Exercises").Click("showExercises");
             }).Title("Commands").Width(350);
         })
@@ -34,7 +34,7 @@
             model.Field(lesson => lesson.LessonId).Editable(false);
             //model.Field(lesson => lesson.Requirements).Editable(false);
         })
-        .ServerOperation(false)
+        .ServerOperation(false) // TODO: ???
         .Read(read => read.Action("Read", "Lesson"))
         .Create(create => create.Action("Create", "Lesson"))
         .Update(update => update.Action("Edit", "Lesson"))
@@ -66,7 +66,7 @@
 
     function generateRequirementTemplate(data) {
         var template = "";
-        if (data != null) {
+        if (data) {
             for (var i = 0; i < data.length; i++) {
                 template = template + data[i].Name + "<br />";
             }

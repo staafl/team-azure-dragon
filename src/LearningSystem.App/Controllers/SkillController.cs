@@ -35,7 +35,6 @@ namespace LearningSystem.App.Controllers
             {
                 var lessons = skill.Lessons.ToList();
 
-               
 
                 learnedLessons = user.Lessons.Where(x => x.SkillId == skill.SkillId && lessons.Any(y => y.LessonId == x.LessonId));
 
@@ -71,11 +70,11 @@ namespace LearningSystem.App.Controllers
 
         private void TopologicalSort(List<LessonViewModel> sortedLessons, List<Lesson> lessons)
         {
-            HashSet<Lesson> added = new HashSet<Lesson>();
+            Dictionary<Lesson, int> added = new Dictionary<Lesson, int>();
             var parentlessLessons = lessons.Where(x => x.Requirements.Count == 0).ToList();
 
             sortedLessons.AddRange(parentlessLessons.ToLessonViewModel(0));
-            parentlessLessons.ForEach(x => added.Add(x));
+            parentlessLessons.ForEach(x => added.Add(x, 0));
 
             int levelInSkillTree = 1;
             int notInPlace = lessons.Count - added.Count;
@@ -84,40 +83,24 @@ namespace LearningSystem.App.Controllers
             {
                 foreach (var item in lessons)
                 {
-                    if (!added.Contains(item))
+                    if (!added.ContainsKey(item) && item.Requirements.All(added.ContainsKey))
                     {
-                        if (item.Requirements.Count == 0 || RequirementsAlreadyAdded(item.Requirements, added))
-                        {
-                            sortedLessons.Add(item.ToLessonViewModel(levelInSkillTree));
-                            added.Add(item);
-                            notInPlace--;
-                        }
+                        int thisLevel = 1 + item.Requirements.Max(req => added[req]);
+                        added[item] = thisLevel;
+                        sortedLessons.Add(item.ToLessonViewModel(thisLevel));
+                        notInPlace--;
                     }
                 }
 
                 if (levelInSkillTree > notInPlace)
                 {
-                    levelInSkillTree++;
                     break;
                 }
 
                 levelInSkillTree++;
             }
-            var left = lessons.Except(added);
-            sortedLessons.AddRange(left.ToLessonViewModel(levelInSkillTree));
         }
 
-        private bool RequirementsAlreadyAdded(ICollection<Lesson> requirements, HashSet<Lesson> added)
-        {
-            foreach (var item in requirements)
-            {
-                if (!added.Contains(item))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
 
         [Authorize]
         public ActionResult SignUpForSkill(int skillId)
