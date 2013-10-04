@@ -20,6 +20,7 @@ namespace TeamAzureDragon.Utils
     public enum RecursiveSerializationOption
     {
         Recurse,
+        Flatten,
         Assign,
         ForeachAssign,
         ForeachRecurse,
@@ -103,9 +104,10 @@ namespace TeamAzureDragon.Utils
         public static Dictionary<string, object> SerializeToDictionary(object from,
             Func<string, RecursiveSerializationOption> customHandler = null,
             Func<string, string, string> keyGetter = null,
-            string basePath = "")
+            string basePath = "",
+            Dictionary<string, object>  baseDict = null)
         {
-            var dict = new Dictionary<string, object>();
+            var dict = baseDict ?? new Dictionary<string, object>();
 
             const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
 
@@ -172,6 +174,11 @@ namespace TeamAzureDragon.Utils
                     continue;
                 }
 
+                if (result == RecursiveSerializationOption.Flatten)
+                {
+                    SerializeToDictionary(value, customHandler, keyGetter, path, dict);
+                    continue;
+                }
                 throw new ApplicationException();
             }
             //if (typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
