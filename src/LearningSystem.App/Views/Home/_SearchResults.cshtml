@@ -2,7 +2,7 @@
 
 @foreach (var item in Model)
 {
-    <h4>
+    <div class="search-skill-holder">
         @if (!item.OwnedByUser)
         {
             @*@Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
@@ -30,12 +30,5 @@
             </span>
         }
 
-    </h4>
+    </div>
 }
-
-<script>
-    $(document).ready(function () {
-        $(".skill-label").tooltip();
-    });
-
-</script>

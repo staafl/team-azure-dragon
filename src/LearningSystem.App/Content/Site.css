@@ -2,7 +2,7 @@
     padding-top: 60px;
     padding-bottom: 40px;
     background-image: url("../img/main-bg-dragon.jpg");
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: 100% auto;
 }
 
@@ -16,6 +16,9 @@
     margin-top: 45px;
 }
 
+.search-skill-holder {
+    margin: 10px;
+}
 
 /* styles for validation helpers */
 .field-validation-error {

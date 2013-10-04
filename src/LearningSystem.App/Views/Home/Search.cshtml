@@ -2,54 +2,56 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
+<h1 class="text-center">Search</h1>
 
-<div class="span12">
-    @{AjaxOptions options = new AjaxOptions()
-      {
-          HttpMethod = "POST",
-          InsertionMode = InsertionMode.Replace,
-          UpdateTargetId = "search-result"
-      };
-    }
-
+<div class="span12" id="searchSkillsContainer">
     <div class="input-group">
-        @using (Ajax.BeginForm("Search", null, options, new { @class = "input-append" }))
+        <i class="icon-large icon-search"></i>
+        @(Html.Kendo().AutoComplete()
+        .Name("searchBox")
+        .Placeholder("Search skills...")
+        .MinLength(1)
+        .DataTextField("SkillName")
+        .DataSource(source =>
         {
-            <i class="icon-large icon-search"></i>
-            
-            <div class="btn-group" id="search-input">
-                <h4>
-                    @(Html.Kendo().AutoComplete()
-                    .Name("searchBox")
-                    .Placeholder("Search skills...")
-                    .MinLength(1)
-                    .DataTextField("SkillName")
-                    .DataSource(source =>
-                    {
-                        source.Read(read =>
-                            {
-                                read.Action("AutoComplete", "Home")
-                                    .Data("onAdditionalData");
-                            })
-                            .ServerFiltering(true);
-                    })
-                    .Events(ev =>
-                    {
-                        ev.Select("hitSearchButton");
-                    }))
-                </h4>
+            source.Read(read =>
+                {
+                    read.Action("AutoComplete", "Home")
+                        .Data("onAdditionalData");
+                })
+                .ServerFiltering(true);
+        })
+        .Events(ev =>
+        {
+            ev.Select("hitSearchButton");
+        }))
 
-                <button type="submit" id="search-button" class="btn">Search</button>
-            </div>
-        }
+        <button type="submit" id="search-button" class="btn">Search</button>
     </div>
-    <div id="search-result" class="span5">
+    <div id="search-result">
     </div>
-    <div id="signup-message" class="span3"></div>
+    <h2 class="text-center" id="loadingContainer">Loading...</h2>
 </div>
 
 <script>
+    //requester
+    var postRequester = function (url, data, success, error) {
+        $.ajax({
+            "url": url,
+            "content-type": "application/json",
+            type: "POST",
+            data: data,
+            success: success,
+            error: error
+        });
+    };
+
+    // tooltops
+    $(document).ready(function () {
+        $(".skill-label").tooltip();
+    });
+
+    //search box events
     function onAdditionalData() {
         return {
             text: $('#searchBox').val(),
@@ -67,8 +69,62 @@
         $("#search-button").click();
     }
 
-    $(function () {
-        hitSearchButton();
+    //infinite scroll
+    var currentPage = 0;
+    var allPagesLoaded = false;
+    var loadingPage = false;
+
+    var readyForNextPage = function () {
+        var first = $(window).scrollTop();
+        var second = $(document).height() - $(window).height();
+        var atBottom = first > second ? first - second : second - first;
+        return (atBottom < 3 && !allPagesLoaded && !loadingPage);
+    }
+
+    var loadNextPage = function () {
+        if (readyForNextPage()) {
+            //Prevents the page being requested multiple times whilst it is still loading
+            loadingPage = true;
+            $("#loadingContainer").show();
+            //Request the next page
+            var data = {
+                searchBox: $("#searchBox").val(),
+                toSkip: currentPage
+            }
+            postRequester("/Home/Search", data, function (result) {
+
+                debugger;
+                if (result == "") {
+                    $("#loadingContainer").hide();
+                    allPagesLoaded = true;
+                    loadingPage = false;
+                }
+                else {
+                    $("#search-result").append(result);
+                    currentPage++;
+                    loadingPage = false;
+                    loadNextPage();
+                }
+            }, function (err) {
+                console.log(err);
+            });
+        }
+        else {
+            $("#loadingContainer").hide();
+        }
+    }
+
+    $("#searchSkillsContainer").on("click", "#search-button", function () {
+        //reseting data
+        currentPage = 0;
+        allPagesLoaded = false;
+        loadingPage = false;
+        $("#search-result").empty();
+        //getting results
+        loadNextPage();
     });
+
+    $(window).scroll(loadNextPage);
+    loadNextPage();
 </script>
 
