@@ -4,8 +4,8 @@
 
 <h1 class="text-center">Search</h1>
 
-<div class="span12" id="searchSkillsContainer">
-    <div class="input-group">
+<div id="searchSkillsContainer">
+    <div>
         <i class="icon-large icon-search"></i>
         @(Html.Kendo().AutoComplete()
         .Name("searchBox")
@@ -92,8 +92,6 @@
                 toSkip: currentPage
             }
             postRequester("/Home/Search", data, function (result) {
-
-                debugger;
                 if (result == "") {
                     $("#loadingContainer").hide();
                     allPagesLoaded = true;
