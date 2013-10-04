@@ -97,6 +97,7 @@ namespace LearningSystem.App.Controllers
 
                 if (levelInSkillTree > notInPlace)
                 {
+                    levelInSkillTree++;
                     break;
                 }
 
