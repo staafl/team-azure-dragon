@@ -9,6 +9,13 @@ namespace TeamAzureDragon.Utils
     // todo: serializable
     public class VersionedString
     {
+        public static T ParseVersionedXml<T>(string versionedData)
+        {
+            var xml = VersionedString.Read(versionedData).Data;
+            return (T)(new XmlSerializer(typeof(T))
+                .Deserialize(new StringReader(xml)));
+        }
+
         public string Data { get; set; }
         public int Version { get; set; }
 

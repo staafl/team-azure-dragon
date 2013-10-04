@@ -32,46 +32,31 @@ namespace TeamAzureDragon.Utils
 
     public static class Misc
     {
+        public static bool GraphContainsCycles<T>(T root, Func<T, IEnumerable<T>> siblings)
+        {
+            var stack = new Stack<Tuple<T, T>>();
+            stack.Push(Tuple.Create(root, default(T)));
+            var seen = new HashSet<Tuple<T, T>>();
+
+            while (stack.Count > 0)
+            {
+                var edge = stack.Pop();
+                if (!seen.Add(edge))
+                    return true;
+                seen.Add(Tuple.Create(edge.Item2, edge.Item1));
+                foreach (var sibling in siblings(edge.Item1))
+                {
+                    stack.Push(Tuple.Create(sibling, edge.Item1));
+                }
+            }
+            return false;
+        }
+
         public static string NormalizeWhiteSpace(this string str)
         {
             return Regex.Replace(str, @"\s+", " ").Trim();
         }
-        public static AppDomain CreateSandboxAppDomain()
-        {
-            var e = new Evidence();
-            e.AddHostEvidence(new Zone(SecurityZone.Internet));
-            var ps = SecurityManager.GetStandardSandbox(e);
-            var security = new SecurityPermission(SecurityPermissionFlag.Execution);
-            ps.AddPermission(security);
-            var setup = new AppDomainSetup
-            {
-                ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-            };
 
-            var sandbox = AppDomain.CreateDomain("Sandbox", null, setup, ps);
-            var core = sandbox.Load("System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
-
-            var system = sandbox.Load("System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089");
-            return sandbox;
-
-        }
-        //public static byte[] CompileToAssembly(string code)
-        //{
-        //    var engine = new ScriptEngine();
-        //    var session = engine.CreateSession();
-
-        //    using (var memoryStream = new MemoryStream())
-        //    {
-        //        engine.CompileSubmission(code, session).Compilation.Emit(memoryStream);
-        //        var assembly = memoryStream.ToArray();
-        //        return assembly;
-        //    }
-        //}
-        // todo: command line arguments
-        //public static IEnumerable<string> ExecuteInAppDomain(byte[] assembly, IEnumerable<string> stdin)
-        //{
-
-        //}
         public static object ThrowIfNull<T>(this object obj, Func<T> get) where T : Exception
         {
             if (obj == null)
@@ -84,12 +69,8 @@ namespace TeamAzureDragon.Utils
                 throw Activator.CreateInstance<T>();
             return obj;
         }
-        //public static T ParseVersioned<T>(string versionedData)
-        //{
-        //    var xml = VersionedString.Read(versionedData).Data;
-        //    return (T)(new XmlSerializer(typeof(T))
-        //        .Deserialize(new StringReader(xml)));
-        //}
+
+ 
 
         public static string Abbreviate(this string text, int maxLength)
         {
@@ -131,7 +112,7 @@ namespace TeamAzureDragon.Utils
 
                 if (value == null)
                 {
-                    dict[name] = null;
+                    dict[key] = null;
                     continue;
                 }
 
@@ -140,7 +121,7 @@ namespace TeamAzureDragon.Utils
                     if (result == RecursiveSerializationOption.ForeachAssign)
                     {
                         var list = new List<object>();
-                        dict[name] = list;
+                        dict[key] = list;
                         foreach (object elem in (value as IEnumerable) ?? new object[0])
                         {
                             list.Add(elem);
@@ -150,7 +131,7 @@ namespace TeamAzureDragon.Utils
                     if (result == RecursiveSerializationOption.ForeachRecurse)
                     {
                         var list = new List<Dictionary<string, object>>();
-                        dict[name] = list;
+                        dict[key] = list;
                         foreach (object elem in (value as IEnumerable) ?? new object[0])
                         {
                             list.Add(Misc.SerializeToDictionary(elem, customHandler, keyGetter, path));
@@ -173,7 +154,7 @@ namespace TeamAzureDragon.Utils
 
                 if (result == RecursiveSerializationOption.Recurse)
                 {
-                    dict[name] = SerializeToDictionary(value, customHandler, keyGetter, path);
+                    dict[key] = SerializeToDictionary(value, customHandler, keyGetter, path);
                     continue;
                 }
 
@@ -184,26 +165,7 @@ namespace TeamAzureDragon.Utils
                 }
                 throw new ApplicationException();
             }
-            //if (typeof(System.Collections.IEnumerable).IsAssignableFrom(prop.PropertyType))
-            //{
 
-            //}
-
-
-            //if (hisProps.TryGetValue(prop.Name, out his))
-            //{
-            //    
-            //    if (ignoreEmpty)
-            //    {
-            //        if (value == null)
-            //            continue;
-            //        if (value == "")
-            //            continue;
-            //        if (prop.PropertyType.IsValueType && value.Equals(Activator.CreateInstance(prop.PropertyType)))
-            //            continue;
-            //    }
-            //    prop.SetValue(from, value, null);
-            //}
 
             return dict;
 
