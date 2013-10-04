@@ -12,6 +12,7 @@ using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.FakeValidateAnti
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using TeamAzureDragon.Utils;
+using LearningSystem.App.Areas.Administration.ViewModels;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -91,38 +92,48 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     //if (path == "SkillId") return RecursiveSerializationOption.Assign;
                                     if (path == "Name") return RecursiveSerializationOption.Assign;
                                     return RecursiveSerializationOption.Skip;
-                                })).ToList(); 
+                                })).ToList();
 
             //DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
 
             return Json(viewModelReqirements, JsonRequestBehavior.AllowGet);
-        }        
+        }
 
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModelLessons = db.Lessons.All("Skill").ToList()
-                        .Select(lesson => Misc.SerializeToDictionary(lesson,
-                                path =>
-                                {
-                                    if (path == "LessonId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "Description") return RecursiveSerializationOption.Assign;
-                                    if (path == "Skill") return RecursiveSerializationOption.Recurse;
-                                    if (path == "Skill.SkillId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Skill.Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "SkillId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;
-                                    if (path == "Requirements.LessonId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Requirements.Name") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList();
+            //var viewModelLessons = db.Lessons.All("Skill").ToList()
+            //            .Select(lesson => Misc.SerializeToDictionary(lesson,
+            //                    path =>
+            //                    {
+            //                        if (path == "LessonId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Name") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Description") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Skill") return RecursiveSerializationOption.Recurse;
+            //                        if (path == "Skill.SkillId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Skill.Name") return RecursiveSerializationOption.Assign;
+            //                        if (path == "SkillId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;
+            //                        if (path == "Requirements.LessonId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Requirements.Name") return RecursiveSerializationOption.Assign;
+            //                        return RecursiveSerializationOption.Skip;
+            //                    })).ToList();
 
+            //for (int i = 0; i < viewModelLessons.Count(); i++)
+            //{
+            //    if (viewModelLessons[i]["Description"] != null)
+            //    {
+            //        viewModelLessons[i]["Description"] = viewModelLessons[i]["Description"].ToString().Abbreviate(30);
+            //    }
+            //}
+
+            var viewModelLessons = db.Lessons.All("Skill").ToList()
+                        .Select(lesson => Misc.ModelToViewModel<Lesson, LessonViewModel>(lesson)).ToList();
 
             for (int i = 0; i < viewModelLessons.Count(); i++)
             {
-                if (viewModelLessons[i]["Description"] != null)
+                if (viewModelLessons[i].Description != null)
                 {
-                    viewModelLessons[i]["Description"] = viewModelLessons[i]["Description"].ToString().Abbreviate(30);
+                    viewModelLessons[i].Description = viewModelLessons[i].Description.Abbreviate(30);
                 }
             }
 
@@ -138,16 +149,17 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([DataSourceRequest]DataSourceRequest request, Lesson lesson)
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, LessonViewModel lessonVM)
         {
             if (ModelState.IsValid)
             {
+                var lesson = Misc.ViewModelToModel<LessonViewModel, Lesson>(lessonVM, db.Context);
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(new[] { lesson }.ToDataSourceResult(request, ModelState));
+            return View(new[] { lessonVM }.ToDataSourceResult(request, ModelState));
         }
 
         // POST: /Administration/Skill/Edit/5
@@ -157,29 +169,31 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Lesson lesson)
+        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, LessonViewModel lessonVM)
         {
-            Lesson oldlesson = db.Lessons.GetById(lesson.LessonId);
+            //Lesson oldlesson = db.Lessons.GetById(lesson.LessonId);
             if (ModelState.IsValid)
             {
-                oldlesson.Name = lesson.Name;
-                oldlesson.Description = lesson.Description;
-                oldlesson.SkillId = lesson.Skill.SkillId;
-                db.Lessons.Update(oldlesson);
+                var lesson = Misc.ViewModelToModel<LessonViewModel, Lesson>(lessonVM, db.Context);
+                db.Lessons.Update(lesson);
+                //oldlesson.Name = lesson.Name;
+                //oldlesson.Description = lesson.Description;
+                //oldlesson.SkillId = lesson.Skill.SkillId;
+                //db.Lessons.Update(oldlesson);
                 return RedirectToAction("Index");
             }
-            return View(new[] { oldlesson }.ToDataSourceResult(request, ModelState));
+            return View(new[] { lessonVM }.ToDataSourceResult(request, ModelState));
         }
 
         // GET: /Administration/Skill/Delete/5
-        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, Lesson lesson)
+        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, LessonViewModel lessonVM)
         {
             if (ModelState.IsValid)
             {
-                db.Lessons.Delete(lesson.LessonId);
+                db.Lessons.Delete(lessonVM.LessonId);
             }
 
-            return View(new[] { lesson }.ToDataSourceResult(request, ModelState));
+            return View(new[] { lessonVM }.ToDataSourceResult(request, ModelState));
         }
 
         protected override void Dispose(bool disposing)

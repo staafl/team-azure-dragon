@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ModelMappingAttribute.cs" />
+    <Compile Include="Attributes\ModelNavigationIdAttribute.cs" />
     <Compile Include="FakeValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="DataPatterns\DefaultInitializer.cs" />
     <Compile Include="DataPatterns\GenericRepository.cs" />

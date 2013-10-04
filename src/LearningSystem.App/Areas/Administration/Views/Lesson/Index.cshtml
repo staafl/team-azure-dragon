@@ -6,15 +6,15 @@
 
 @using (Html.BeginForm())
 {
-    @(Html.Kendo().Grid<LearningSystem.Models.Lesson>()
+    @(Html.Kendo().Grid<LearningSystem.App.Areas.Administration.ViewModels.LessonViewModel>()
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.Skill).ClientTemplate("#= data.Skill ? data.Skill.Name : '' #").EditorTemplateName("SkillDropdown");
+            columns.Bound(l => l.SkillName).ClientTemplate("#= data.Skill ? data.Skill.Name : '' #").EditorTemplateName("SkillDropdown");
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
             //columns.Bound(l => l.Requirements).ClientTemplate("#=generateRequirementTemplate(Requirements)#");//.EditorTemplateName("RequermentCheckBoxList");
-            columns.Bound(l => l.Requirements).ClientTemplate("#= generateRequirementTemplate(Requirements) #").EditorTemplateName("MultiSelectRequierments");
+            columns.Bound(l => l.RequirementsName).ClientTemplate("#= generateRequirementTemplate(Requirements) #").EditorTemplateName("MultiSelectRequierments");
             columns.Command(commands =>
             {
                 commands.Edit();

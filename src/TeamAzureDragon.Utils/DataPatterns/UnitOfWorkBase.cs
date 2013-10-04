@@ -9,6 +9,10 @@
         private readonly DbContext context;
         private readonly Dictionary<Type, object> repositories = new Dictionary<Type, object>();
 
+        public DbContext Context
+        {
+            get { return this.context; }
+        }
         public UnitOfWork(DbContext context)
         {
             this.context = context;

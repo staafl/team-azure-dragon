@@ -3,6 +3,7 @@ using Roslyn.Scripting.CSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using TeamAzureDragon.Utils.Attributes;
 
 namespace TeamAzureDragon.Utils
 {
@@ -26,6 +28,7 @@ namespace TeamAzureDragon.Utils
         ForeachRecurse,
         Skip
     }
+
 
     public static class Misc
     {
@@ -105,7 +108,7 @@ namespace TeamAzureDragon.Utils
             Func<string, RecursiveSerializationOption> customHandler = null,
             Func<string, string, string> keyGetter = null,
             string basePath = "",
-            Dictionary<string, object>  baseDict = null)
+            Dictionary<string, object> baseDict = null)
         {
             var dict = baseDict ?? new Dictionary<string, object>();
 
@@ -203,6 +206,76 @@ namespace TeamAzureDragon.Utils
             //}
 
             return dict;
+
+        }
+
+        public static TVM ModelToViewModel<TM, TVM>(TM model) where TVM : new()
+        {
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+            var viewModel = new TVM();
+            foreach (PropertyInfo viewModelProp in typeof(TVM).GetProperties(flags))
+            {
+                
+                var attr = viewModelProp.GetCustomAttribute(typeof(ModelMappingAttribute));
+                string path = viewModelProp.Name;
+                if (attr != null)
+                {
+                    path = ((ModelMappingAttribute)attr).ModelPropertyPath;
+
+                }
+
+                //object[] toTraverse = new object[]{model};
+                //dynamic list = null;
+                //if (typeof(IEnumerable).IsAssignableFrom(viewModelProp.PropertyType))
+                //{
+                //    var typeOfList = typeof(List<>).MakeGenericType(viewModelProp.PropertyType.GenericTypeArguments[0]);
+                //    list = Activator.CreateInstance(typeOfList);
+                //    //toTraverse = ((ICollection)model.GetType().GetProperty(path.Split('.')[0]).GetValue(model)).To;
+
+                //}
+                object modelValue = model;
+                foreach (var pathElement in path.Split('.'))
+                {
+                    modelValue = modelValue.GetType().GetProperty(pathElement).GetValue(modelValue);
+                }
+                viewModelProp.SetValue(viewModel, modelValue);
+            }
+
+            return viewModel;
+        }
+        // ViewModel -> Model
+        public static TM ViewModelToModel<TVM, TM>(TVM viewModel, DbContext context)
+        {
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+            var model = Activator.CreateInstance<TM>();
+            foreach (PropertyInfo viewModelProp in typeof(TVM).GetProperties(flags))
+            {
+                var attr = viewModelProp.GetCustomAttribute(typeof(ModelNavigationIdAttribute));
+
+
+                var viewModelValue = viewModelProp.GetValue(viewModel);
+                if (attr == null)
+                {
+                    var name = viewModelProp.Name;
+
+                    var modelProp = typeof(TM).GetProperty(name, flags);
+
+                    if (modelProp == null)
+                        continue;
+
+                    // map directly
+                    modelProp.SetValue(model, viewModelValue);
+                    continue;
+
+                }
+
+                var property = typeof(TM).GetProperty(((ModelNavigationIdAttribute)attr).NavigationProperty);
+                var entityType = property.PropertyType;
+                var entity = context.Set(entityType).Find(viewModelValue);
+                property.SetValue(model, entity);
+            }
+
+            return model;
 
         }
 

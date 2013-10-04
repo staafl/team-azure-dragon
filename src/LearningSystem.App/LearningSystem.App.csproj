@@ -221,6 +221,7 @@
     <Compile Include="Areas\Administration\Controllers\LessonController.cs" />
     <Compile Include="Areas\Administration\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Administration\Controllers\SkillController.cs" />
+    <Compile Include="Areas\Administration\ViewModels\LessonViwModel.cs" />
     <Compile Include="Areas\Administration\Views\Exercise\UploadController.cs" />
     <Compile Include="Areas\Administration\Views\Exercise\ViewModels\ExerciseVM.cs" />
     <Compile Include="Areas\Administration\Views\Exercise\ViewModels\LessonVM.cs" />
