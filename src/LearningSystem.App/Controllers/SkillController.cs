@@ -83,9 +83,9 @@ namespace LearningSystem.App.Controllers
             {
                 foreach (var item in lessons)
                 {
-                    if (!added.ContainsKey(item))
+                    if (!added.ContainsKey(item) && !added.Keys.Except(item.Requirements).Any())
                     {
-                        int thisLevel = 1 + added.Keys.Intersect(item.Requirements).Max(req => added[req]);
+                        int thisLevel = 1 + item.Requirements.Max(req => added[req]);
                         added[item] = thisLevel;
                         sortedLessons.Add(item.ToLessonViewModel(thisLevel));
                         notInPlace--;
