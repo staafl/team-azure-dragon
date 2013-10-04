@@ -19,19 +19,22 @@ namespace LearningSystem.App.AppLogic
             var message = new MailMessage("admin@learningsystem.apphb.com", model.Email);
             message.Sender = new MailAddress("admin@learningsystem.apphb.com");
             message.From = message.Sender;
-            message.Subject = "Confirm your account - " + model.UserName;
+            message.Subject = "Learningsystem.apphb.com Account Activation - " + model.UserName;
             message.IsBodyHtml = true;
 
             string returnLink = "localhost:51903/Account/Confirm?userId=" + userId;
 
             message.Body = string.Format(
 @"<p>Hi {0},</p>
+<p>You are receiving this email because you have registered in Learningsystem.apphb.com. If you have not registered this account, you can safely ignore this email. Please do not reply to this email because we are not monitoring this inbox. </p>
 
 <p>To start using LearningSystem, you need to verify your account. Please click the link or paste it into your browser's address bar:</p>
 <p><a href='{1}'>{1}</a></p>
 
-<p>Love,</p>
-<p>The LearningSystem crew</p>", model.UserName, returnLink);
+
+
+<p>Sincerely,</p>
+<p><a href='http://learningsystem.apphb.com/'>The LearningSystem Development Team</a></p>", model.UserName, returnLink);
 
             var result = client.SendMail(message);
             return result;

@@ -97,7 +97,7 @@ namespace LearningSystem.App.Controllers
             db.SaveChanges();
             var result = await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "MyAchievements");
         }
 
         //
