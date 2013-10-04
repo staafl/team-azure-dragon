@@ -51,16 +51,33 @@ namespace LearningSystem.App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string searchBox)
+        public ActionResult Search(string searchBox, int toSkip = 0)
         {
-            var skills = db.Skills.All();
+            var pageSize = 10;
+
+            var user = db.Users.All("Skills").SingleOrDefault(x => x.UserName == User.Identity.Name);
+            var skills = db.Skills.All("Users");
 
             if (searchBox != string.Empty)
             {
                 skills = skills.Where(x => x.Name.ToLower().Contains(searchBox.ToLower()));
             }
 
-            var user = db.Users.All("Skills").SingleOrDefault(x => x.UserName == User.Identity.Name);
+            if (user != null)
+            {
+                skills = skills
+                    .OrderByDescending(s => s.Users.Any(u => u.Id == user.Id))
+                    .ThenBy(s => s.Name)
+                    .Skip(toSkip * pageSize)
+                    .Take(pageSize);
+            }
+            else
+            {
+                skills = skills
+                    .OrderBy(s => s.Name)
+                    .Skip(toSkip * pageSize)
+                    .Take(pageSize);
+            }
 
             var toCollection = skills.Select(x => new SkillViewModel
             {
@@ -77,16 +94,13 @@ namespace LearningSystem.App.Controllers
                 }
             }
 
-            var orderedCollection = toCollection
-                .OrderByDescending(s => s.OwnedByUser)
-                .ThenBy(s => s.SkillName);
-
-            return PartialView("_SearchResults", orderedCollection);
+            return PartialView("_SearchResults", toCollection);
         }
 
         public ActionResult AutoComplete(string text)
         {
             var skills = db.Skills.All().Where(s => s.Name.StartsWith(text))
+                .Take(10)
                 .Select(s => new AutoCompleteViewModel
                 {
                     SkillName = s.Name
