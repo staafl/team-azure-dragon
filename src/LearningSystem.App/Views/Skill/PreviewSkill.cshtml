@@ -4,16 +4,8 @@
     ViewBag.Title = Model.SkillName;
 }
 
-<h2>@Model.SkillName -
-
-    @Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = Model.SkillId }, new AjaxOptions()
-            {
-                HttpMethod = "GET",
-
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = "signup-message"
-            })
-    
+<h2>@Model.SkillName - 
+    @Html.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = Model.SkillId }, null)
 </h2>
 <div id="signup-message" class="span3 absolute"></div>
 <div class="row-fluid pagination-centered">
