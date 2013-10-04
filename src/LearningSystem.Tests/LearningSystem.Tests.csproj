@@ -120,6 +120,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TopologicalSortingTests.cs" />
     <Compile Include="XmlParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

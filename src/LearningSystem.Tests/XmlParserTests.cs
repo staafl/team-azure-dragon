@@ -68,8 +68,6 @@ namespace LearningSystem.Tests
             mockDbProvider.Verify(x => x.Skills.Add(It.IsAny<Skill>()));
         }
 
-       
-
         [TestMethod]
         public void CorrectSkillProperties()
         {
@@ -123,7 +121,6 @@ namespace LearningSystem.Tests
                 s.Lessons.ElementAt(1).Exercises.ElementAt(0).ExerciseId == 2 &&
                 s.Lessons.ElementAt(1).Exercises.ElementAt(1).ExerciseId == 3 
                 )));
-            
         }
 
         [TestMethod]
