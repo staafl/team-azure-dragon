@@ -83,7 +83,7 @@ namespace LearningSystem.App.Controllers
             {
                 foreach (var item in lessons)
                 {
-                    if (!added.ContainsKey(item) && item.Requirements.All(r => added.ContainsKey(r)))
+                    if (!added.ContainsKey(item) && item.Requirements.All(added.ContainsKey))
                     {
                         int thisLevel = 1 + item.Requirements.Max(req => added[req]);
                         added[item] = thisLevel;
