@@ -83,7 +83,7 @@ namespace LearningSystem.App.Controllers
             {
                 foreach (var item in lessons)
                 {
-                    if (!added.ContainsKey(item) && !added.Keys.Except(item.Requirements).Any())
+                    if (!added.ContainsKey(item) && item.Requirements.All(r => added.ContainsKey(r)))
                     {
                         int thisLevel = 1 + item.Requirements.Max(req => added[req]);
                         added[item] = thisLevel;
@@ -101,17 +101,6 @@ namespace LearningSystem.App.Controllers
             }
         }
 
-        private bool RequirementsAlreadyAdded(ICollection<Lesson> requirements, HashSet<Lesson> added)
-        {
-            foreach (var item in requirements)
-            {
-                if (!added.Contains(item))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
 
         [Authorize]
         public ActionResult SignUpForSkill(int skillId)
