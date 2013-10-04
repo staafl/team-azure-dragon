@@ -46,9 +46,7 @@
                 finishExercise();
             }
             else if (data.Success) {
-                //TODO return it from the controller
                 $("#question-container").html("@(Html.Partial("_CorrectAnswer"))");
-
             }
             else {
                 currentErrors = currentErrors + 1;
@@ -57,8 +55,8 @@
                     failedExercise();
                 }
                 else {
-
-                    $("#question-container").html(data.ErrorContent);
+                    //TODO: fix last question error problem
+                    $("#question-container").html(data.ErrorContent + "<br /><a href='#' id='next-question'>Next Question</a>");
                     $("#current-errors").html(currentErrors);
                 }
             }
