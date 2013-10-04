@@ -125,5 +125,60 @@ namespace LearningSystem.Tests
                 )));
             
         }
+
+        [TestMethod]
+        public void CorrectExerciseProperties()
+        {
+            var mockDbProvider = new Mock<IUoWLearningSystem>();
+
+            byte[] stream = LoadBytesFromFile("..//..//TestingZips//picking-mushrooms.zip");
+            MemoryStream memory = new MemoryStream(stream);
+
+            var file = MockAddMethod(memory);
+
+            mockDbProvider.Setup(x => x.Skills.Add(It.IsAny<Skill>()));
+
+            UploadController controller = new UploadController(mockDbProvider.Object);
+
+            controller.SaveSkill(file.Object);
+
+            mockDbProvider.Verify(x => x.Skills.Add(It.Is<Skill>(
+                s =>
+                s.Lessons.ElementAt(1).Exercises.ElementAt(0).ExerciseId == 2 &&
+                s.Lessons.ElementAt(1).Exercises.ElementAt(0).Name == "Second Exc" &&
+                s.Lessons.ElementAt(1).Exercises.ElementAt(0).Description == "FUFUFUF fufaufuafuaw ." &&
+                s.Lessons.ElementAt(1).Exercises.ElementAt(0).Questions.Count == 2 &&
+                s.Lessons.ElementAt(1).Exercises.ElementAt(0).Order == 2 &&
+                s.Lessons.ElementAt(1).Exercises.ElementAt(0).Questions.ElementAt(0).QuestionId == 2 &&
+                s.Lessons.ElementAt(1).Exercises.ElementAt(0).Questions.ElementAt(1).QuestionId == 3
+                )));
+        }
+
+        [TestMethod]
+        public void CorrectExerciseProperties2()
+        {
+            var mockDbProvider = new Mock<IUoWLearningSystem>();
+
+            byte[] stream = LoadBytesFromFile("..//..//TestingZips//picking-mushrooms.zip");
+            MemoryStream memory = new MemoryStream(stream);
+
+            var file = MockAddMethod(memory);
+
+            mockDbProvider.Setup(x => x.Skills.Add(It.IsAny<Skill>()));
+
+            UploadController controller = new UploadController(mockDbProvider.Object);
+
+            controller.SaveSkill(file.Object);
+
+            mockDbProvider.Verify(x => x.Skills.Add(It.Is<Skill>(
+                s =>
+                s.Lessons.ElementAt(2).Exercises.Single().ExerciseId == 4 &&
+                s.Lessons.ElementAt(2).Exercises.Single().Name == "Do you want to rise and kill" &&
+                s.Lessons.ElementAt(2).Exercises.Single().Description == "To show the world an iron will?" &&
+                s.Lessons.ElementAt(2).Exercises.Single().Questions.Count == 1 &&
+                s.Lessons.ElementAt(2).Exercises.Single().Order == 4 &&
+                s.Lessons.ElementAt(2).Exercises.Single().Questions.Single().QuestionId == 5 
+                )));
+        }
     }
 }
