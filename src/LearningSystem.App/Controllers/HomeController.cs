@@ -63,6 +63,8 @@ namespace LearningSystem.App.Controllers
                 skills = skills.Where(x => x.Name.ToLower().Contains(searchBox.ToLower()));
             }
 
+            ViewBag.ResultsFound = skills.Count();
+
             if (user != null)
             {
                 skills = skills

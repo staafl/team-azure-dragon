@@ -4,8 +4,8 @@
 
 <h1 class="text-center">Search</h1>
 
-<div class="span12" id="searchSkillsContainer">
-    <div class="input-group">
+<div id="searchSkillsContainer">
+    <div class="text-center">
         <i class="icon-large icon-search"></i>
         @(Html.Kendo().AutoComplete()
         .Name("searchBox")
@@ -27,10 +27,12 @@
         }))
 
         <button type="submit" id="search-button" class="btn">Search</button>
+        <button type="submit" id="show-all" class="btn">Show All Skills</button>
     </div>
+    <div class="text-center"><span id="found">0</span> results found</div>
     <div id="search-result">
     </div>
-    <h2 class="text-center" id="loadingContainer">Loading...</h2>
+    <h4 class="text-center" id="loadingContainer">Loading...</h4>
 </div>
 
 <script>
@@ -92,15 +94,18 @@
                 toSkip: currentPage
             }
             postRequester("/Home/Search", data, function (result) {
-
-                debugger;
-                if (result == "") {
+                if (result.trim() == "") {
                     $("#loadingContainer").hide();
                     allPagesLoaded = true;
                     loadingPage = false;
+                    if ($("#search-result").is(':empty')) {
+                        $("#found").text(0);
+                    }
                 }
                 else {
                     $("#search-result").append(result);
+
+                    $("#found").text($("#resultsFound").val());
                     currentPage++;
                     loadingPage = false;
                     loadNextPage();
@@ -122,6 +127,11 @@
         $("#search-result").empty();
         //getting results
         loadNextPage();
+    });
+
+    $("#searchSkillsContainer").on("click", "#show-all", function () {
+        $("#searchBox").val("");
+        $("#search-button").click();
     });
 
     $(window).scroll(loadNextPage);
