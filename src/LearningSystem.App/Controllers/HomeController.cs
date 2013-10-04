@@ -50,15 +50,17 @@ namespace LearningSystem.App.Controllers
             return View();
         }
 
-        [Authorize]
         [HttpPost]
-        public ActionResult Search(SearchViewModel text)
+        public ActionResult Search(string searchBox)
         {
-            var skills = db.Skills.All().Where(x => x.Name.ToLower().Contains(text.Query.ToLower()));
+            var skills = db.Skills.All();
 
-            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
+            if (searchBox != string.Empty)
+            {
+                skills = skills.Where(x => x.Name.ToLower().Contains(searchBox.ToLower()));
+            }
 
-
+            var user = db.Users.All("Skills").SingleOrDefault(x => x.UserName == User.Identity.Name);
 
             var toCollection = skills.Select(x => new SkillViewModel
             {
@@ -67,14 +69,30 @@ namespace LearningSystem.App.Controllers
                 SkillName = x.Name
             }).ToList();
 
-            foreach (var item in toCollection)
+            if (user != null)
             {
-                item.OwnedByUser = user.Skills.Any(x => x.SkillId == item.SkillId);
+                foreach (var item in toCollection)
+                {
+                    item.OwnedByUser = user.Skills.Any(x => x.SkillId == item.SkillId);
+                }
             }
 
-            return PartialView("_SearchResults", toCollection);
+            var orderedCollection = toCollection
+                .OrderByDescending(s => s.OwnedByUser)
+                .ThenBy(s => s.SkillName);
+
+            return PartialView("_SearchResults", orderedCollection);
         }
 
+        public ActionResult AutoComplete(string text)
+        {
+            var skills = db.Skills.All().Where(s => s.Name.StartsWith(text))
+                .Select(s => new AutoCompleteViewModel
+                {
+                    SkillName = s.Name
+                });
 
+            return Json(skills, JsonRequestBehavior.AllowGet);
+        }
     }
 }

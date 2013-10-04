@@ -250,7 +250,7 @@
     <Compile Include="ViewModels\ExerciseViewModel.cs" />
     <Compile Include="ViewModels\LessonViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
-    <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\AutoCompleteViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

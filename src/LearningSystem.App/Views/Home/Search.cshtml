@@ -1,13 +1,10 @@
-﻿@model LearningSystem.App.ViewModels.SearchViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Search";
 }
 
 <h2>Search</h2>
 
 <div class="span12">
-
     @{AjaxOptions options = new AjaxOptions()
       {
           HttpMethod = "POST",
@@ -21,21 +18,58 @@
         @using (Ajax.BeginForm("Search", null, options, new { @class = "input-append" }))
         {
             <i class="icon-large icon-search"></i>
+            
             <div class="btn-group" id="search-input">
-                @Html.TextBoxFor(Model => Model.Query)
-                <button type="submit" class="btn">Search</button>
+                <h4>
+                    @(Html.Kendo().AutoComplete()
+                    .Name("searchBox")
+                    .Placeholder("Search skills...")
+                    .MinLength(1)
+                    .DataTextField("SkillName")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                            {
+                                read.Action("AutoComplete", "Home")
+                                    .Data("onAdditionalData");
+                            })
+                            .ServerFiltering(true);
+                    })
+                    .Events(ev =>
+                    {
+                        ev.Select("hitSearchButton");
+                    }))
+                </h4>
+
+                <button type="submit" id="search-button" class="btn">Search</button>
             </div>
         }
     </div>
     <div id="search-result" class="span5">
-
     </div>
     <div id="signup-message" class="span3"></div>
 </div>
 
 <script>
+    function onAdditionalData() {
+        return {
+            text: $('#searchBox').val(),
+        }
+    }
+
     function BeforeLoad(e) {
         var a = 5;
     }
+
+    function hitSearchButton(ev) {
+        if (ev) {
+            $('#searchBox').val(this.dataItem(ev.item.index()).SkillName)
+        }
+        $("#search-button").click();
+    }
+
+    $(function () {
+        hitSearchButton();
+    });
 </script>
 
