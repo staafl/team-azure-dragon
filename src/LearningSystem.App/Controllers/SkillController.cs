@@ -116,7 +116,7 @@ namespace LearningSystem.App.Controllers
                 ViewBag.Success = false;
             }
 
-            return PartialView("_SignUpForSkill");
+            return RedirectToAction("Index", "Skill", new { skillId = skillId });
         }
 
         [Authorize]

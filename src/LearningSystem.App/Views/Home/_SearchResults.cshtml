@@ -5,16 +5,6 @@
     <h4>
         @if (!item.OwnedByUser)
         {
-            @*@Ajax.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = item.SkillId }, new AjaxOptions()
-            {
-                HttpMethod = "GET",
-
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = "signup-message"
-            }, new { @class = "signup-skill" })*@
-
-            
-            
             <span class="label label-info skill-label" data-toggle="tooltip" data-placement="right"
                   title="@item.SkillDescription">
                 <i class="icon  icon-plus-sign" ></i> 
