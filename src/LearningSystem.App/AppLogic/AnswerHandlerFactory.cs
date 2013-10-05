@@ -10,6 +10,18 @@ using TeamAzureDragon.Utils;
 using Rossie.Engine;
 namespace LearningSystem.App.AppLogic
 {
+    public class NoneAnswerHandler : IAnswerHandler
+    {
+        public AnswerValidationResult ValidateInput(string input)
+        {
+            return new AnswerValidationResult { Success = true };
+        }
+
+        public string RenderInputHtml()
+        {
+            return "";
+        }
+    }
     public static class AnswerHandlerFactory
     {
         static public IAnswerHandler GetHandler(AnswerType type, string answerContent, int version = 0)
@@ -18,14 +30,14 @@ namespace LearningSystem.App.AppLogic
             switch (type)
             {
                 case AnswerType.None:
-                    throw new ArgumentException("'type' cannot be None.");
+                    return new NoneAnswerHandler(); // throw new ArgumentException("'type' cannot be None.");
                 case AnswerType.Custom:
                 case AnswerType.CSharpCode:
                     return GetCSharpAnswerHandler(answerContent);
                 case AnswerType.Text:
                     return GetTextAnswerHandler(answerContent);
                 case AnswerType.ApproximateText:
-                case AnswerType.MultipleChoice:
+                case AnswerType.Multiple:
                     throw new NotImplementedException();
                 default:
                     throw new ArgumentException("Unsupported type: " + type);
