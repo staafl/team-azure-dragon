@@ -37,30 +37,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
 
-            return View(db.Exercises.All("Lesson").ToList());
-
-            //ViewData["lessons"] = db.Lessons.All().Select(l => new LessonVM()
-            //{
-            //    LessonId = l.LessonId,
-            //    Name = l.Name
-            //})
-            //.OrderBy(l => l.LessonId);
-
-
-            //var model = db.Exercises.All("Lesson").Select(e => new ExerciseVM()
-            //{
-            //    Name = e.Name,
-            //    Description = e.Description,
-            //    Order = e.Order,
-            //    Lesson = new LessonVM()
-            //    {
-            //        LessonId = e.LessonId,
-            //        Name = e.Name
-            //    },
-            //    LessonName = e.Lesson.Name
-            //});
-
-            //return View(model.ToList());
+            return View(db.Exercises.All("Lesson").ToList());            
         }
 
         // GET: /Administration/Skill/Details/5
@@ -99,19 +76,6 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             {
                 viewModelExercises[i]["Description"] = (viewModelExercises[i]["Description"] ?? "").ToString().Abbreviate(30);
             }
-
-            //var viewModelExercises = db.Exercises.All("Lesson").ToList().Select(e => new ExerciseVM()
-            //{
-            //    Name = e.Name,
-            //    Description = e.Description.Abbreviate(30),
-            //    Order = e.Order,
-            //    Lesson = new LessonVM()
-            //    {
-            //        LessonId = e.LessonId,
-            //        Name = e.Name
-            //    },
-            //    LessonName = e.Lesson.Name
-            //});
 
             DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
 

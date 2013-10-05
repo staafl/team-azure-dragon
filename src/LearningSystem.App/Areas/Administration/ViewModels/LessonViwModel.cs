@@ -5,6 +5,7 @@ using System.Web;
 using LearningSystem.Models;
 using TeamAzureDragon.Utils;
 using TeamAzureDragon.Utils.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace LearningSystem.App.Areas.Administration.ViewModels
 {
@@ -12,19 +13,28 @@ namespace LearningSystem.App.Areas.Administration.ViewModels
     {
         [ModelNavigationId]
         public int LessonId { get; set; }
+
+        [Required(ErrorMessage = "Lesson name is required!")]
+        [StringLength(1000)]
         public string Name { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "Skill is required!")]
         public SkillViewModel Skill { get; set; }
 
         public ICollection<LessonViewModel> Requirements { get; set; }
+        
+    }
 
-        public class SkillViewModel : IViewModel<Skill>
-        {
-            public string Name { get; set; }
+    public class SkillViewModel : IViewModel<Skill>
+    {
+        [ModelNavigationId]
+        public int SkillId { get; set; }
 
-            [ModelNavigationId]
-            public int SkillId { get; set; }
-        }
+        [Required(ErrorMessage = "Skill name is required!")]
+        [StringLength(600)]
+        public string Name { get; set; }
     }
 }

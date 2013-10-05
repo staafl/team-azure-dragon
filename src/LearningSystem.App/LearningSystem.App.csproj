@@ -223,8 +223,6 @@
     <Compile Include="Areas\Administration\Controllers\SkillController.cs" />
     <Compile Include="Areas\Administration\ViewModels\LessonViwModel.cs" />
     <Compile Include="Areas\Administration\Views\Exercise\UploadController.cs" />
-    <Compile Include="Areas\Administration\Views\Exercise\ViewModels\ExerciseVM.cs" />
-    <Compile Include="Areas\Administration\Views\Exercise\ViewModels\LessonVM.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

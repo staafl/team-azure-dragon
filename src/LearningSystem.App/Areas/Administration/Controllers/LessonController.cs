@@ -68,14 +68,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         public ActionResult GetSkills([DataSourceRequest]DataSourceRequest request)
         {
             var viewModelSkills = db.Skills.All().ToList()
-                        .Select(skill => Misc.SerializeToDictionary(skill,
-                                path =>
-                                {
-                                    //if (path == "Skill") return RecursiveSerializationOption.Assign;
-                                    if (path == "SkillId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Name") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList();
+                    .Select(skill => new SkillViewModel().FillViewModel(skill)).ToList();
 
             //DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
 
@@ -85,14 +78,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         public ActionResult GetRequirements([DataSourceRequest]DataSourceRequest request)
         {
             var viewModelReqirements = db.Lessons.All().ToList()
-                        .Select(lesson => Misc.SerializeToDictionary(lesson,
-                                path =>
-                                {
-                                    if (path == "LessonId") return RecursiveSerializationOption.Assign;
-                                    //if (path == "SkillId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Name") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList();
+                        .Select(requerment => new LessonViewModel().FillViewModel(requerment)).ToList();
 
             //DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
 
@@ -101,31 +87,6 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            //var viewModelLessons = db.Lessons.All("Skill").ToList()
-            //            .Select(lesson => Misc.SerializeToDictionary(lesson,
-            //                    path =>
-            //                    {
-            //                        if (path == "LessonId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Name") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Description") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Skill") return RecursiveSerializationOption.Recurse;
-            //                        if (path == "Skill.SkillId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Skill.Name") return RecursiveSerializationOption.Assign;
-            //                        if (path == "SkillId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;
-            //                        if (path == "Requirements.LessonId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Requirements.Name") return RecursiveSerializationOption.Assign;
-            //                        return RecursiveSerializationOption.Skip;
-            //                    })).ToList();
-
-            //for (int i = 0; i < viewModelLessons.Count(); i++)
-            //{
-            //    if (viewModelLessons[i]["Description"] != null)
-            //    {
-            //        viewModelLessons[i]["Description"] = viewModelLessons[i]["Description"].ToString().Abbreviate(30);
-            //    }
-            //}
-
             var viewModelLessons = db.Lessons.All("Skill").ToList()
                         .Select(lesson => new LessonViewModel().FillViewModel(lesson)).ToList();
 
@@ -143,11 +104,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         }
 
         // POST: /Administration/Skill/Create
-        // To protect from over posting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // 
-        // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
-        [HttpPost]
+       [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, LessonViewModel lessonVM)
         {
@@ -163,24 +120,15 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         }
 
         // POST: /Administration/Skill/Edit/5
-        // To protect from over posting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // 
-        // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([DataSourceRequest]DataSourceRequest request, LessonViewModel lessonVM)
         {
-            //Lesson oldlesson = db.Lessons.GetById(lesson.LessonId);
             if (ModelState.IsValid)
             {
                 var model = db.Lessons.GetById(lessonVM.LessonId);
                 lessonVM.FillModel(db.Context, model);
                 db.Lessons.Update(model);
-                //oldlesson.Name = lesson.Name;
-                //oldlesson.Description = lesson.Description;
-                //oldlesson.SkillId = lesson.Skill.SkillId;
-                //db.Lessons.Update(oldlesson);
                 return RedirectToAction("Index");
             }
             return View(new[] { lessonVM }.ToDataSourceResult(request, ModelState));
