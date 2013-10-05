@@ -88,7 +88,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var viewModelLessons = db.Lessons.All("Skill").ToList()
-                        .Select(lesson => new LessonViewModel().FillViewModel(lesson)).ToList();
+                .Select(lesson => new LessonViewModel().FillViewModel(lesson)).ToList();
 
             for (int i = 0; i < viewModelLessons.Count(); i++)
             {

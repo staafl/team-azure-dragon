@@ -1,12 +1,13 @@
 @model IEnumerable<LearningSystem.App.ViewModels.ExerciseViewModel>
 
 @{
-    ViewBag.Title = "Excersices";
+    ViewBag.Title = ViewBag.Lesson.Name;
 }
 
 @Html.ActionLink("back to lessons", "Index", "Skill", new { skillId=ViewBag.SkillId }, new { @class = "btn" })
 
-<h1 class="text-center">@ViewBag.Title</h1>
+<h1 class="text-center">@ViewBag.Lesson.Name</h1>
+<h2 class="text-center">Exercises</h2>
 <hr />
 
 <section class="text-center">

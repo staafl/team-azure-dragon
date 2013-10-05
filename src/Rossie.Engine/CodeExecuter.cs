@@ -16,12 +16,29 @@ namespace Rossie.Engine
     public enum CSharpCodeTemplate
     {
         Expression,
+        /// <summary>Not Implemented.</summary>
         WholeProgram,
+        /// <summary>Not Implemented. Entire program.</summary>
         Class,
+        /// <summary>Not Implemented. Entire method + signature.</summary>
         Method,
+        /// <summary>Not Implemented. Several Methods.</summary>
         ClassBody,
-        MethodBody
+        /// <summary>Bunch of statements terminated with return.</summary>
+        MethodBody,
+        /// <summary>Not Implemented. Bunch of statements.</summary>
+        Statements
     }
+
+
+
+    /// <summary>
+    /// Todo:
+    /// * capture console output
+    /// * pipe console input
+    /// * timeout
+    /// * memory cap
+    /// </summary>
     public sealed class ByteCodeLoader : MarshalByRefObject
     {
         public ByteCodeLoader()
@@ -41,6 +58,78 @@ namespace Rossie.Engine
     // http://blog.filipekberg.se/2011/12/08/hosted-execution-of-smaller-code-snippets-with-roslyn/
     public class CodeExecuter
     {
+        #region scaffold code templates
+        // expression
+        const string entryPointExpression =
+@"public class EntryPoint 
+{ 
+    public static object Result {get;set;} 
+    public static Exception Exception {get;set;} 
+
+    public static void Main() 
+    {
+        try
+        {
+            Result = ______(); 
+        }
+        catch (Exception ex)
+        {
+            Exception = ex;
+        }
+    }  
+    public static object ______() { return ####; }
+    
+}";
+
+        // method body
+        const string entryPointMethodBody =
+@"public class EntryPoint 
+{ 
+    public static object Result {get;set;} 
+    public static Exception Exception {get;set;} 
+
+    public static void Main() 
+    {
+        try
+        {
+            Result = ______(); 
+        }
+        catch (Exception ex)
+        {
+            Exception = ex;
+        }
+    }  
+    public static object ______() { #### }
+    
+}";
+
+        const string entryPointMethod =
+@"public class EntryPoint 
+{ 
+    public static object Result {get;set;} 
+    public static Exception Exception {get;set;} 
+
+    public static void Main() 
+    {
+        try
+        {
+            Result = ______(); 
+        }
+        catch (Exception ex)
+        {
+            Exception = ex;
+        }
+    }  
+    public static object ______() { return typeof(EntryPoint).GetMethod(%MethodName%).Apply(%Arguments%);  } // apply with reflection
+
+    ####
+    
+}";
+
+        // compiling an entire program will require a different structure
+        // ...
+
+        #endregion
         private static AppDomain CreateSandbox()
         {
             var e = new Evidence();
@@ -78,83 +167,6 @@ namespace Rossie.Engine
 
             // scaffold code
 
-            #region scaffold code templates
-            // expression
-            string entryPointExpression =
-@"using System; 
-public class EntryPoint 
-{ 
-    public static object Result {get;set;} 
-    public static Exception Exception {get;set;} 
-
-    public static void Main() 
-    {
-        try
-        {
-            Result = Eval(); 
-        }
-        catch (Exception ex)
-        {
-            Exception = ex;
-        }
-    }  
-    public static object Eval() { return " + code + @"; }
-    
-}";
-
-            // method body
-            string entryPointMethodBody =
-@"using System; 
-public class EntryPoint 
-{ 
-    public static object Result {get;set;} 
-    public static Exception Exception {get;set;} 
-
-    public static void Main() 
-    {
-        try
-        {
-            Result = Eval(); 
-        }
-        catch (Exception ex)
-        {
-            Exception = ex;
-        }
-    }  
-    public static object Eval() { " + code + @" }
-    
-}";
-
-            string entryPointMethod =
-@"using System; 
-using System.Reflection;
-public class EntryPoint 
-{ 
-    public static object Result {get;set;} 
-    public static Exception Exception {get;set;} 
-
-    public static void Main() 
-    {
-        try
-        {
-            Result = Eval(); 
-        }
-        catch (Exception ex)
-        {
-            Exception = ex;
-        }
-    }  
-    public static object Eval() { return typeof(EntryPoint).GetMethod(%MethodName%).Apply(%Arguments%);  } // apply with reflection
-
-    " + code + @"
-    
-}";
-
-            // compiling an entire program will require a different structure
-            // ...
-
-            #endregion
-
             switch (template)
             {
                 case CSharpCodeTemplate.Expression: entryPoint = entryPointExpression; break;
@@ -162,10 +174,17 @@ public class EntryPoint
                 case CSharpCodeTemplate.WholeProgram:
                 case CSharpCodeTemplate.Class:
                 case CSharpCodeTemplate.ClassBody:
+                case CSharpCodeTemplate.Statements:
                 case CSharpCodeTemplate.Method: throw new NotImplementedException();
                 default: throw new ArgumentException();
 
             }
+
+            var usings = @"using System;
+using System.Collections.Generic;";
+
+            entryPoint = usings + "\n" + entryPoint.Replace("####", code);
+
             // parse
             var syntaxTrees = new[] { SyntaxTree.ParseText(entryPoint) };
 
@@ -182,15 +201,7 @@ public class EntryPoint
 
             // compile
 
-            var usings = new[] { "System", 
-                                    "System.IO", 
-                                    "System.Net", 
-                                    "System.Linq", 
-                                    "System.Text", 
-                                    "System.Text.RegularExpressions", 
-                                    "System.Collections.Generic" };
-
-            var options = new CompilationOptions(outputKind: OutputKind.ConsoleApplication, usings: usings);
+            var options = new CompilationOptions(outputKind: OutputKind.ConsoleApplication);
 
             var compilation = Compilation.Create("foo", options: options,
                                         syntaxTrees: syntaxTrees,
@@ -242,6 +253,7 @@ public class EntryPoint
                 {
                     scriptThread.Abort();
                     timedOut = true;
+                    break;
                 }
             }
 
@@ -260,7 +272,6 @@ public class EntryPoint
         }
 
         public object Execute(string code, out bool success, CSharpCodeTemplate template = CSharpCodeTemplate.Expression, int? timeoutSeconds = 6, int? memoryCapMb = 15)
-
         {
             object result;
             Exception exception;
@@ -273,7 +284,7 @@ public class EntryPoint
 
             if (compileErrors.Any())
             {
-                var errors = compileErrors.Select(x => x.Info.GetMessage().Replace("Eval()", "<Factory>()").ToString()).ToArray();
+                var errors = compileErrors.Select(x => x.Info.GetMessage().Replace("______()", "<Factory>()").ToString()).ToArray();
 
                 return "Compilation errors: " + string.Join(", ", errors);
             }

@@ -5,10 +5,9 @@
     int currentLevel = 1;
 }
 
-@Html.ActionLink("back to achievements", "Index", "MyAchievements", null, new { @class = "btn" })
-<h1 class="text-center">Lessons</h1>
-
-<h2 class="text-center">@Model.SkillName</h2>
+@Html.ActionLink("back to my skills", "Index", "MyAchievements", null, new { @class = "btn" })
+<h1 class="text-center">@Model.SkillName</h1>
+<h2 class="text-center">Lessons</h2>
 
 <div class="row-fluid pagination-centered">
     @foreach (var group in Model.Lessons)

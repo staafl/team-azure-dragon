@@ -135,7 +135,7 @@ namespace LearningSystem.App.Controllers
                 {
                     try
                     {
-                        EmailService.SendConfirmationEmail(model, user.Id);
+                        EmailService.SendConfirmationEmail(model, user.Id, Utils.GetSiteRootUrl());
                     }
                     catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException ex)
                     {

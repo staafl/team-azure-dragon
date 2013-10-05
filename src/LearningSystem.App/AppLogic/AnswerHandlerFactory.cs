@@ -25,19 +25,21 @@ namespace LearningSystem.App.AppLogic
                 case AnswerType.Text:
                     return GetTextAnswerHandler(answerContent);
                 case AnswerType.ApproximateText:
-                case AnswerType.MultipleChoise:
+                case AnswerType.MultipleChoice:
                     throw new NotImplementedException();
                 default:
                     throw new ArgumentException("Unsupported type: " + type);
             }
         }
 
+        static readonly string options = String.Join("|", (CSharpCodeTemplate[])Enum.GetValues(typeof(CSharpCodeTemplate)));
+
         static IAnswerHandler GetCSharpAnswerHandler(string answerContent, int version = 0)
         {
             if (version == 0)
             {
                 var match = Regex.Match(answerContent,
-                    @"^(?ix)0;(?<template>Expression|WholeProgram|Class|Method);(?<normalize>true|false);(?<tests>[^~]+~)+$");
+                    @"^(?ix)0;(?<template>" + options + @");(?<normalize>true|false);(?<tests>[^~]+~)+$");
 
                 if (!match.Success)
                     throw new ArgumentException("failed to match");

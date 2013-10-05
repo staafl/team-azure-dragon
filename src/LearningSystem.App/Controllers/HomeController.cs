@@ -32,14 +32,9 @@ namespace LearningSystem.App.Controllers
         }
         public ActionResult About()
         {
-
             var assembly = Assembly.GetExecutingAssembly();
 
-            var nameTokens = assembly.FullName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-            var name = string.Join(",", nameTokens[0], nameTokens[1]);
-
-            ViewBag.Name = name;
+            ViewBag.Version = assembly.GetName().Version.ToString();
 
             return View();
         }

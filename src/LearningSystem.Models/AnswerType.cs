@@ -7,12 +7,23 @@ namespace LearningSystem.Models
 {
     public enum AnswerType
     {
+        /// <summary>
+        /// Not Implemented.
+        /// </summary>
         None,
-        // TODO - spelling
-        MultipleChoise,
+        /// <summary>
+        /// Not Implemented.
+        /// </summary>
+        MultipleChoice,
         CSharpCode,
         Text,
+        /// <summary>
+        /// Not Implemented.
+        /// </summary>
         ApproximateText,
+        /// <summary>
+        /// Not Implemented.
+        /// </summary>
         Custom
     }
 }

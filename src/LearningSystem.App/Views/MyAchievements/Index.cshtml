@@ -1,15 +1,13 @@
 @model IEnumerable<LearningSystem.App.ViewModels.SkillViewModel>
 
 @{
-    ViewBag.Title = "My Achievements";
+    ViewBag.Title = "My Skills";
 }
 
 <h1 class="text-center extra-margin-top">@ViewBag.Title</h1>
 
 @if (Model.Any())
 {
-    <h2 class="text-center">My Skills</h2>
-    
     <hr />
 
     <div class="text-center">
@@ -39,7 +37,8 @@
 }
 else
 {
-    <h3>You don't have any completed skills. Go to our skills page and improve your qualities!</h3>
+    <h3>Welcome to Learning System!</h3>
+    <p>Go to our @Html.ActionLink("Find Skills", "Search", "Home") page to find interesting skills to study.</p>
 }
 
 

@@ -56,6 +56,7 @@ namespace LearningSystem.App.Controllers
             question.InputHtml = handler.RenderInputHtml();
 
             ViewBag.LessonId = Db.Exercises.GetById(exId).LessonId;
+            ViewBag.Lesson = Db.Exercises.GetById(exId);
             ViewBag.CurrentQuestionOrder = 0;
             ViewBag.ExId = exId;
             var questionsCount = this.CountQuestions(exId);

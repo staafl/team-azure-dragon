@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - LearningSystem</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/kendo")
     @Scripts.Render("~/bundles/modernizr")
@@ -17,7 +17,7 @@
                 @Html.ActionLink("Learning System", "Index", "Splash", new { area = "" }, new { @class = "brand" })
 
                 <ul class="nav nav-collapse">
-                    <li>@Html.ActionLink("Search", "Search", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Find Skills", "Search", "Home", new { area = "" }, null)</li>
                     @if (User.IsInRole("admin"))
                     {
                         <li class="dropdown">

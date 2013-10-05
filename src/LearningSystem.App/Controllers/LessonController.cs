@@ -44,8 +44,8 @@ namespace LearningSystem.App.Controllers
             }
 
             ViewBag.SkillId = db.Lessons.GetById(lessonId).SkillId;
-
+            ViewBag.Lesson = db.Lessons.GetById(lessonId);
             return View(exercises);
         }
-	}
+    }
 }

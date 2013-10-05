@@ -15,8 +15,8 @@ namespace LearningSystem.Models
                 ErrorMessage = "You must enter a valid e-mail address.")]
         public string Email { get; set; }
 
-        [RegularExpression(@"(www\.|http?://(www\.))?facebook\.com/(profile\.php\?id=)?([^/#?]+)(\n|$)",
-                ErrorMessage = "You must enter a valid Facebok profile link.")]
+        //[RegularExpression(@"(www\.|http?://(www\.))?facebook\.com/(profile\.php\?id=)?([^/#?]+)(\n|$)",
+        //        ErrorMessage = "You must enter a valid Facebok profile link.")]
         public string Facebook { get; set; }
 
         [ScaffoldColumn(false)]

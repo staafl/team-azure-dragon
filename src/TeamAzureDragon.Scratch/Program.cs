@@ -23,12 +23,8 @@ namespace TeamAzureDragon.Scratch
 
             //var dict = Misc.SerializeToDictionary(obj);
 
-            //var executer = new Rossie.Engine.CodeExecuter();
-            //Console.WriteLine(executer.Execute("1 + 2", CSharpCodeTemplate.Expression));
 
-            // var handler = AnswerHandlerFactory.GetHandler(AnswerType.CSharpCode, @"0;Expression;true;3~3~", 0);
-
-            // Console.WriteLine(handler.ValidateInput("1 + 2"));
+            CSharpCode();
 
             //using (var context = new LearningSystem.Data.LearningSystemContext())
             //{
@@ -42,6 +38,29 @@ namespace TeamAzureDragon.Scratch
             //}
         }
 
+        static void CSharpCode()
+        {
+            var executer = new Rossie.Engine.CodeExecuter();
+            string program;
+            while ((program = Console.ReadLine()) != null)
+            {
+                Console.WriteLine(executer.Execute(program, CSharpCodeTemplate.MethodBody));
+            }
+
+
+            //var handler = AnswerHandlerFactory.GetHandler(AnswerType.CSharpCode, @"0;MethodBody;true;data => data is Array && ((Array)data).Length == 5~", 0);
+            //Console.WriteLine(handler.ValidateInput("return 1 + 2;").ErrorContent);
+            //Console.WriteLine(handler.ValidateInput("return 1024;").Success);
+            //Console.WriteLine(handler.ValidateInput("asdfasdf").ErrorContent);
+            //var handler = AnswerHandlerFactory.GetHandler(AnswerType.CSharpCode, @"0;Expression;true;3~3~", 0);
+
+            // Console.WriteLine(handler.ValidateInput("1 + 2"));
+
+            //var template = CSharpCodeTemplate.Class;
+            //CSharpAnswerHandler handler = AnswerHandlerFactory.GetHandler(AnswerType.CSharpCode, @"0;Expression;true;3~3~", 0);
+
+            //Console.WriteLine(handler.ValidateInput("1 + 2"));
+        }
 
     }
 }
