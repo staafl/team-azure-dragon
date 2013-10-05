@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace TeamAzureDragon.Utils.Attributes
 {
-    // ViewModel -> Model
-    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+    /// <summary>
+    /// <para>Specifies that this ViewModel property contains navigation property id value(s), which will be used when building the Model object.</para>
+    /// <para>Used in ViewModel to Model mapping.</para>
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class ModelNavigationIdAttribute : Attribute
     {
-
-        // This is a positional argument
         public ModelNavigationIdAttribute(string navigationProperty)
         {
             this.NavigationProperty = navigationProperty;
-
         }
 
         public string NavigationProperty

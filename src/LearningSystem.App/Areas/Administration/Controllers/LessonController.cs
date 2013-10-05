@@ -127,7 +127,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             //}
 
             var viewModelLessons = db.Lessons.All("Skill").ToList()
-                        .Select(lesson => Misc.ModelToViewModel<Lesson, LessonViewModel>(lesson)).ToList();
+                        .Select(lesson => new LessonViewModel().FillViewModel(lesson)).ToList();
 
             for (int i = 0; i < viewModelLessons.Count(); i++)
             {
@@ -153,7 +153,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lesson = Misc.ViewModelToModel<LessonViewModel, Lesson>(lessonVM, db.Context);
+                var lesson = lessonVM.CreateModel(db.Context);
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -174,7 +174,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             //Lesson oldlesson = db.Lessons.GetById(lesson.LessonId);
             if (ModelState.IsValid)
             {
-                var lesson = Misc.ViewModelToModel<LessonViewModel, Lesson>(lessonVM, db.Context);
+                var lesson = lessonVM.CreateModel(db.Context);
                 db.Lessons.Update(lesson);
                 //oldlesson.Name = lesson.Name;
                 //oldlesson.Description = lesson.Description;

@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using LearningSystem.Models;
+using TeamAzureDragon.Utils;
 using TeamAzureDragon.Utils.Attributes;
 
 namespace LearningSystem.App.Areas.Administration.ViewModels
 {
-    public class LessonViewModel
+    public class LessonViewModel : IViewModel<Lesson>
     {
         public int LessonId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
         [ModelNavigationId("Skill")]
-        [ModelMapping("Skill.SkillId")]
+        [ModelPropertyPath("Skill.SkillId")]
         public int SkillId { get; set; }
 
-        [ModelMapping("Skill.Name")]
+        [ModelPropertyPath("Skill.Name")]
         public string SkillName { get; set; }
 
         [ModelNavigationId("Requirements")]
-        [ModelMapping("Requirements.LessonId")]
+        [ModelPropertyPath("Requirements.LessonId")]
         public ICollection<int> RequirementsId { get; set; }
 
-        [ModelMapping("Requirements.Name")]
+        [ModelPropertyPath("Requirements.Name")]
         public ICollection<string> RequirementsName { get; set; }
     }
 }
