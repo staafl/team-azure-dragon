@@ -8,7 +8,7 @@
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.Skill).EditorTemplateName("SkillDropdown");
+            columns.Bound(l => l.Skill).ClientTemplate("#= data.Skill.Name #").EditorTemplateName("SkillDropdown");
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
             //columns.Bound(l => l.Requirements).ClientTemplate("#=generateRequirementTemplate(Requirements)#");//.EditorTemplateName("RequermentCheckBoxList");
