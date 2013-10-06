@@ -70,14 +70,14 @@ namespace Rossie.Engine
     {
         try
         {
-            Result = Eval(); 
+            Result = ______(); 
         }
         catch (Exception ex)
         {
             Exception = ex;
         }
     }  
-    public static object Eval() { return ####; }
+    public static object ______() { return ####; }
     
 }";
 
@@ -92,14 +92,14 @@ namespace Rossie.Engine
     {
         try
         {
-            Result = Eval(); 
+            Result = ______(); 
         }
         catch (Exception ex)
         {
             Exception = ex;
         }
     }  
-    public static object Eval() { #### }
+    public static object ______() { #### }
     
 }";
 
@@ -113,14 +113,14 @@ namespace Rossie.Engine
     {
         try
         {
-            Result = Eval(); 
+            Result = ______(); 
         }
         catch (Exception ex)
         {
             Exception = ex;
         }
     }  
-    public static object Eval() { return typeof(EntryPoint).GetMethod(%MethodName%).Apply(%Arguments%);  } // apply with reflection
+    public static object ______() { return typeof(EntryPoint).GetMethod(%MethodName%).Apply(%Arguments%);  } // apply with reflection
 
     ####
     
@@ -284,7 +284,7 @@ using System.Collections.Generic;";
 
             if (compileErrors.Any())
             {
-                var errors = compileErrors.Select(x => x.Info.GetMessage().Replace("Eval()", "<Factory>()").ToString()).ToArray();
+                var errors = compileErrors.Select(x => x.Info.GetMessage().Replace("______()", "<Factory>()").ToString()).ToArray();
 
                 return "Compilation errors: " + string.Join(", ", errors);
             }
