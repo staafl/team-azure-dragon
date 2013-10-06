@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Rossie.Engine;
+using TeamAzureDragon.CSharpCompiler;
 namespace LearningSystem.App.AppLogic
 {
     public class CSharpAnswerHandler : IAnswerHandler
@@ -18,10 +18,10 @@ namespace LearningSystem.App.AppLogic
 
         public AnswerValidationResult ValidateInput(string input)
         {
-            var executer = new Rossie.Engine.CodeExecuter();
+            var executer = new TeamAzureDragon.CSharpCompiler.CodeExecuter();
 
             bool ranOk;
-            var result = executer.Execute(input, out ranOk, this.CodeTemplate);
+            var result = executer.RunAndReport(input, out ranOk, this.CodeTemplate);
             if (ranOk)
             {
                 if (result == null || result.ToString() != Tests.FirstOrDefault())

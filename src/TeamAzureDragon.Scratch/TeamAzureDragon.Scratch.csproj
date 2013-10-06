@@ -87,7 +87,7 @@
       <Project>{1a5bab78-e243-455a-ad7c-23caa9d882c5}</Project>
       <Name>LearningSystem.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rossie.Engine\TeamAzureDragon.CSharpCompiler.csproj">
+    <ProjectReference Include="..\TeamAzureDragon.CSharpCompiler\TeamAzureDragon.CSharpCompiler.csproj">
       <Project>{1d5a2399-ebff-41ad-b1a1-38b60ffcd767}</Project>
       <Name>TeamAzureDragon.CSharpCompiler</Name>
     </ProjectReference>

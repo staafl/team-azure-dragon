@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamAzureDragon.Utils;
-using Rossie.Engine;
+using TeamAzureDragon.CSharpCompiler;
 using System.Reflection;
 using System.Data.Entity;
 using TeamAzureDragon.Utils.Attributes;
@@ -40,11 +40,11 @@ namespace TeamAzureDragon.Scratch
 
         static void CSharpCode()
         {
-            var executer = new Rossie.Engine.CodeExecuter();
+            var executer = new TeamAzureDragon.CSharpCompiler.CodeExecuter();
             string program;
             while ((program = Console.ReadLine()) != null)
             {
-                Console.WriteLine(executer.Execute(program, CSharpCodeTemplate.MethodBody));
+                Console.WriteLine(executer.RunAndReport(program, CSharpCodeTemplate.MethodBody));
             }
 
 

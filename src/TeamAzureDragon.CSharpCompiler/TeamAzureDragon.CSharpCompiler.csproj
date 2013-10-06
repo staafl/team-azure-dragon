@@ -67,6 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeExecuter.cs" />
+    <Compile Include="Compiler.cs" />
+    <Compile Include="CSharpCodeTemplate.cs" />
+    <Compile Include="CSharpCodeBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>

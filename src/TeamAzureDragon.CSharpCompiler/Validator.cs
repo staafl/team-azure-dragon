@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Roslyn.Compilers.CSharp;
 using System.Linq;
-namespace Rossie.Engine
+namespace TeamAzureDragon.CSharpCompiler
 {
     public static class Validator
     {
