@@ -14,6 +14,8 @@ namespace LearningSystem.App.AppLogic
 
         public bool NormalizeLines { get; set; }
 
+        public Func<object, bool> Predicate { get; set; }
+
         public AnswerValidationResult ValidateInput(string input)
         {
             var executer = new Rossie.Engine.CodeExecuter();
