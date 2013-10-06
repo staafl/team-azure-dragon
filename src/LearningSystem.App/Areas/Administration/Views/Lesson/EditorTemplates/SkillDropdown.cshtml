@@ -1,10 +1,9 @@
-﻿
-@(Html.Kendo().DropDownList()
+﻿@(Html.Kendo().DropDownList()
     .Name("Skill") // Name of the widget should be the same as the name of the property
     .DataValueField("SkillId") // The value of the dropdown is taken from the EmployeeID property
     .DataTextField("Name") // The text of the items is taken from the EmployeeName property
     .DataSource(datasource => datasource.Read(read => read.Action("GetSkills", "Lesson")))
-    //.BindTo((System.Collections.IEnumerable)ViewData["skills"]) // A list of all employees which is populated in the controller
+        //.BindTo((System.Collections.IEnumerable)ViewData["skills"]) // A list of all employees which is populated in the controller
     .OptionLabel(" ")// "Please select:"
     .HtmlAttributes(new { style = "min-width:100px, max-width:200px" })
 )

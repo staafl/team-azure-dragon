@@ -14,29 +14,9 @@ using TeamAzureDragon.Utils.Attributes;
 namespace TeamAzureDragon.Scratch
 {
 
-    public class LessonViewModel : IViewModel<Lesson>
-    {
-        public int LessonId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-
-        [ModelNavigationId("Skill")]
-        [ModelPropertyPath("Skill.SkillId")]
-        public int SkillId { get; set; }
-
-        [ModelPropertyPath("Skill.Name")]
-        public string SkillName { get; set; }
-
-        [ModelNavigationId("Requirements")]
-        [ModelPropertyPath("Requirements.LessonId")]
-        public ICollection<int> RequirementsId { get; set; }
-
-        [ModelPropertyPath("Requirements.Name")]
-        public ICollection<string> RequirementsName { get; set; }
-    }
     class Program
     {
-        
+
         static void Main(string[] args)
         {
             //var obj = new { A = "a", B = "b", C = new { A = "a" } };
@@ -50,16 +30,16 @@ namespace TeamAzureDragon.Scratch
 
             // Console.WriteLine(handler.ValidateInput("1 + 2"));
 
-            using (var context = new LearningSystem.Data.LearningSystemContext())
-            {
-                Console.WriteLine(context.Lessons.Count());
-            }
-            using (var context = new LearningSystem.Data.LearningSystemContext())
-            {
-                var lesson = context.Lessons.Find(2);
-                var lvm = new LessonViewModel().FillViewModel(lesson);
-                var lesson2 = lvm.CreateModel(context);
-            }
+            //using (var context = new LearningSystem.Data.LearningSystemContext())
+            //{
+            //    Console.WriteLine(context.Lessons.Count());
+            //}
+            //using (var context = new LearningSystem.Data.LearningSystemContext())
+            //{
+            //    var lesson = context.Lessons.Find(2);
+            //    var lvm = new LessonViewModel().FillViewModel1(lesson);
+            //    var lesson2 = lvm.CreateModel(context);
+            //}
         }
 
 

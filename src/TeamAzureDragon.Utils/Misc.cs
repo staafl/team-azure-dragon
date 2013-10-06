@@ -87,7 +87,6 @@ namespace TeamAzureDragon.Utils
                 return value;
             }
         }
-
         public static object EvalPropertyPath(object obj, string path)
         {
             object value = obj;

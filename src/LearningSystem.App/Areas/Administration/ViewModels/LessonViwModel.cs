@@ -10,22 +10,21 @@ namespace LearningSystem.App.Areas.Administration.ViewModels
 {
     public class LessonViewModel : IViewModel<Lesson>
     {
+        [ModelNavigationId]
         public int LessonId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
-        [ModelNavigationId("Skill")]
-        [ModelPropertyPath("Skill.SkillId")]
-        public int SkillId { get; set; }
+        public SkillViewModel Skill { get; set; }
 
-        [ModelPropertyPath("Skill.Name")]
-        public string SkillName { get; set; }
+        public ICollection<LessonViewModel> Requirements { get; set; }
 
-        [ModelNavigationId("Requirements")]
-        [ModelPropertyPath("Requirements.LessonId")]
-        public ICollection<int> RequirementsId { get; set; }
+        public class SkillViewModel : IViewModel<Skill>
+        {
+            public string Name { get; set; }
 
-        [ModelPropertyPath("Requirements.Name")]
-        public ICollection<string> RequirementsName { get; set; }
+            [ModelNavigationId]
+            public int SkillId { get; set; }
+        }
     }
 }
