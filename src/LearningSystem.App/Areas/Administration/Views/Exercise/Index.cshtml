@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Administration";
 }
 
 <h2>Exercise</h2>
@@ -20,7 +20,7 @@
             {
                 commands.Edit();
                 commands.Destroy();
-                commands.Custom("ViewDetails").Click("showDetails");
+                commands.Custom("View Details").Click("showDetails");
                 commands.Custom("Questions").Click("showQuestions");
             }).Title("Commands").Width(350);
         })

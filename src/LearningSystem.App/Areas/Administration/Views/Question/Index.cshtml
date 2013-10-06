@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Administration";
 }
 
 <h2>Question</h2>
@@ -25,7 +25,7 @@
             {
                 commands.Edit();
                 commands.Destroy();
-                commands.Custom("ViewDetails").Click("showDetails");
+                commands.Custom("View Details").Click("showDetails");
             }).Title("Commands").Width(350);
         })
     .ToolBar(toolbar => toolbar.Create())

@@ -1,7 +1,7 @@
 @model LearningSystem.App.ViewModels.QuestionViewModel
 
 @{
-    ViewBag.Title = "Welcome to our exercises!";
+    ViewBag.Title = ViewBag.Lesson.Name;
 }
 
 @Html.ActionLink("back to exercises", "Index", "Lesson", new { lessonId = ViewBag.LessonId }, new { @class = "btn" })
