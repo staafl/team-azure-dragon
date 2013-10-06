@@ -8,8 +8,8 @@
     <ProjectGuid>{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rossie.Engine</RootNamespace>
-    <AssemblyName>Rossie.Engine</AssemblyName>
+    <RootNamespace>TeamAzureDragon.CSharpCompiler</RootNamespace>
+    <AssemblyName>TeamAzureDragon.CSharpCompiler</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
