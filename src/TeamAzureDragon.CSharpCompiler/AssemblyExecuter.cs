@@ -22,14 +22,12 @@ namespace TeamAzureDragon.CSharpCompiler
         /// * timeout
         /// * memory cap
         /// </summary>
-        //[SecurityCritical]
         public sealed class ProxyExecuter : MarshalByRefObject
         {
             public ProxyExecuter()
             {
             }
 
-            //[SecurityCritical]
             public void Run(byte[] compiledAssembly, EventWaitHandle wh, string stdin, bool getResult, out object result, out Exception exception, out string stdout)
             {
                 exception = null;
@@ -37,7 +35,7 @@ namespace TeamAzureDragon.CSharpCompiler
                 stdout = null;
 
                 StringWriter stdoutWriter = null;
-                // TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.SafeSetStdInOut(stdin, out stdoutWriter);
+                TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.SafeSetStdInOut(stdin, out stdoutWriter);
 
                 var assembly = Assembly.Load(compiledAssembly);
 
@@ -74,12 +72,12 @@ namespace TeamAzureDragon.CSharpCompiler
             e.AddHostEvidence(new Zone(SecurityZone.Internet));
 
             var ps = SecurityManager.GetStandardSandbox(e);
-            var security = new SecurityPermission(SecurityPermissionFlag.Execution | SecurityPermissionFlag.Assertion);
+            var security = new SecurityPermission(SecurityPermissionFlag.Execution);
 
             ps.AddPermission(security);
 
             var setup = new AppDomainSetup { ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) };
-            return AppDomain.CreateDomain("Sandbox" + DateTime.Now, null, setup, ps);
+            return AppDomain.CreateDomain("Sandbox" + DateTime.Now, null, setup, ps, typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.Evidence.GetHostEvidence<StrongName>());
         }
 
         public static void ExecuteAssembly(
@@ -104,11 +102,11 @@ namespace TeamAzureDragon.CSharpCompiler
             try
             {
                 // add references
-                foreach (var asm in Helpers.GetStandardReferences(false, true))
+                foreach (var asm in Helpers.GetStandardReferences(false, false))
                     sandbox.Load(asm);
 
                 // create proxy in sandbox appdomain
-                var loader = (ProxyExecuter)Activator.CreateInstance(sandbox, typeof(ProxyExecuter).Assembly.FullName, typeof(ProxyExecuter).FullName).Unwrap();
+                var proxy = (ProxyExecuter)Activator.CreateInstance(sandbox, typeof(ProxyExecuter).Assembly.FullName, typeof(ProxyExecuter).FullName).Unwrap();
 
                 // run computation in sandboxed appdomain, on a separate thread, and wait for it to signal the start of computation
                 Exception tempException = null;
@@ -120,7 +118,7 @@ namespace TeamAzureDragon.CSharpCompiler
                 {
                     scriptThread = new Thread(() =>
                    {
-                       loader.Run(assemblyIL, wh, stdin, true, out tempResult, out tempException, out tempStdout);
+                       proxy.Run(assemblyIL, wh, stdin, true, out tempResult, out tempException, out tempStdout);
                    });
 
                     scriptThread.Start();
