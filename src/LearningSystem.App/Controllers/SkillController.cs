@@ -22,7 +22,6 @@ namespace LearningSystem.App.Controllers
         }
         //
         // GET: /Skill/
-        [Authorize]
         public ActionResult Index(int skillId)
         {
             var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
@@ -93,15 +92,11 @@ namespace LearningSystem.App.Controllers
             }
         }
 
-
-        [Authorize]
         public ActionResult SignUpForSkill(int skillId)
         {
-            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
+            ApplicationUser user = db.Users.All("Skills").Single(x => x.UserName == User.Identity.Name);
 
             var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
-
-
 
             if (!user.Skills.Contains(skill))
             {
@@ -119,12 +114,10 @@ namespace LearningSystem.App.Controllers
             return RedirectToAction("Index", "Skill", new { skillId = skillId });
         }
 
-        [Authorize]
+        [AllowAnonymous]
         public ActionResult PreviewSkill(int skillId)
         {
-            var user = db.Users.All().Single(x => x.UserName == User.Identity.Name);
-
-            var skill = db.Skills.All().FirstOrDefault(x => x.SkillId == skillId);
+            var skill = db.Skills.All("Lessons").FirstOrDefault(x => x.SkillId == skillId);
             List<LessonViewModel> sortedLessons = new List<LessonViewModel>();
 
             var lessons = skill.Lessons.ToList();
@@ -138,8 +131,9 @@ namespace LearningSystem.App.Controllers
             sortedLessons.ForEach(x => x.IsLearned = false);
             vm.Lessons = sortedLessons.GroupBy(x => x.LevelInSkillTree);
 
+            ViewBag.IsSignedIn = User.Identity.IsAuthenticated;
+
             return View(vm);
         }
-
     }
 }
