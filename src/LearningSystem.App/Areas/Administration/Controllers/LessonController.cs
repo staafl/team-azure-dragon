@@ -101,33 +101,8 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            //var viewModelLessons = db.Lessons.All("Skill").ToList()
-            //            .Select(lesson => Misc.SerializeToDictionary(lesson,
-            //                    path =>
-            //                    {
-            //                        if (path == "LessonId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Name") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Description") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Skill") return RecursiveSerializationOption.Recurse;
-            //                        if (path == "Skill.SkillId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Skill.Name") return RecursiveSerializationOption.Assign;
-            //                        if (path == "SkillId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Requirements") return RecursiveSerializationOption.ForeachRecurse;
-            //                        if (path == "Requirements.LessonId") return RecursiveSerializationOption.Assign;
-            //                        if (path == "Requirements.Name") return RecursiveSerializationOption.Assign;
-            //                        return RecursiveSerializationOption.Skip;
-            //                    })).ToList();
-
-            //for (int i = 0; i < viewModelLessons.Count(); i++)
-            //{
-            //    if (viewModelLessons[i]["Description"] != null)
-            //    {
-            //        viewModelLessons[i]["Description"] = viewModelLessons[i]["Description"].ToString().Abbreviate(30);
-            //    }
-            //}
-
             var viewModelLessons = db.Lessons.All("Skill").ToList()
-                        .Select(lesson => new LessonViewModel().FillViewModel(lesson)).ToList();
+                .Select(lesson => new LessonViewModel().FillViewModel(lesson)).ToList();
 
             for (int i = 0; i < viewModelLessons.Count(); i++)
             {

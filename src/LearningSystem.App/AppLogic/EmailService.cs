@@ -9,7 +9,7 @@ namespace LearningSystem.App.AppLogic
 {
     public static class EmailService
     {
-        public static CommandResult SendConfirmationEmail(RegisterViewModel model, string userId)
+        public static CommandResult SendConfirmationEmail(RegisterViewModel model, string userId, string rootUrl)
         {
             // https://api.mailgun.net/v2
             // http://documentation.mailgun.com/quickstart.html#sending-messages
@@ -22,19 +22,21 @@ namespace LearningSystem.App.AppLogic
             message.Subject = "Learningsystem.apphb.com Account Activation - " + model.UserName;
             message.IsBodyHtml = true;
 
-            string returnLink = "localhost:51903/Account/Confirm?userId=" + userId;
+            string returnLink = rootUrl + "/Account/Confirm?userId=" + userId;
 
             message.Body = string.Format(
 @"<p>Hi {0},</p>
-<p>You are receiving this email because you have registered in Learningsystem.apphb.com. If you have not registered this account, you can safely ignore this email. Please do not reply to this email because we are not monitoring this inbox. </p>
+<p>You are receiving this email because you have registered in Learningsystem.apphb.com. If you have not registered this account, you can safely ignore this email.</p>
 
-<p>To start using LearningSystem, you need to verify your account. Please click the link or paste it into your browser's address bar:</p>
-<p><a href='{1}'>{1}</a></p>
+<p>To start using LearningSystem, you need to verify your account. Please click the link or paste it into your browser's address bar:
+<br/>
+<a href='{1}'>{1}</a></p>
 
-
-
-<p>Sincerely,</p>
-<p><a href='http://learningsystem.apphb.com/'>The LearningSystem Development Team</a></p>", model.UserName, returnLink);
+<p>Sincerely,
+<br/>
+<a href='http://learningsystem.apphb.com/'>The LearningSystem Development Team</a></p>
+<br/>
+<p>Please do not reply to this email, because we are not monitoring this inbox.</p>", model.UserName, returnLink);
 
             var result = client.SendMail(message);
             return result;

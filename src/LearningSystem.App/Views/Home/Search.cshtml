@@ -2,14 +2,12 @@
     ViewBag.Title = "Search";
 }
 
-<h1 class="text-center">Search</h1>
-
 <div id="searchSkillsContainer">
     <div class="text-center">
         <i class="icon-large icon-search"></i>
         @(Html.Kendo().AutoComplete()
         .Name("searchBox")
-        .Placeholder("Search skills...")
+        .Placeholder("Enter a keyword...")
         .MinLength(1)
         .DataTextField("SkillName")
         .DataSource(source =>

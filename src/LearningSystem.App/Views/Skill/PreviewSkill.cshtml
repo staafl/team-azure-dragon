@@ -6,17 +6,17 @@
 }
 @Html.ActionLink("back to search", "Search", "Home", null, new { @class = "btn" })
 
-<h2>
-    @Model.SkillName -
-    @if (ViewBag.IsSignedIn)
-    {
-        @Html.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = Model.SkillId }, null)
-    }
-    else
-    {
-        @:You must be logged in to sign up a skill (@Html.ActionLink("not registred yet?", "Index", "Splash")) 
-    }
-</h2>
+<h2>@Model.SkillName</h2>
+@if (ViewBag.IsSignedIn)
+{
+    @Html.ActionLink("Sign Up", "SignUpForSkill", "Skill", new { skillId = Model.SkillId }, null)
+}
+else
+{
+        
+    @:You must be logged in to sign up a skill. (@Html.ActionLink("Go to registration page...", "Index", "Splash")) 
+}
+
 <div id="signup-message" class="span3 absolute"></div>
 <div class="row-fluid pagination-centered">
     @foreach (var group in Model.Lessons)

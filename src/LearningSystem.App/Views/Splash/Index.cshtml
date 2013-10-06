@@ -4,33 +4,46 @@
 
 <div id="splash-wrapper">
     <hgroup>
-        <h1>@ViewBag.Title</h1>
-        <h2>Fight the dragon of the stupidity</h2>
+        <div class="row">
+            <div class="span8 offset3">
+                <h1>@ViewBag.Title</h1>
+            </div>
+        </div>
     </hgroup>
+    <br />
     <div id="register">
-        @(Ajax.ActionLink("Register", "Register", "Account",
+        <div class="row">
+            <div class="span4 offset1 well">
+                <h2>
+                    @(Ajax.ActionLink("Register", "Register", "Account",
     new AjaxOptions
     {
         UpdateTargetId = "register",
         InsertionMode = InsertionMode.Replace,
         HttpMethod = "GET"
-    }))
+    })) to start your journey
+                </h2>
+            </div>
+            <div class="span4 offset1 well">
+                <h2>@(Html.ActionLink("Search", "Search", "Home")) for available skills</h2>
+            </div>
+        </div>
+        <br />
     </div>
-</div>
 
-<script>
-    function redirectToHome(data) {
-        //TODO: Better redirection
-        if (data == "Loading...") {
-            window.location = "/MyAchievements/Index"
+    <script>
+        function redirectToHome(data) {
+            //TODO: Better redirection
+            if (data == "Loading...") {
+                window.location = "/MyAchievements/Index"
+            }
         }
-    }
-</script>
+    </script>
 
-@section loginSubmenu {
-    <div id="kendo-menu-holder" class="pull-right">
+    @section loginSubmenu {
+        <div id="kendo-menu-holder" class="pull-right">
 
-        @(Html.Kendo().Menu()
+            @(Html.Kendo().Menu()
             .Name("login-submenu")
                     .Animation(animation =>
                     {
@@ -45,10 +58,10 @@
             {
                 items.Add().Text("Login").Content(@<div id="login-form-ajax">@Html.Action("Login", "Account")</div>);
             }))
-    </div>
-}
+        </div>
+    }
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
