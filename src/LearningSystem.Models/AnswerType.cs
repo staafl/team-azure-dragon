@@ -11,10 +11,6 @@ namespace LearningSystem.Models
         /// Not Implemented.
         /// </summary>
         None,
-        /// <summary>
-        /// Not Implemented.
-        /// </summary>
-        MultipleChoice,
         CSharpCode,
         Text,
         /// <summary>
@@ -24,6 +20,8 @@ namespace LearningSystem.Models
         /// <summary>
         /// Not Implemented.
         /// </summary>
-        Custom
+        Custom,
+        Multiple,
+        List
     }
 }
