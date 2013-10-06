@@ -121,6 +121,29 @@ namespace TeamAzureDragon.Utils
 
         }
 
+        public static bool IsICollection(Type type)
+        {
+            if (type == typeof(string))
+                return false;
+
+            if (!typeof(IEnumerable).IsAssignableFrom(type))
+                return false;
+
+            if (type.IsInterface)
+            {
+
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ICollection<>))
+                    return true;
+                return false;
+            }
+            else
+            {
+                var ifaces = type.GetInterfaces();
+                return ifaces.Any(IsICollection);
+            }
+
+        }
+
         public static TVM FillViewModel<TVM, TM>(this TVM viewModel, TM model) where TVM : IViewModel<TM>
         {
             const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
@@ -131,14 +154,15 @@ namespace TeamAzureDragon.Utils
 
                 string path = attr == null ? viewModelProp.Name : attr.ModelPropertyPath;
 
-                if (typeof(IEnumerable).IsAssignableFrom(type))
+                if (IsICollection(type))
                 {
                     // todo: check if generic type
 
                     // TODO: UGLY HAIRY HACKERY
                     var list = MakeIList(type);
                     var collectionName = Misc.Chop(ref path);
-                    var collection = (ICollection)(typeof(TM).GetProperty(collectionName).GetValue(model));
+
+                    var collection = (IEnumerable)(typeof(TM).GetProperty(collectionName).GetValue(model));
                     foreach (var elem in collection)
                         list.Add(Misc.EvalPropertyPath(elem, path));
 
@@ -179,10 +203,12 @@ namespace TeamAzureDragon.Utils
                 var navProperty = typeof(TM).GetProperty(((ModelNavigationIdAttribute)attr).NavigationProperty);
                 var navPropertyType = navProperty.PropertyType;
 
-                if (typeof(IEnumerable).IsAssignableFrom(navPropertyType))
+                if (IsICollection(navPropertyType))
                 {
+
                     // TODO: UGLY HACK
-                    dynamic navCollection = navProperty.GetValue(model);
+                    var navCollection = navProperty.GetValue(model);
+                    var addMethod = navPropertyType.GetMethod("Add", flags);
                     var entityType = navPropertyType.GetGenericArguments()[0];
                     var dbset = context.Set(entityType);
 
@@ -190,7 +216,7 @@ namespace TeamAzureDragon.Utils
                     foreach (var id in idCollection)
                     {
                         var entity = context.Set(entityType).Find(id);
-                        navCollection.Add(entity);
+                        addMethod.Invoke(navCollection, new object[] { entity });
                     }
                 }
                 else
@@ -211,7 +237,6 @@ namespace TeamAzureDragon.Utils
             var typeOfList = typeof(List<>).MakeGenericType(typeofT);
             return (IList)Activator.CreateInstance(typeOfList);
         }
-
 
         public static void Fill(object me, object from, bool ignoreEmpty = false, params string[] ignoreHeaders)
         {
