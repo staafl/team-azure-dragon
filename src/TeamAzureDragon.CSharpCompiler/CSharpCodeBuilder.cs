@@ -15,7 +15,7 @@ namespace TeamAzureDragon.CSharpCompiler
 {
     public static class CSharpCodeBuilder
     {
-        public static string MakeProgram(string code, CSharpCodeTemplate template)
+        public static string ToProgramSource(string code, CSharpCodeTemplate template)
         {
             string program;
             // scaffold code

@@ -40,11 +40,10 @@ namespace TeamAzureDragon.Scratch
 
         static void CSharpCode()
         {
-            var executer = new TeamAzureDragon.CSharpCompiler.CodeExecuter();
             string program;
             while ((program = Console.ReadLine()) != null)
             {
-                Console.WriteLine(executer.RunAndReport(program, CSharpCodeTemplate.MethodBody));
+                Console.WriteLine(ExecutionDirector.RunAndReport(program, CSharpCodeTemplate.MethodBody));
             }
 
 

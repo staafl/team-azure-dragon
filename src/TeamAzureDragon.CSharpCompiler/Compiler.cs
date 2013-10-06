@@ -17,36 +17,30 @@ namespace TeamAzureDragon.CSharpCompiler
     public static class Compiler
     {
         // todo: cache?
+        /// <summary>
+        /// Compiles a piece of code to IL representing a CLR assembly with the specified code and the standard references.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="template"></param>
+        /// <param name="compileErrors"></param>
+        /// <returns></returns>
         public static byte[] CompileToAssembly(
-            string code,
-            CSharpCodeTemplate template,
+            SyntaxTree syntaxTree,
             out IEnumerable<Diagnostic> compileErrors)
         {
             compileErrors = new Diagnostic[0];
 
-            string program = CSharpCodeBuilder.MakeProgram(code, template);
-
-            // parse
-            var syntaxTrees = new[] { SyntaxTree.ParseText(program) };
-
             // add references
+            var references = Helpers.GetStandardReferences(true, false).Select(MetadataReference.CreateAssemblyReference).ToList();
 
-            var references = new[] { 
-                MetadataReference.CreateAssemblyReference(typeof(object).Assembly.FullName), // mscorlib
-                MetadataReference.CreateAssemblyReference("System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"), 
-                MetadataReference.CreateAssemblyReference("System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")
-            };
-
-
-            // compile
-
+            // prepare compilation
             var options = new CompilationOptions(outputKind: OutputKind.ConsoleApplication);
 
             var compilation = Compilation.Create("DUMMY_NAME", options: options,
-                                        syntaxTrees: syntaxTrees,
+                                        syntaxTrees: new[] { syntaxTree },
                                         references: references);
 
-            // emit
+            // compile and emit
 
             byte[] compiledAssembly;
             using (var output = new MemoryStream())
@@ -62,11 +56,7 @@ namespace TeamAzureDragon.CSharpCompiler
                 compiledAssembly = output.ToArray();
             }
 
-            if (compiledAssembly.Length == 0) throw new ApplicationException();
-
             return compiledAssembly;
-
-            
         }
 
     }

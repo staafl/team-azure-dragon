@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TeamAzureDragon.Scratch")]
+[assembly: AssemblyTitle("TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TeamAzureDragon.Scratch")]
+[assembly: AssemblyProduct("TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("99bdbc0b-43b2-427a-b6c3-55ab4f10f36a")]
+[assembly: Guid("5e12c637-149a-43e0-bb4c-960ddf75e9f5")]
 
 // Version information for an assembly consists of the following four values:
 //

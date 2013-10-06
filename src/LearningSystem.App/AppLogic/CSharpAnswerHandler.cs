@@ -18,10 +18,8 @@ namespace LearningSystem.App.AppLogic
 
         public AnswerValidationResult ValidateInput(string input)
         {
-            var executer = new TeamAzureDragon.CSharpCompiler.CodeExecuter();
-
             bool ranOk;
-            var result = executer.RunAndReport(input, out ranOk, this.CodeTemplate);
+            var result = ExecutionDirector.RunAndReport(input, out ranOk, this.CodeTemplate);
             if (ranOk)
             {
                 if (result == null || result.ToString() != Tests.FirstOrDefault())
