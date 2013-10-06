@@ -37,6 +37,9 @@
         <div class="form-actions no-color">
             <input type="submit" value="Log in" class="btn" />
         </div>
+        <div>
+            @Html.ActionLink("not registred yet?", "Index", "Splash")
+        </div>
         @Html.ValidationSummary(true)
     }
 </div>

@@ -33,8 +33,12 @@
                     }
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null )</li>
                 </ul>
+                
                 @RenderSection("loginSubmenu", required: false)
-                @Html.Partial("_LoginPartial")
+                @if (Url.RequestContext.RouteData.Values["controller"].ToString() != "Splash")
+                {
+                    @Html.Partial("_LoginPartial")
+                }
 
             </div>
         </div>

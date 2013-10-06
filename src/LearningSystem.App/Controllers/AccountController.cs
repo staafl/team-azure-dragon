@@ -20,7 +20,7 @@ namespace LearningSystem.App.Controllers
     public class AccountController : Controller
     {
         IUoWLearningSystem db;
-        public AccountController(IUoWLearningSystem db) 
+        public AccountController(IUoWLearningSystem db)
         {
             IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new LearningSystemContext()));
             this.db = db;
@@ -33,13 +33,15 @@ namespace LearningSystem.App.Controllers
 
         public AuthenticationIdentityManager IdentityManager { get; private set; }
 
-        private Microsoft.Owin.Security.IAuthenticationManager AuthenticationManager {
-            get {
+        private Microsoft.Owin.Security.IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
 
-        
+
 
         //
         // GET: /Account/Login
@@ -47,7 +49,7 @@ namespace LearningSystem.App.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            
+
             ViewBag.ReturnUrl = returnUrl;
             return PartialView("_Login");
         }
@@ -65,14 +67,9 @@ namespace LearningSystem.App.Controllers
                 var user = db.Users.All().SingleOrDefault(u => u.UserName == model.UserName);
 
                 // Validate the password
-                IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, model.UserName, model.Password, model.RememberMe);
                 if (user == null)
                 {
-                    AddErrors(result);
-                }
-                else if (result.Success && user.IsConfirmed == true)
-                {
-                    return Content("Loading...");
+                    AddErrors(new IdentityResult("Wrong username or password!"));
                 }
                 else if (user.IsConfirmed != true)
                 {
@@ -80,7 +77,16 @@ namespace LearningSystem.App.Controllers
                 }
                 else
                 {
-                    AddErrors(result);
+                    IdentityResult result = await IdentityManager.Authentication.CheckPasswordAndSignInAsync(AuthenticationManager, model.UserName, model.Password, model.RememberMe);
+
+                    if (result.Success)
+                    {
+                        return Content("Loading...");
+                    }
+                    else
+                    {
+                        AddErrors(new IdentityResult("Wrong username or password!"));
+                    }
                 }
             }
 
@@ -118,8 +124,8 @@ namespace LearningSystem.App.Controllers
             if (ModelState.IsValid)
             {
                 // Create a local login before signing in the user
-                var user = new ApplicationUser() 
-                { 
+                var user = new ApplicationUser()
+                {
                     UserName = model.UserName,
                     Email = model.Email,
                     Facebook = model.Facebook
@@ -131,7 +137,7 @@ namespace LearningSystem.App.Controllers
                     {
                         EmailService.SendConfirmationEmail(model, user.Id);
                     }
-                    catch(Microsoft.CSharp.RuntimeBinder.RuntimeBinderException ex)
+                    catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException ex)
                     {
                         //do nothing - mail service bug
                     }
@@ -189,7 +195,7 @@ namespace LearningSystem.App.Controllers
             ViewBag.HasLocalPassword = hasLocalLogin;
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasLocalLogin)
-            {               
+            {
                 if (ModelState.IsValid)
                 {
                     IdentityResult result = await IdentityManager.Passwords.ChangePasswordAsync(User.Identity.GetUserName(), model.OldPassword, model.NewPassword);
@@ -250,7 +256,7 @@ namespace LearningSystem.App.Controllers
             ClaimsIdentity id = await IdentityManager.Authentication.GetExternalIdentityAsync(AuthenticationManager);
             // Sign in this external identity if its already linked
             IdentityResult result = await IdentityManager.Authentication.SignInExternalIdentityAsync(AuthenticationManager, id);
-            if (result.Success) 
+            if (result.Success)
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -262,7 +268,7 @@ namespace LearningSystem.App.Controllers
                 {
                     return RedirectToLocal(returnUrl);
                 }
-                else 
+                else
                 {
                     return View("ExternalLoginFailure");
                 }
@@ -287,7 +293,7 @@ namespace LearningSystem.App.Controllers
             {
                 return RedirectToAction("Manage");
             }
-            
+
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
@@ -343,8 +349,10 @@ namespace LearningSystem.App.Controllers
             }).Result;
         }
 
-        protected override void Dispose(bool disposing) {
-            if (disposing && IdentityManager != null) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && IdentityManager != null)
+            {
                 IdentityManager.Dispose();
                 IdentityManager = null;
             }
@@ -352,8 +360,10 @@ namespace LearningSystem.App.Controllers
         }
 
         #region Helpers
-        private void AddErrors(IdentityResult result) {
-            foreach (var error in result.Errors) {
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
                 ModelState.AddModelError("", error);
             }
         }
