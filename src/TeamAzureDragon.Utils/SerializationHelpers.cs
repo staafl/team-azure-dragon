@@ -29,7 +29,8 @@ namespace TeamAzureDragon.Utils
         Skip
     }
 
-    public interface IViewModel<TModel>
+    public interface IViewModel { }
+    public interface IViewModel<TModel> : IViewModel
     {
     }
 
@@ -144,7 +145,39 @@ namespace TeamAzureDragon.Utils
 
         }
 
-        public static TVM FillViewModel<TVM, TM>(this TVM viewModel, TM model) where TVM : IViewModel<TM>
+        //public static TVM FillViewModel<TVM, TM>(this TVM viewModel, TM model) where TVM : IViewModel<TM>
+        //{
+        //    const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+        //    foreach (PropertyInfo viewModelProp in viewModel.GetType().GetProperties(flags))
+        //    {
+        //        var type = viewModelProp.PropertyType;
+        //        var attr = (ModelPropertyPathAttribute)viewModelProp.GetCustomAttribute(typeof(ModelPropertyPathAttribute));
+
+        //        string path = attr == null ? viewModelProp.Name : attr.ModelPropertyPath;
+
+        //        if (IsICollection(type))
+        //        {
+        //            // todo: check if generic type
+
+        //            // TODO: UGLY HAIRY HACKERY
+        //            var set = MakeSet(type);
+        //            var collectionName = Misc.Chop(ref path);
+
+        //            var collection = (IEnumerable)(typeof(TM).GetProperty(collectionName).GetValue(model));
+        //            foreach (var elem in collection) ;
+        //            // set.Add(Misc.EvalPropertyPath(elem, path));
+
+        //            viewModelProp.SetValue(viewModel, set);
+        //        }
+        //        else
+        //        {
+        //            viewModelProp.SetValue(viewModel, Misc.EvalPropertyPath(model, path));
+        //        }
+        //    }
+        //    return viewModel;
+        //}
+
+        public static TVM FillViewModel<TVM, TM>(this TVM viewModel, TM model) where TVM : IViewModel
         {
             const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
             foreach (PropertyInfo viewModelProp in viewModel.GetType().GetProperties(flags))
@@ -159,83 +192,113 @@ namespace TeamAzureDragon.Utils
                     // todo: check if generic type
 
                     // TODO: UGLY HAIRY HACKERY
-                    var list = MakeIList(type);
-                    var collectionName = Misc.Chop(ref path);
+                    var set = MakeSet(type);
 
-                    var collection = (IEnumerable)(typeof(TM).GetProperty(collectionName).GetValue(model));
-                    foreach (var elem in collection)
-                        list.Add(Misc.EvalPropertyPath(elem, path));
+                    var collection = (IEnumerable)(typeof(TM).GetProperty(path).GetValue(model));
+                    var vmType = type.GetGenericArguments()[0];
+                    var add = set.GetType().GetMethod("Add");
+                    foreach (var navEntity in collection)
+                    {
+                        object vm = FillNavProperty(navEntity, vmType);
+                        add.Invoke(set, new object[] { vm });
+                    }
 
-                    viewModelProp.SetValue(viewModel, list);
+                    viewModelProp.SetValue(viewModel, set);
+                }
+                else if (typeof(IViewModel).IsAssignableFrom(type))
+                {
+                    // get the navigation entity
+                    var navEntity = Misc.EvalPropertyPath(model, path);
+
+                    var vm = FillNavProperty(navEntity, type);
+                    // put it on us
+                    viewModelProp.SetValue(viewModel, vm);
                 }
                 else
                 {
                     viewModelProp.SetValue(viewModel, Misc.EvalPropertyPath(model, path));
+                    continue;
                 }
             }
             return viewModel;
         }
 
-        public static TM CreateModel<TM>(this IViewModel<TM> viewModel, DbContext context)
+        static object FillNavProperty(object navEntity, Type vmType)
+        {
+            // creaet an empty viewmodel
+            var vm = Activator.CreateInstance(vmType);
+            // fill it
+            var method = typeof(Misc).GetMethod("FillViewModel").MakeGenericMethod(vmType, navEntity.GetType());
+            method.Invoke(null, new object[] { vm, navEntity });
+            return vm;
+        }
+
+        public static TM FillModel<TM>(this IViewModel<TM> viewModel, DbContext context, TM model = null) where TM : class
         {
             const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
-            var model = Activator.CreateInstance<TM>();
-            foreach (PropertyInfo viewModelProp in viewModel.GetType().GetProperties(flags))
+            model = model ?? Activator.CreateInstance<TM>();
+            foreach (PropertyInfo vmProp in viewModel.GetType().GetProperties(flags))
             {
-                var attr = viewModelProp.GetCustomAttribute(typeof(ModelNavigationIdAttribute));
-
-                var viewModelValue = viewModelProp.GetValue(viewModel);
-                if (attr == null)
-                {
-                    var name = viewModelProp.Name;
-
-                    var modelProp = typeof(TM).GetProperty(name, flags);
-
-                    if (modelProp == null)
-                        continue;
-
-                    // map directly
-                    modelProp.SetValue(model, viewModelValue);
+                var vmValue = vmProp.GetValue(viewModel);
+                if (vmValue == null)
                     continue;
+                var name = vmProp.Name;
 
-                }
+                var modelProp = typeof(TM).GetProperty(name, flags);
+                var modelPropType = modelProp.PropertyType;
 
-                var navProperty = typeof(TM).GetProperty(((ModelNavigationIdAttribute)attr).NavigationProperty);
-                var navPropertyType = navProperty.PropertyType;
-
-                if (IsICollection(navPropertyType))
+                if (IsICollection(modelPropType))
                 {
-
                     // TODO: UGLY HACK
-                    var navCollection = navProperty.GetValue(model);
-                    var addMethod = navPropertyType.GetMethod("Add", flags);
-                    var entityType = navPropertyType.GetGenericArguments()[0];
+                    var navCollection = modelProp.GetValue(model);
+                    var addMethod = modelPropType.GetMethod("Add", flags);
+                    var vmType = vmProp.PropertyType.GetGenericArguments()[0];
+                    var idProp = GetIdProp(vmType);
+                    var entityType = modelPropType.GetGenericArguments()[0];
                     var dbset = context.Set(entityType);
 
-                    var idCollection = (IEnumerable)viewModelValue;
-                    foreach (var id in idCollection)
+                    var vmCollection = (IEnumerable)vmValue;
+
+                    foreach (var vmElem in vmCollection)
                     {
+                        var id = idProp.GetValue(vmElem);
                         var entity = context.Set(entityType).Find(id);
                         addMethod.Invoke(navCollection, new object[] { entity });
                     }
                 }
+                else if (typeof(IViewModel).IsAssignableFrom(vmProp.PropertyType))
+                {
+                    var entityType = modelPropType;
+                    var vmType = vmProp.PropertyType;
+                    var idProp = GetIdProp(vmType);
+                    var id = idProp.GetValue(vmValue);
+                    var entity = context.Set(entityType).Find(id);
+                    modelProp.SetValue(model, entity);
+                }
                 else
                 {
-                    var entityType = navPropertyType;
-                    var entity = context.Set(entityType).Find(viewModelValue);
-                    navProperty.SetValue(model, entity);
+                    modelProp.SetValue(model, vmValue);
                 }
             }
-
             return model;
 
         }
 
-        static IList MakeIList(Type typeofICollectionOfT)
+        static PropertyInfo GetIdProp(Type vmType)
+        {
+            foreach (var prop in vmType.GetProperties())
+            {
+                if (prop.GetCustomAttributes<ModelNavigationIdAttribute>().Any())
+                    return prop;
+            }
+            return null;
+        }
+
+        static object MakeSet(Type typeofICollectionOfT)
         {
             var typeofT = typeofICollectionOfT.GenericTypeArguments[0];
-            var typeOfList = typeof(List<>).MakeGenericType(typeofT);
-            return (IList)Activator.CreateInstance(typeOfList);
+            var typeOfList = typeof(HashSet<>).MakeGenericType(typeofT);
+            return Activator.CreateInstance(typeOfList);
         }
 
         public static void Fill(object me, object from, bool ignoreEmpty = false, params string[] ignoreHeaders)

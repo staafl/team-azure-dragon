@@ -13,15 +13,8 @@ namespace TeamAzureDragon.Utils.Attributes
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class ModelNavigationIdAttribute : Attribute
     {
-        public ModelNavigationIdAttribute(string navigationProperty)
+        public ModelNavigationIdAttribute()
         {
-            this.NavigationProperty = navigationProperty;
-        }
-
-        public string NavigationProperty
-        {
-            get;
-            set;
         }
     }
 }

@@ -153,7 +153,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lesson = lessonVM.CreateModel(db.Context);
+                var lesson = lessonVM.FillModel(db.Context);
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -174,8 +174,9 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             //Lesson oldlesson = db.Lessons.GetById(lesson.LessonId);
             if (ModelState.IsValid)
             {
-                var lesson = lessonVM.CreateModel(db.Context);
-                db.Lessons.Update(lesson);
+                var model = db.Lessons.GetById(lessonVM.LessonId);
+                lessonVM.FillModel(db.Context, model);
+                db.Lessons.Update(model);
                 //oldlesson.Name = lesson.Name;
                 //oldlesson.Description = lesson.Description;
                 //oldlesson.SkillId = lesson.Skill.SkillId;

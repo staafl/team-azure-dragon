@@ -1,20 +1,18 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-
 <h2>Lessons</h2>
-
 @using (Html.BeginForm())
 {
     @(Html.Kendo().Grid<LearningSystem.App.Areas.Administration.ViewModels.LessonViewModel>()
     .Name("Grid")
     .Columns(columns =>
         {
-            columns.Bound(l => l.SkillName).ClientTemplate("#= data.Skill ? data.Skill.Name : '' #").EditorTemplateName("SkillDropdown");
+            columns.Bound(l => l.Skill).EditorTemplateName("SkillDropdown");
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
             //columns.Bound(l => l.Requirements).ClientTemplate("#=generateRequirementTemplate(Requirements)#");//.EditorTemplateName("RequermentCheckBoxList");
-            columns.Bound(l => l.RequirementsName).ClientTemplate("#= generateRequirementTemplate(Requirements) #").EditorTemplateName("MultiSelectRequierments");
+            columns.Bound(l => l.Requirements).ClientTemplate("#= generateRequirementTemplate(data.Requirements) #").EditorTemplateName("MultiSelectRequierments");
             columns.Command(commands =>
             {
                 commands.Edit();
@@ -46,24 +44,19 @@
     @Html.AntiForgeryToken()
 }
 
-
 <script>
     function showDetails(e) {
         e.preventDefault();
-
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         var url = '@Url.Action("Details", "Lesson", new { id = "_id" })';
         window.location.href = url.replace('_id', dataItem.LessonId);
     }
-
     function showExercises(e) {
         e.preventDefault();
-
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         var url = '@Url.Action("Index", "Exercise", new { id = "_id" })';
         window.location.href = url.replace('_id', dataItem.LessonId);
     }
-
     function generateRequirementTemplate(data) {
         var template = "";
         if (data) {
@@ -71,9 +64,6 @@
                 template = template + data[i].Name + "<br />";
             }
         }
-
         return template;
     }
 </script>
-
-

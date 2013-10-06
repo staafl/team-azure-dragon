@@ -97,7 +97,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 
             for (int i = 0; i < viewModelExercises.Count(); i++)
             {
-                viewModelExercises[i]["Description"] = viewModelExercises[i]["Description"].ToString().Abbreviate(30);
+                viewModelExercises[i]["Description"] = (viewModelExercises[i]["Description"] ?? "").ToString().Abbreviate(30);
             }
 
             //var viewModelExercises = db.Exercises.All("Lesson").ToList().Select(e => new ExerciseVM()
