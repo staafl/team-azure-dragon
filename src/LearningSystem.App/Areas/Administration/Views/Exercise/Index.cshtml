@@ -28,6 +28,7 @@
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .DataSource(datasource => datasource
         .Ajax()
+        .ServerOperation(true)
         .PageSize(5)
         .Model(model =>
         {

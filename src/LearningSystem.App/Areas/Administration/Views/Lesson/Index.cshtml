@@ -26,6 +26,7 @@
     .DataSource(datasource => datasource
         .Ajax()
         .PageSize(5)
+        .ServerOperation(true)
         .Model(model =>
         {
             model.Id(lesson => lesson.LessonId);
