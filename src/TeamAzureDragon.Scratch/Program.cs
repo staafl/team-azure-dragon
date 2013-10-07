@@ -43,7 +43,11 @@ namespace TeamAzureDragon.Scratch
             string program;
             while ((program = Console.ReadLine()) != null)
             {
-                Console.WriteLine(ExecutionDirector.RunAndReport(program, CSharpCodeTemplate.MethodBody));
+                string stdout;
+                bool success;
+                Console.WriteLine(">> " + ExecutionDirector.RunAndReport(program, out success, null, out stdout, CSharpCodeTemplate.MethodBody));
+                if (stdout != null)
+                    Console.WriteLine("STDOUT: " + stdout);
             }
 
 

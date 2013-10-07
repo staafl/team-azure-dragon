@@ -19,9 +19,14 @@ namespace LearningSystem.App.AppLogic
         public AnswerValidationResult ValidateInput(string input)
         {
             bool ranOk;
-            var result = ExecutionDirector.RunAndReport(input, out ranOk, this.CodeTemplate);
+            string stdout;
+            var result = ExecutionDirector.RunAndReport(input, out ranOk, null, out stdout, this.CodeTemplate, timeoutSeconds: 6, memoryCapMb: 10);
             if (ranOk)
             {
+                if (this.CodeTemplate == CSharpCodeTemplate.WholeProgram)
+                {
+                    return new AnswerValidationResult { Success = false, ErrorContent = "Program output: " + stdout };
+                }
                 if (result == null || result.ToString() != Tests.FirstOrDefault())
                     return new AnswerValidationResult { Success = false, ErrorContent = "Wrong answer!" };
 
@@ -36,7 +41,7 @@ namespace LearningSystem.App.AppLogic
             // todo: duplication
             if (this.CodeTemplate == CSharpCodeTemplate.WholeProgram)
             {
-                return @"<textarea id='answer-input' name='answer-input' class='answer-input-textfield input-code' />";
+                return @"<textarea id='answer-input' name='answer-input' class='answer-input-textfield input-code'></textarea>";
 
             }
 

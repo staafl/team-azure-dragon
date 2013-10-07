@@ -14,7 +14,7 @@ namespace LearningSystem.App.AppLogic
             var sb = new StringBuilder();
             foreach (var t in Tests)
             {
-                sb.AppendFormat(@"<div><input type='checkbox' name='answer-input[]' value='{0}'>&nbsp;{0}</input></div>", t.Item1); // TODO: escape
+                sb.AppendFormat(@"<div><label><input type='checkbox' name='answer-input[]' value='{0}'/>&nbsp;{0}</label></div>", t.Item1); // TODO: escape
             }
             return sb.ToString();
         }

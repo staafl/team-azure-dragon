@@ -24,7 +24,7 @@ namespace TeamAzureDragon.CSharpCompiler
             {
                 case CSharpCodeTemplate.Expression: program = entryPointExpression; break;
                 case CSharpCodeTemplate.MethodBody: program = entryPointMethodBody; break;
-                case CSharpCodeTemplate.WholeProgram:
+                case CSharpCodeTemplate.WholeProgram: program = code; break;
                 case CSharpCodeTemplate.Class:
                 case CSharpCodeTemplate.ClassBody:
                 case CSharpCodeTemplate.Statements:
@@ -33,10 +33,14 @@ namespace TeamAzureDragon.CSharpCompiler
 
             }
 
-            var usings = @"using System;
+            if (template != CSharpCodeTemplate.WholeProgram)
+            {
+
+                var usings = @"using System;
 using System.Collections.Generic;";
 
-            program = usings + "\n" + program.Replace("####", code);
+                program = usings + "\n" + program.Replace("####", code);
+            }
 
             return program;
         }

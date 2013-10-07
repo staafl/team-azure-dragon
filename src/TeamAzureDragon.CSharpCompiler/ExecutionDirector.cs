@@ -15,14 +15,14 @@ namespace TeamAzureDragon.CSharpCompiler
 {
     public static class ExecutionDirector
     {
-        public static object RunAndReport(string code, CSharpCodeTemplate template, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+        //public static object RunAndReport(string code, CSharpCodeTemplate template, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+        //{
+        //    bool success;
+        //    return RunAndReport(code, out success, template, timeoutSeconds, memoryCapMb);
+        //}
+        public static object RunAndReport(string code, out bool success, string stdin, out string stdout, CSharpCodeTemplate template, int? timeoutSeconds = 6, int? memoryCapMb = 15)
         {
-            bool success;
-            return RunAndReport(code, out success, template, timeoutSeconds, memoryCapMb);
-        }
-        public static object RunAndReport(string code, out bool success, CSharpCodeTemplate template, int? timeoutSeconds = 6, int? memoryCapMb = 15)
-        {
-
+            stdout = null;
             success = false;
             IEnumerable<Diagnostic> compileErrors;
             // CSharpCodeTemplate template,
@@ -44,21 +44,19 @@ namespace TeamAzureDragon.CSharpCompiler
                 return "Compilation errors: " + string.Join(", ", errors);
             }
 
-            return RunAndReport(asm, out success, timeoutSeconds, memoryCapMb);
+            return RunAndReport(asm, out success, stdin, out  stdout, timeoutSeconds, memoryCapMb);
 
         }
-        public static object RunAndReport(byte[] assemblyIL, int? timeoutSeconds = 6, int? memoryCapMb = 15)
-        {
-            bool success;
-            return RunAndReport(assemblyIL, out success, timeoutSeconds, memoryCapMb);
-        }
-        public static object RunAndReport(byte[] assemblyIL, out bool success, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+        //public static object RunAndReport(byte[] assemblyIL, int? timeoutSeconds = 6, int? memoryCapMb = 15)
+        //{
+        //    bool success;
+        //    return RunAndReport(assemblyIL, out success, timeoutSeconds, memoryCapMb);
+        //}
+        public static object RunAndReport(byte[] assemblyIL, out bool success, string stdin, out string stdout, int? timeoutSeconds = 6, int? memoryCapMb = 15)
         {
             object result;
             Exception exception;
             bool timedOut, memoryCapHit;
-            string stdout;
-            string stdin = null;
 
             success = false;
 

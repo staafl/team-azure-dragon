@@ -110,7 +110,7 @@ namespace LearningSystem.App.AppLogic
             if (version == 0)
             {
                 var match = Regex.Match(answerContent,
-                    @"^(?ix)0;(?<template>" + options + @");(?<normalize>true|false);(?<tests>[^~]+~)+$");
+                    @"^(?ix)0;(?<template>" + options + @");(?<normalize>true|false);(?<tests>[^~]+~)+\s*$");
 
                 if (!match.Success)
                     throw new ArgumentException("failed to match");

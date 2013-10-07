@@ -80,6 +80,7 @@
     <Compile Include="CSharpCodeTemplate.cs" />
     <Compile Include="CSharpCodeBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyExecuter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
