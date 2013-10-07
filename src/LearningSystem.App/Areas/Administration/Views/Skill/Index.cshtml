@@ -11,7 +11,7 @@
     .Columns(columns =>
         {
             columns.Bound(b => b.Name);
-            columns.Bound(b => b.Description);
+            columns.Bound(b => b.Description).ClientTemplate("#= abbreviate(data.Description) #");
             ////columns.Bound(b => b.SkillId).Title("Select").ClientTemplate("<a href=Skill/Details/#=SkillId#>Tst</a>");
             //columns.Bound(b => b.SkillId).Title("Lessons").ClientTemplate(@Html.ActionLink("Lessons", "Index", "Lesson", null, new { ID = "#=SkillId#" }).ToHtmlString());
             //columns.Bound(b => b.SkillId).Title("Select").ClientTemplate(@Html.ActionLink("Details", "Details", new { ID = "#=SkillId#" }).ToHtmlString());
@@ -63,6 +63,20 @@
         var url = '@Url.Action("Index", "Lesson", new { id = "_id" })';
         window.location.href = url.replace('_id', dataItem.SkillId);
     }
+
+    function abbreviate(data) {
+        var template = "";
+        if (data) {
+            if (data.length > 30) {
+                template = data.substr(0, 30) + "...";
+            }
+            else {
+                template = data;
+            }
+        }
+        return template;
+    }
+
 </script>
 
 

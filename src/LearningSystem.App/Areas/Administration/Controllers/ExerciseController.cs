@@ -71,10 +71,10 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
 
-            for (int i = 0; i < viewModelExercises.Count(); i++)
-            {
-                viewModelExercises[i]["Description"] = (viewModelExercises[i]["Description"] ?? "").ToString().Abbreviate(30);
-            }
+            //for (int i = 0; i < viewModelExercises.Count(); i++)
+            //{
+            //    viewModelExercises[i]["Description"] = (viewModelExercises[i]["Description"] ?? "").ToString().Abbreviate(30);
+            //}
 
             DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
 

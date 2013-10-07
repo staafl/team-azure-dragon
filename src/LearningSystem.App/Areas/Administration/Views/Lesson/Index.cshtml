@@ -1,4 +1,5 @@
-﻿@{
+﻿@using TeamAzureDragon.Utils;
+@{
     ViewBag.Title = "Administration";
 }
 <h2>Lessons</h2>
@@ -10,7 +11,7 @@
         {
             columns.Bound(l => l.Skill).ClientTemplate("#= data.Skill != null ? data.Skill.Name : '' #").EditorTemplateName("SkillDropdown");
             columns.Bound(l => l.Name);
-            columns.Bound(l => l.Description);
+            columns.Bound(l => l.Description).ClientTemplate("#= abbreviate(data.Description) #");
             //columns.Bound(l => l.Requirements).ClientTemplate("#=generateRequirementTemplate(Requirements)#");//.EditorTemplateName("RequermentCheckBoxList");
             columns.Bound(l => l.Requirements).ClientTemplate("#= generateRequirementTemplate(data.Requirements) #").EditorTemplateName("MultiSelectRequierments");
             columns.Command(commands =>
@@ -63,6 +64,19 @@
         if (data) {
             for (var i = 0; i < data.length; i++) {
                 template = template + data[i].Name + "<br />";
+            }
+        }
+        return template;
+    }
+
+    function abbreviate(data) {
+        var template = "";
+        if (data) {
+            if (data.length > 30) {
+                template = data.substr(0, 30) + "...";
+            }
+            else {
+                template = data;
             }
         }
         return template;

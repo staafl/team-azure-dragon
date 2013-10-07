@@ -14,12 +14,12 @@
         {
             columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? data.Exercise.Name : '' #");
             //columns.Bound(l => l.ExerciseId).ClientTemplate("#: data.Exercise ? data.Exercise.Name : '' #").EditorTemplateName("ExerciseDropdown");
-            columns.Bound(l => l.Statement);
+            columns.Bound(l => l.Statement).ClientTemplate("#= abbreviate(data.Statement) #");
             columns.Bound(l => l.Order);//.EditorTemplateName("_intTextEditorTemplate"); ;
             columns.Bound(l => l.Points);//.EditorTemplateName("_intTextEditorTemplate"); ;
             columns.Bound(l => l.AnswerType);
             //columns.Bound(l => l.AnswerType);/*.ClientTemplate("#= AnswerType.ToString() #");*/.EditorTemplateName("EnumerationDropdown");
-            columns.Bound(l => l.AnswerContent);
+            columns.Bound(l => l.AnswerContent).ClientTemplate("#= abbreviate(data.AnswerContent) #");
             columns.Bound(l => l.AnswerContentVersion).EditorTemplateName("_intTextEditorTemplate"); ;
             columns.Command(commands =>
             {
@@ -68,6 +68,19 @@
 
     function setPopupPadding(ev) {
         $(".k-edit-form-container").parent().css('padding-right',"40px").data("kendoWindow").center();
+    }
+
+    function abbreviate(data) {
+        var template = "";
+        if (data) {
+            if (data.length > 30) {
+                template = data.substr(0, 30) + "...";
+            }
+            else {
+                template = data;
+            }
+        }
+        return template;
     }
 
 </script>

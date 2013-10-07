@@ -14,7 +14,7 @@
             //columns.Bound(l => l.LessonName).ClientTemplate("#: LessonName #").EditorTemplateName("LessonDropdown");
             columns.Bound(l => l.Lesson).EditorTemplateName("LessonDropdown");
             columns.Bound(l => l.Name);
-            columns.Bound(l => l.Description);
+            columns.Bound(l => l.Description).ClientTemplate("#= abbreviate(data.Description) #");
             columns.Bound(l => l.Order).EditorTemplateName("_intTextEditorTemplate");
             columns.Command(commands =>
             {
@@ -63,6 +63,19 @@
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         var url = '@Url.Action("Index", "Question", new { id = "_id" })';
         window.location.href = url.replace('_id', dataItem.ExerciseId);
+    }
+
+    function abbreviate(data) {
+        var template = "";
+        if (data) {
+            if (data.length > 30) {
+                template = data.substr(0, 30) + "...";
+            }
+            else {
+                template = data;
+            }
+        }
+        return template;
     }
 
 </script>

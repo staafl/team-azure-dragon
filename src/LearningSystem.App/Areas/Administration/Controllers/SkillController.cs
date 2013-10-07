@@ -67,14 +67,6 @@ namespace LearningSystem.App.Areas.Administration.Controllers
                                     return RecursiveSerializationOption.Skip;
                                 })).ToList();
 
-            for (int i = 0; i < viewModelSkills.Count; i++)
-            {
-                if (viewModelSkills[i]["Description"] != null)
-                {
-                    viewModelSkills[i]["Description"] = viewModelSkills[i]["Description"].ToString().Abbreviate(30);
-                }
-            }
-
             DataSourceResult result = viewModelSkills.ToDataSourceResult(request);
 
             return Json(result, JsonRequestBehavior.AllowGet);

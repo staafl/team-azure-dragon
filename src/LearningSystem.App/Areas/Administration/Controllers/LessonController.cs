@@ -90,13 +90,13 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             var viewModelLessons = db.Lessons.All("Skill").ToList()
                 .Select(lesson => new LessonViewModel().FillViewModel(lesson)).ToList();
 
-            for (int i = 0; i < viewModelLessons.Count(); i++)
-            {
-                if (viewModelLessons[i].Description != null)
-                {
-                    viewModelLessons[i].Description = viewModelLessons[i].Description.Abbreviate(30);
-                }
-            }
+            //for (int i = 0; i < viewModelLessons.Count(); i++)
+            //{
+            //    if (viewModelLessons[i].Description != null)
+            //    {
+            //        viewModelLessons[i].Description = viewModelLessons[i].Description.Abbreviate(30);
+            //    }
+            //}
 
             DataSourceResult result = viewModelLessons.ToDataSourceResult(request);
 
@@ -104,7 +104,7 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         }
 
         // POST: /Administration/Skill/Create
-       [HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, LessonViewModel lessonVM)
         {
