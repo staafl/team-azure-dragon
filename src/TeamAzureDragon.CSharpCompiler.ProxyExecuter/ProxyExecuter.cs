@@ -9,7 +9,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace TeamAzureDragon.CSharpCompiler
+namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
 {
 
     /// <summary>
@@ -19,9 +19,9 @@ namespace TeamAzureDragon.CSharpCompiler
     /// * timeout
     /// * memory cap
     /// </summary>
-    public sealed class ProxyExecuter : MarshalByRefObject
+    public sealed class ProxyExecuterClass : MarshalByRefObject
     {
-        public ProxyExecuter()
+        public ProxyExecuterClass()
         {
         }
 

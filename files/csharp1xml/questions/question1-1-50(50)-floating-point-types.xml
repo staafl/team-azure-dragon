@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<question>
-<id>5</id>
-<points>3</points>
-<order>5</order>
-<statement>Which of the following numeric types are floating point?</statement>
-<answerType>multiple</answerType>
-<answerContent>0;long~0~int~0~double~1~uint~0~float~1~byte~0~decimal~1~sbyte~0</answerContent>
-</question>

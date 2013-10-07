@@ -31,7 +31,7 @@ namespace TeamAzureDragon.CSharpCompiler
             compileErrors = new Diagnostic[0];
 
             // add references
-            var references = Helpers.GetStandardReferences(true, false).Select(MetadataReference.CreateAssemblyReference).ToList();
+            var references = Helpers.GetStandardReferences(true, false, false).Select(MetadataReference.CreateAssemblyReference).ToList();
 
             // prepare compilation
             var options = new CompilationOptions(outputKind: OutputKind.ConsoleApplication);

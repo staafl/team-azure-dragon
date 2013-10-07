@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<question>
-<id>2</id>
-<points>3</points>
-<order>2</order>
-<statement>List at least eight numeric types available in C#.</statement>
-<answerType>list</answerType>
-<answerContent>0;8;int~Int32~uint~UInt32~long~Int64~ulong~UInt64~double~Double~float~Float~short~Int16~ushort~UInt16~byte~Byte~sbyte~SByte~decimal~Decimal</answerContent>
-</question>
