@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<question>
+<id>1</id>
+<points>0</points>
+<order>1</order>
+<statement>A data type instructs the computer to treat a piece of data in a particular way - it allows us to manipulate numbers, text, date and time information, logical truth values and other abstract entities.
+
+Before proceeding with the questions in this exercise, read more about data types here: <a href="http://google.com">LINK</a>
+
+And here's a youtube video just to show we can put one:
+<iframe width="420" height="315" src="//www.youtube.com/embed/tzMeNuTAKCM" frameborder="0"></iframe>
+</statement>
+<answerType>none</answerType>
+<answerContent></answerContent>
+</question>

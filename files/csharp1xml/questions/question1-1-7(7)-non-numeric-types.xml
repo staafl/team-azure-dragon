@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<question>
+<id>7</id>
+<points>0</points>
+<order>7</order>
+<statement>Besides numbers, C# provides many other useful types - date and time values (type DateTime), boolean logic values (the bool type with two values - true/false), text values (type string). We will see them often throughout the course. Read more about them here: <a href="http://google.com">LINK</a></statement>
+<answerType>none</answerType>
+<answerContent>
+</answerContent>
+</question>

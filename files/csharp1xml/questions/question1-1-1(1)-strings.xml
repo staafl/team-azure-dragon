@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<question>
+<id>10</id>
+<points>3</points>
+<order>10</order>
+<statement>Which of the following statements are true about the string type?</statement>
+<answerType>multiple</answerType>
+<answerContent>0;Uses UTF-16 encoding~1~Uses UTF-8 encoding~0~Contains a sequence of 'char' values~1~Is "immutable"~1;Can be of arbitrary length~1~Can contain information about the origin of the text~0~
+</answerContent>
+</question>
