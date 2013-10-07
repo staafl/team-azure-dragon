@@ -34,7 +34,6 @@
         model.Id(skill => skill.SkillId);
         model.Field(skill => skill.SkillId).Editable(false);
     })
-    .ServerOperation(false)
     .Read(read => read.Action("Read", "Skill"))
         .Create(create => create.Action("Create", "Skill"))
         .Update(update => update.Action("Edit", "Skill"))

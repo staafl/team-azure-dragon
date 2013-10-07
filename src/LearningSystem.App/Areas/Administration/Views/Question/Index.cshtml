@@ -43,7 +43,6 @@
             model.Id(question => question.QuestionId);
             model.Field(question => question.QuestionId).Editable(false);
         })
-        .ServerOperation(false)
         .Read(read => read.Action("Read", "Question"))
         .Create(create => create.Action("Create", "Question"))
         .Update(update => update.Action("Edit", "Question"))

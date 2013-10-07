@@ -34,7 +34,6 @@
             model.Field(lesson => lesson.LessonId).Editable(false);
             //model.Field(lesson => lesson.Requirements).Editable(false);
         })
-        .ServerOperation(false) // TODO: ???
         .Read(read => read.Action("Read", "Lesson"))
         .Create(create => create.Action("Create", "Lesson"))
         .Update(update => update.Action("Edit", "Lesson"))

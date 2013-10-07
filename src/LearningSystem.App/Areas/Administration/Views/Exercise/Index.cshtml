@@ -35,7 +35,6 @@
             model.Id(exercise => exercise.ExerciseId);
             model.Field(exercise => exercise.ExerciseId).Editable(false);
         })
-        .ServerOperation(false)
         .Read(read => read.Action("Read", "Exercise"))
         .Create(create => create.Action("Create", "Exercise"))
         .Update(update => update.Action("Edit", "Exercise"))
