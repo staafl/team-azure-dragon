@@ -40,6 +40,12 @@ namespace TeamAzureDragon.Utils
             return false;
         }
 
+        public static string Normalize(this string str)
+        {
+            if (str == null)
+                return str;
+            return NormalizeWhiteSpace(str);
+        }
         public static string NormalizeWhiteSpace(this string str)
         {
             return Regex.Replace(str, @"\s+", " ").Trim();

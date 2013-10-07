@@ -31,17 +31,76 @@ namespace LearningSystem.App.AppLogic
             {
                 case AnswerType.None:
                     return new NoneAnswerHandler(); // throw new ArgumentException("'type' cannot be None.");
-                case AnswerType.Custom:
                 case AnswerType.CSharpCode:
-                    return GetCSharpAnswerHandler(answerContent);
+                    return GetCSharpAnswerHandler(answerContent, version);
                 case AnswerType.Text:
-                    return GetTextAnswerHandler(answerContent);
-                case AnswerType.ApproximateText:
+                    return GetTextAnswerHandler(answerContent, version);
+                case AnswerType.List:
+                    return GetListAnswerHandler(answerContent, version);
                 case AnswerType.Multiple:
-                    throw new NotImplementedException();
+                    return GetMultipleAnswerHandler(answerContent, version);
+                case AnswerType.Custom:
+                case AnswerType.ApproximateText:
+                //throw new NotImplementedException();
                 default:
                     throw new ArgumentException("Unsupported type: " + type);
             }
+        }
+
+        static IEnumerable<string> GetTildeList(Group group)
+        {
+            return group.Captures.Cast<Capture>().Select(c => c.Value.EndsWith("~") ? c.Value.Substring(0, c.Value.Length - 1) : c.Value);
+        }
+        private static IAnswerHandler GetMultipleAnswerHandler(string answerContent, int version)
+        {
+            if (version == 0)
+            {
+                if (version == 0)
+                {
+                    var match = Regex.Match(answerContent, @"^(?ix)0;(?<tests>[^~]+~[^~]+~?)+$");
+
+                    if (!match.Success)
+                        throw new ArgumentException("failed to match");
+
+                    var tests = GetTildeList(match.Groups["tests"]).Select(
+                        s =>
+                        {
+                            var split = s.Split('~');
+                            return Tuple.Create(split[0], split[1] == "1" ? true : false);
+                        }).ToList();
+
+                    return new MultipleAnswerHandler
+                    {
+                        Tests = tests
+                    };
+                }
+
+
+            }
+            throw new ArgumentException("version");
+        }
+
+        private static IAnswerHandler GetListAnswerHandler(string answerContent, int version)
+        {
+            if (version == 0)
+            {
+                var match = Regex.Match(answerContent,
+                     @"^(?ix)0;(?<requiredCount>\d+);(?<tests>[^~]+~?)+$");
+
+                if (!match.Success)
+                    throw new ArgumentException("failed to match");
+
+                var requiredCount = int.Parse(match.Groups["requiredCount"].Value);
+                var tests = GetTildeList(match.Groups["tests"]);
+
+                return new ListAnswerHandler
+                {
+                    RequiredCount = requiredCount,
+                    Tests = tests,
+                };
+
+            }
+            throw new ArgumentException("version");
         }
 
         static readonly string options = String.Join("|", (CSharpCodeTemplate[])Enum.GetValues(typeof(CSharpCodeTemplate)));
@@ -58,7 +117,7 @@ namespace LearningSystem.App.AppLogic
 
                 var template = (CSharpCodeTemplate)Enum.Parse(typeof(CSharpCodeTemplate), match.Groups["template"].Value);
                 var normalize = bool.Parse(match.Groups["normalize"].Value);
-                var tests = match.Groups["tests"].Captures.Cast<Capture>().Select(c => c.Value.Substring(0, c.Value.Length - 1));
+                var tests = GetTildeList(match.Groups["tests"]);
 
                 return new CSharpAnswerHandler
                 {

@@ -12,7 +12,7 @@
     .Columns(columns =>
         {
             //columns.Bound(l => l.LessonName).ClientTemplate("#: LessonName #").EditorTemplateName("LessonDropdown");
-            columns.Bound(l => l.Lesson).ClientTemplate("#= data.Lesson ? data.Lesson.Name : ''#").EditorTemplateName("LessonDropdown");
+            columns.Bound(l => l.Lesson).EditorTemplateName("LessonDropdown");
             columns.Bound(l => l.Name);
             columns.Bound(l => l.Description);
             columns.Bound(l => l.Order).EditorTemplateName("_intTextEditorTemplate");

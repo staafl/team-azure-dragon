@@ -32,8 +32,7 @@ namespace LearningSystem.App.AppLogic
 <br/>
 <a href='{1}'>{1}</a></p>
 
-<p>Sincerely,
-<br/>
+<p>Sincerely,<br/>
 <a href='http://learningsystem.apphb.com/'>The LearningSystem Development Team</a></p>
 <br/>
 <p>Please do not reply to this email, because we are not monitoring this inbox.</p>", model.UserName, returnLink);

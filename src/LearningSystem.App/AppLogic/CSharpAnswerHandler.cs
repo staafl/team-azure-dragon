@@ -34,6 +34,12 @@ namespace LearningSystem.App.AppLogic
         public string RenderInputHtml()
         {
             // todo: duplication
+            if (this.CodeTemplate == CSharpCodeTemplate.WholeProgram)
+            {
+                return @"<textarea id='answer-input' name='answer-input' class='answer-input-textfield input-code' />";
+
+            }
+
             return
 @"<input type='text' id='answer-input' name='answer-input' class='answer-input-textfield input-code' />";
         }

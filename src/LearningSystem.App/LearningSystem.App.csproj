@@ -212,6 +212,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppLogic\IAnswerHandler.cs" />
+    <Compile Include="AppLogic\ListAnswerHandler.cs" />
+    <Compile Include="AppLogic\MultipleAnswerHandler.cs" />
     <Compile Include="AppLogic\TextAnswerHandler.cs" />
     <Compile Include="AppLogic\Utils.cs" />
     <Compile Include="AppLogic\XmlParser.cs" />
