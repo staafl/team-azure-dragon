@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>7</id>
+<name>Final Exam</name>
+<description></description>
+<exercises>
+<exerciseId>13</exerciseId>
+</exercises>
+<requirements>
+<lessonId>6</lessonId>
+</requirements>
+</lesson>

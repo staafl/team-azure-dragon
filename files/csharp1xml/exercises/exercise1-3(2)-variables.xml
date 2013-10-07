@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<exercise>
+<id>2</id>
+<name>Variables</name>
+<description>In order to write a complex program that performs operations on multiple pieces of data, you not only need to be able to declare their types, but also a way to refer to them throughout the code. This is where variables come into play - names that the programmer chooses to represent the various pieces of information he is working with. They are the next fundamental programming concept you will need to master.
+
+In this exercise you will learn how to declare variables and assign values to them.</description>
+<order>3</order>
+<questions>
+</questions>
+</exercise>

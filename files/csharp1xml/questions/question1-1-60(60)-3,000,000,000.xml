@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<question>
+<id>6</id>
+<points>3</points>
+<order>6</order>
+<statement>Which of the following numeric types can be used to store the value 3~000~000~000 (3 billion)?</statement>
+<answerType>multiple</answerType>
+<answerContent>0;long~1~int~0~double~1~uint~1~float~1~byte~0~decimal~1~sbyte~0~ulong~1</answerContent>
+</question>

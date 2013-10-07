@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<question>
+<id>8</id>
+<points>3</points>
+<order>8</order>
+<statement>Which statements are true about C#'s DateTime type?</statement>
+<answerType>multiple</answerType>
+<answerContent>0;Can contain dates AD and BC~0~Is stored as a 32-bit integer~0~Is stored as a 64-bit integer~1~Can represent date and time up to a nanosecond~0;Can only represent date and time up to 10 nanoseconds~0~Can only represent date and time up to 100 nanoseconds~1~
+</answerContent>
+</question>

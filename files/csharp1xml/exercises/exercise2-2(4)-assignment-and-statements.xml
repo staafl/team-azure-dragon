@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<exercise>
+<id>4</id>
+<name>Assignments and Statements</name>
+<description>A statement is one of several forms that a C# program can use to produce some effect. A statement is an action performed by the program, based on the value of one or more expressions and variables. This exercise will introduce you to a fundamental types of statements - assignments.</description>
+<order>2</order>
+<questions>
+</questions>
+</exercise>

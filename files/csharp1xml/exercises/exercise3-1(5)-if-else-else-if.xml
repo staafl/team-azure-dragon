@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<exercise>
+<id>5</id>
+<name>If, Else, Else if</name>
+<description>Just like a vehicle driver needs to choose directions and make turns, so does a program need to make a decisions and execute different statements depending on the values of expressions; for this purpose, C# provides the "if/else" conditional statements; ere you will learn their usage and semantics.</description>
+<order>1</order>
+<questions>
+</questions>
+</exercise>

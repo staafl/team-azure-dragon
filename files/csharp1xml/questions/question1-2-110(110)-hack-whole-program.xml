@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<question>
+<id>110</id>
+<points>3</points>
+<order>110</order>
+<statement>Write a C# program to crash our site...</statement>
+<answerType>CSharpCode</answerType>
+<answerContent>0;WholeProgram;true;0~
+</answerContent>
+</question>
