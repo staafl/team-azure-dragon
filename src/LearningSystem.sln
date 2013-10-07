@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Tests", "Lea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers", "TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers\TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.csproj", "{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.CSharpCompiler.ProxyExecuter", "TeamAzureDragon.CSharpCompiler.ProxyExecuter\TeamAzureDragon.CSharpCompiler.ProxyExecuter.csproj", "{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,8 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
 using System.Security.Policy;
-using Roslyn.Compilers;
-using Roslyn.Compilers.CSharp;
 using System.Security;
 using System.Threading;
 using System.Collections.Generic;
