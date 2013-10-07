@@ -35,6 +35,15 @@ namespace TeamAzureDragon.CSharpCompiler
             return AppDomain.CreateDomain("Sandbox" + DateTime.Now, null, setup, ps, typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.Evidence.GetHostEvidence<StrongName>());
         }
 
+        static Assembly LoadFromSameFolder(object sender, ResolveEventArgs args)
+        {
+            string folderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string assemblyPath = Path.Combine(folderPath, new AssemblyName(args.Name).Name + ".dll");
+            if (File.Exists(assemblyPath) == false) return null;
+            Assembly assembly = Assembly.LoadFrom(assemblyPath);
+            return assembly;
+        }
+
         public static void ExecuteAssembly(
             byte[] assemblyIL,
             string stdin,
@@ -60,6 +69,12 @@ namespace TeamAzureDragon.CSharpCompiler
                 foreach (var asm in Helpers.GetStandardReferences(false, true))
                     sandbox.Load(asm);
                 // create proxy in sandbox appdomain
+                // AppDomain.CurrentDomain.Load(typeof(ProxyExecuter).Assembly.GetName());
+                // AppDomain.CurrentDomain.Load(typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.GetName());
+                // AppDomain.CurrentDomain.Load(File.ReadAllBytes(typeof(ProxyExecuter).Assembly.Location));
+                // sandbox.AssemblyResolve += LoadFromSameFolder;
+                // AppDomain.CurrentDomain.AssemblyResolve += LoadFromSameFolder;
+
                 var proxy = (ProxyExecuter)Activator.CreateInstance(sandbox, typeof(ProxyExecuter).Assembly.FullName, typeof(ProxyExecuter).FullName).Unwrap();
 
                 // run computation in sandboxed appdomain, on a separate thread, and wait for it to signal the start of computation

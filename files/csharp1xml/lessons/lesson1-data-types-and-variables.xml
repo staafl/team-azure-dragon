@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>1</id>
+<name>Variables and Data Types</name>
+<description>In this lesson you will learn about the various types of data that you can use in a C# program. This is an important theoretical lesson, underpinning everything you will learn as a C# programmer.</description>
+<exercises>
+<exerciseId>1</exerciseId>
+<exerciseId>2</exerciseId>
+<exerciseId>14</exerciseId>
+</exercises>
+<requirements>
+</requirements>
+</lesson>

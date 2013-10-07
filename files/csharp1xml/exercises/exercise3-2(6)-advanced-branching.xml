@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<exercise>
+<id>6</id>
+<name>Advanced Branching</name>
+<description>Here you will learn more about C#'s conditional capabilities, including the logical operators on boolean values, and the switch statement.</description>
+<order>2</order>
+<questions>
+</questions>
+</exercise>

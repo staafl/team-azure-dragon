@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>3</id>
+<name>Conditional Statements</name>
+<description>A program needs to make decisions and act upon various conditions during its operation. Here you will learn the various statements C# gives you to control the execution of your programs.</description>
+<exercises>
+<exerciseId>5</exerciseId>
+<exerciseId>6</exerciseId>
+</exercises>
+<requirements>
+<lessonId>2</lessonId>
+</requirements>
+</lesson>

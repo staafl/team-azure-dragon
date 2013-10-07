@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<exercise>
+<id>3</id>
+<name>Expression on Numbers and Strings</name>
+<description>An expression is the fundamental unit of computation in a C# program. This exercise will show you how to build expressions to manipulate some of the data types you saw in the previous lesson.</description>
+<order>1</order>
+<questions>
+</questions>
+</exercise>

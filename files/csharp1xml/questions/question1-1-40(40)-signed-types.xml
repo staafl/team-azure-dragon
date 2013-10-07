@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<question>
+<id>4</id>
+<points>3</points>
+<order>4</order>
+<statement>Which of the following numeric types are signed?</statement>
+<answerType>multiple</answerType>
+<answerContent>0;long~1~int~1~double~1~uint~2~float~1~byte~0</answerContent>
+</question>

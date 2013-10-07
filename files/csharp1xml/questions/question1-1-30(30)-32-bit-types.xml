@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<question>
+<id>3</id>
+<points>3</points>
+<order>3</order>
+<statement>Which of the following numeric types are 32-bit wide?</statement>
+<answerType>multiple</answerType>
+<answerContent>0;long~0~int~1~double~0~uint~1~float~1~sbyte~0~decimal~0</answerContent>
+</question>

@@ -3,7 +3,7 @@
 [Oo]bj/
 *.dll
 *.exe
-*.xml
+
 packages/
 # mstest test results
 TestResults

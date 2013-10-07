@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<question>
+<id>9</id>
+<points>3</points>
+<order>9</order>
+<statement>What are the two values of the boolean type?</statement>
+<answerType>list</answerType>
+<answerContent>0;2;true~false
+</answerContent>
+</question>

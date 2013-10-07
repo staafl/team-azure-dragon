@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>5</id>
+<name>Loops</name>
+<description>In order to be complete, a programming language needs to be able to repeat - or loop - series of statements until it reaches a desired effect. This lesson rounds up your study of the basics C# techniques by introducing you to the various looping techniques available in the language.</description>
+<exercises>
+<exerciseId>9</exerciseId>
+<exerciseId>10</exerciseId>
+</exercises>
+<requirements>
+<lessonId>3</lessonId>
+</requirements>
+</lesson>

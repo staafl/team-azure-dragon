@@ -36,11 +36,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>compiler.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Roslyn.Compilers">
@@ -80,12 +79,16 @@
     <Compile Include="CSharpCodeTemplate.cs" />
     <Compile Include="CSharpCodeBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProxyExecuter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="compiler.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TeamAzureDragon.CSharpCompiler.ProxyExecuter\TeamAzureDragon.CSharpCompiler.ProxyExecuter.csproj">
+      <Project>{a7de9e05-9993-4fbd-97cc-6df5c6bc3101}</Project>
+      <Name>TeamAzureDragon.CSharpCompiler.ProxyExecuter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers\TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.csproj">
       <Project>{291ff5c3-1af5-41a0-b9ec-147ccb3fe440}</Project>
       <Name>TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers</Name>

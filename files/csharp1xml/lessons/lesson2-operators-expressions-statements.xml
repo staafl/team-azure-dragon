@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>2</id>
+<name>Expressions, Operators and Statements</name>
+<description>Once you have an understanding of C# data types and variables, you will learn how to work with them to produce results.</description>
+<exercises>
+<exerciseId>3</exerciseId>
+<exerciseId>4</exerciseId>
+</exercises>
+<requirements>
+<lessonId>1</lessonId>
+</requirements>
+</lesson>

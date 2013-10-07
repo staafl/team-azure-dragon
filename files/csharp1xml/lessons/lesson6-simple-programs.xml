@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>6</id>
+<name>Simple Programs</name>
+<description>By this point you should have the skills and knowledge to solve practical problems using C#. This lesson will challenge you with several logical and mathematical problems to exercise your new skills, and introduce you to some interesting techniques.</description>
+<exercises>
+<exerciseId>11</exerciseId>
+<exerciseId>12</exerciseId>
+</exercises>
+<requirements>
+<lessonId>4</lessonId>
+<lessonId>5</lessonId>
+</requirements>
+</lesson>

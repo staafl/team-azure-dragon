@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>4</id>
+<name>Console Input and Output</name>
+<description>The system console is one of the most useful and fundamental ways to communicate with the user. In this lesson you will learn how to receive input from the user, work with it, and give him the results of your logic.</description>
+<exercises>
+<exerciseId>7</exerciseId>
+<exerciseId>8</exerciseId>
+</exercises>
+<requirements>
+<lessonId>3</lessonId>
+</requirements>
+</lesson>
