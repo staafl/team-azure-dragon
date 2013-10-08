@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lesson>
+<id>8</id>
+<name>Demo</name>
+<description>Play around with our system!</description>
+<exercises>
+<exerciseId>14</exerciseId>
+<exerciseId>15</exerciseId>
+</exercises>
+<requirements>
+</requirements>
+</lesson>
