@@ -43,6 +43,9 @@ namespace TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers
                     thread.Resume();
 #pragma warning restore
                 }
+                catch (ThreadStateException)
+                {
+                }
                 finally
                 {
                     CodeAccessPermission.RevertAll();
@@ -56,6 +59,9 @@ namespace TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers
             try
             {
                 thread.Abort();
+            }
+            catch (ThreadStateException)
+            {
             }
             finally
             {

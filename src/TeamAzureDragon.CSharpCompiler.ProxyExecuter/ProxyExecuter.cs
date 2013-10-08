@@ -43,12 +43,11 @@ namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
 
             var assembly = Assembly.Load(compiledAssembly);
 
-
             var scriptThread = new Thread(() =>
             {
                 try
                 {
-                    assembly.EntryPoint.Invoke(null, new object[] { });
+                    assembly.EntryPoint.Invoke(null, null);
                 }
                 catch (TargetInvocationException ex)
                 {
@@ -65,13 +64,13 @@ namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
                 if (scriptThread.Join(TimeSpan.FromMilliseconds(100)))
                     break;
 
-                var frameCount = TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.GetStackTraceDepth(scriptThread);
-                if (frameCount > 500)
-                {
-                    TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.AbortThread(scriptThread);
-                    exception = new StackOverflowException();
-                    break;
-                }
+                //var frameCount = TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.GetStackTraceDepth(scriptThread);
+                //if (frameCount > 500)
+                //{
+                //    TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.AbortThread(scriptThread);
+                //    exception = new StackOverflowException();
+                //    break;
+                //}
 
                 // todo: check sandbox memory consumption
 
