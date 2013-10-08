@@ -2,7 +2,7 @@
         .MultiSelect()
         .Name("Requirements")
         .DataTextField("Name")
-        .DataValueField("LessonId")
+            .DataValueField("LessonId")
         .Placeholder("Select ...")
         .DataSource(datasource => datasource.Read(read => read.Action("GetRequirements", "Lesson")))
 )
