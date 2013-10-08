@@ -5,6 +5,6 @@
 <order>1</order>
 <statement>Write a C# program to crash our site...</statement>
 <answerType>CSharpCode</answerType>
-<answerContent>0;WholeProgram;true;stdin;0~
+<answerContent>0;WholeProgram;true;stdout;0~
 </answerContent>
 </question>

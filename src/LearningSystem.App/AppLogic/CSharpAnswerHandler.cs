@@ -14,26 +14,38 @@ namespace LearningSystem.App.AppLogic
 
         public bool NormalizeLines { get; set; }
 
-        public Func<object, bool> Predicate { get; set; }
+        public CSharpCodeValidation Validation { get; set; }
+
+        // reserved
+        // public Func<object, bool> Predicate { get; set; }
 
         public AnswerValidationResult ValidateInput(string input)
         {
             bool ranOk;
             string stdout;
-            var result = ExecutionDirector.RunAndReport(input, out ranOk, null, out stdout, this.CodeTemplate, timeoutSeconds: 6, memoryCapMb: 10);
-            if (ranOk)
+            var inputs = this.Inputs;
+            if (!inputs.Any())
+                inputs = new[] { "" };
+            foreach (var stdin in inputs)
             {
-                if (this.CodeTemplate == CSharpCodeTemplate.WholeProgram)
-                {
-                    return new AnswerValidationResult { Success = false, ErrorContent = "Program output: " + stdout };
-                }
-                if (result == null || result.ToString() != Tests.FirstOrDefault())
-                    return new AnswerValidationResult { Success = false, ErrorContent = "Wrong answer!" };
+                var result = ExecutionDirector.RunAndReport(input, out ranOk, stdin, out stdout, this.CodeTemplate, timeoutSeconds: 6, memoryCapMb: 10);
+                var toValidate = this.Validation == CSharpCodeValidation.Result ? result : stdout;
 
-                return new AnswerValidationResult { Success = true };
+                if (ranOk)
+                {
+                    if (this.CodeTemplate == CSharpCodeTemplate.WholeProgram)
+                    {
+                        return new AnswerValidationResult { Success = false, ErrorContent = "Result: " + result + "<br/>Program output: " + stdout };
+                    }
+                    if (toValidate == null || toValidate.ToString() != Tests.FirstOrDefault())
+                        return new AnswerValidationResult { Success = false, ErrorContent = "Wrong answer!" };
+
+                }
+                else
+                    return new AnswerValidationResult { Success = false, ErrorContent = result + "" };
             }
-            else
-                return new AnswerValidationResult { Success = false, ErrorContent = result + "" };
+            return new AnswerValidationResult { Success = true };
+
         }
 
         public string RenderInputHtml()
@@ -48,5 +60,8 @@ namespace LearningSystem.App.AppLogic
             return
 @"<input type='text' id='answer-input' name='answer-input' class='answer-input-textfield input-code' />";
         }
+
+
+        public IEnumerable<string> Inputs { get; set; }
     }
 }

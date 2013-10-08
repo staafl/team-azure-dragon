@@ -5,7 +5,10 @@
 <description>In order to write a complex program that performs operations on multiple pieces of data, you not only need to be able to declare their types, but also a way to refer to them throughout the code. This is where variables come into play - names that the programmer chooses to represent the various pieces of information he is working with. They are the next fundamental programming concept you will need to master.
 
 In this exercise you will learn how to declare variables and assign values to them.</description>
-<order>3</order>
+<order>1</order>
 <questions>
+<questionId>120</questionId>
+<questionId>130</questionId>
+<questionId>140</questionId>
 </questions>
 </exercise>

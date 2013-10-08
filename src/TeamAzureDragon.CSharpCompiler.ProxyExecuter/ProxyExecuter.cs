@@ -42,9 +42,9 @@ namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
             {
                 assembly.EntryPoint.Invoke(null, new object[] { });
             }
-            catch (Exception ex)
+            catch (TargetInvocationException ex)
             {
-                exception = ex;
+                exception = ex.InnerException;
             }
 
             if (stdoutWriter != null)

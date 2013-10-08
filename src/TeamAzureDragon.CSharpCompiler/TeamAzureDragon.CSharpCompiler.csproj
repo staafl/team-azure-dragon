@@ -89,10 +89,6 @@
       <Project>{a7de9e05-9993-4fbd-97cc-6df5c6bc3101}</Project>
       <Name>TeamAzureDragon.CSharpCompiler.ProxyExecuter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeamAzureDragon.CSharpCompiler.Proxy\TeamAzureDragon.CSharpCompiler.Proxy.csproj">
-      <Project>{c44612fa-b380-420f-8911-f308036836be}</Project>
-      <Name>TeamAzureDragon.CSharpCompiler.Proxy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers\TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.csproj">
       <Project>{291ff5c3-1af5-41a0-b9ec-147ccb3fe440}</Project>
       <Name>TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers</Name>

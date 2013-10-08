@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<question>
+<id>120</id>
+<points>3</points>
+<order>1</order>
+<statement>Write a C# expression to calculate 2 to the power of 22.</statement>
+<answerType>CSharpCode</answerType>
+<answerContent>0;Expression;true;result;4194304~
+</answerContent>
+</question>

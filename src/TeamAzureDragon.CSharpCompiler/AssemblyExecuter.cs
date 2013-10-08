@@ -26,21 +26,19 @@ namespace TeamAzureDragon.CSharpCompiler
 
             ps.AddPermission(security);
 
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+            // TODO: HACK HACK HACK
+            // IIS resolution problem - https://github.com/staafl/team-azure-dragon/issues/36 
+            if (!path.ToUpper().Contains("BIN"))
+                path += "bin\\";
             var setup = new AppDomainSetup
             {
-                ApplicationBase = AppDomain.CurrentDomain.RelativeSearchPath
+                ApplicationBase = path
             };
             return AppDomain.CreateDomain("Sandbox" + DateTime.Now, null, setup, ps, typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.Evidence.GetHostEvidence<StrongName>());
         }
 
-        static Assembly LoadFromSameFolder(object sender, ResolveEventArgs args)
-        {
-            string folderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string assemblyPath = Path.Combine(folderPath, new AssemblyName(args.Name).Name + ".dll");
-            if (File.Exists(assemblyPath) == false) return null;
-            Assembly assembly = Assembly.LoadFrom(assemblyPath);
-            return assembly;
-        }
+
 
         public static void ExecuteAssembly(
             byte[] assemblyIL,
@@ -66,27 +64,9 @@ namespace TeamAzureDragon.CSharpCompiler
                 // add references
                 foreach (var asm in Helpers.GetStandardReferences(false, true, true))
                     sandbox.Load(asm);
-                // create proxy in sandbox appdomain
-                // AppDomain.CurrentDomain.Load(typeof(ProxyExecuter).Assembly.GetName());
-                // AppDomain.CurrentDomain.Load(typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.GetName());
-                // AppDomain.CurrentDomain.Load(File.ReadAllBytes(typeof(ProxyExecuter).Assembly.Location));
-                // AppDomain.CurrentDomain.AssemblyResolve += LoadFromSameFolder;
 
-                ProxyExecuterClass proxy;
-                try
-                {
-                    //new ReflectionPermission(PermissionState.Unrestricted).Assert();
+                var proxy = (ProxyExecuterClass)Activator.CreateInstance(sandbox, typeof(ProxyExecuterClass).Assembly.FullName, typeof(ProxyExecuterClass).FullName).Unwrap();
 
-                    //sandbox.AssemblyResolve += LoadFromSameFolder;
-
-                    proxy = (ProxyExecuterClass)Activator.CreateInstance(sandbox, typeof(ProxyExecuterClass).Assembly.FullName, typeof(ProxyExecuterClass).FullName).Unwrap();
-                }
-                finally
-                {
-                    // sandbox.AssemblyResolve -= LoadFromSameFolder;
-
-                    //     CodeAccessPermission.RevertAll();
-                }
 
                 // run computation in sandboxed appdomain, on a separate thread, and wait for it to signal the start of computation
                 Exception tempException = null;

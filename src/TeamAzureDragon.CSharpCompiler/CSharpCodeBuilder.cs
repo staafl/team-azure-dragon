@@ -24,10 +24,10 @@ namespace TeamAzureDragon.CSharpCompiler
             {
                 case CSharpCodeTemplate.Expression: program = entryPointExpression; break;
                 case CSharpCodeTemplate.MethodBody: program = entryPointMethodBody; break;
+                case CSharpCodeTemplate.Statements: program = entryPointStatements; break;
                 case CSharpCodeTemplate.WholeProgram: program = code; break;
                 case CSharpCodeTemplate.Class:
                 case CSharpCodeTemplate.ClassBody:
-                case CSharpCodeTemplate.Statements:
                 case CSharpCodeTemplate.Method: throw new NotImplementedException();
                 default: throw new ArgumentException();
 
@@ -36,8 +36,12 @@ namespace TeamAzureDragon.CSharpCompiler
             if (template != CSharpCodeTemplate.WholeProgram)
             {
 
-                var usings = @"using System;
-using System.Collections.Generic;";
+                var usings = 
+@"using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;";
 
                 program = usings + "\n" + program.Replace("####", code);
             }
@@ -51,18 +55,10 @@ using System.Collections.Generic;";
 @"public class EntryPoint 
 { 
     public static object Result {get;set;} 
-    public static Exception Exception {get;set;} 
 
     public static void Main() 
     {
-        try
-        {
-            Result = ______(); 
-        }
-        catch (Exception ex)
-        {
-            Exception = ex;
-        }
+        Result = ______(); 
     }  
     public static object ______() { return ####; }
     
@@ -73,39 +69,32 @@ using System.Collections.Generic;";
 @"public class EntryPoint 
 { 
     public static object Result {get;set;} 
-    public static Exception Exception {get;set;} 
 
     public static void Main() 
     {
-        try
-        {
-            Result = ______(); 
-        }
-        catch (Exception ex)
-        {
-            Exception = ex;
-        }
+        Result = ______(); 
     }  
     public static object ______() { #### }
     
+}";
+
+        const string entryPointStatements =
+@"public class EntryPoint 
+{ 
+    public static void Main() 
+    {
+        #### 
+    }  
 }";
 
         const string entryPointMethod =
 @"public class EntryPoint 
 { 
     public static object Result {get;set;} 
-    public static Exception Exception {get;set;} 
 
     public static void Main() 
     {
-        try
-        {
-            Result = ______(); 
-        }
-        catch (Exception ex)
-        {
-            Exception = ex;
-        }
+        Result = ______(); 
     }  
     public static object ______() { return typeof(EntryPoint).GetMethod(%MethodName%).Apply(%Arguments%);  } // apply with reflection
 
