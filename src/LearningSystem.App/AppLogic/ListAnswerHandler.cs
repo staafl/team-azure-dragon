@@ -14,7 +14,7 @@ namespace LearningSystem.App.AppLogic
 
         public AnswerValidationResult ValidateInput(string input)
         {
-            var split = input.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            var split = input.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(Misc.Normalize)
                 .Distinct();
 

@@ -42,9 +42,23 @@ namespace TeamAzureDragon.Utils
 
         public static string Normalize(this string str)
         {
+            // default params can't be dropped in Select
+            return Normalize(str, true);
+        }
+        public static string Normalize(this string str, bool removeWhitespace)
+        {
             if (str == null)
                 return str;
-            return NormalizeWhiteSpace(str);
+            if (removeWhitespace)
+                str = RemoveWhiteSpace(str);
+            else 
+                str = NormalizeWhiteSpace(str);
+            return str.ToUpper();
+        }
+
+        private static string RemoveWhiteSpace(string str)
+        {
+            return Regex.Replace(str, @"\s", "");
         }
         public static string NormalizeWhiteSpace(this string str)
         {
