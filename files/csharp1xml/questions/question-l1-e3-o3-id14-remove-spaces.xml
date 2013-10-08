@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<question>
+<id>140</id>
+<points>3</points>
+<order>3</order>
+<statement>Write a sequence of C# statements that reads a line from the console, removes all spaces from it and prints it back.</statement>
+<answerType>CSharpCode</answerType>
+<answerContent>0;Statements;true;stdout;ABCD~;A B C D~
+</answerContent>
+</question>

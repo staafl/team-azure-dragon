@@ -10,6 +10,7 @@ using System.Security;
 using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TeamAzureDragon.CSharpCompiler.ProxyExecuter;
 
 namespace TeamAzureDragon.CSharpCompiler
 {
@@ -25,24 +26,19 @@ namespace TeamAzureDragon.CSharpCompiler
 
             ps.AddPermission(security);
 
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+            // TODO: HACK HACK HACK
+            // IIS resolution problem - https://github.com/staafl/team-azure-dragon/issues/36 
+            if (!path.ToUpper().Contains("BIN"))
+                path += "bin\\";
             var setup = new AppDomainSetup
             {
-                ApplicationBase = Path.GetDirectoryName(
-                    typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.Location
-                    // Assembly.GetExecutingAssembly().Location
-                    )
+                ApplicationBase = path
             };
             return AppDomain.CreateDomain("Sandbox" + DateTime.Now, null, setup, ps, typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.Evidence.GetHostEvidence<StrongName>());
         }
 
-        static Assembly LoadFromSameFolder(object sender, ResolveEventArgs args)
-        {
-            string folderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string assemblyPath = Path.Combine(folderPath, new AssemblyName(args.Name).Name + ".dll");
-            if (File.Exists(assemblyPath) == false) return null;
-            Assembly assembly = Assembly.LoadFrom(assemblyPath);
-            return assembly;
-        }
+
 
         public static void ExecuteAssembly(
             byte[] assemblyIL,
@@ -66,16 +62,11 @@ namespace TeamAzureDragon.CSharpCompiler
             try
             {
                 // add references
-                foreach (var asm in Helpers.GetStandardReferences(false, true))
+                foreach (var asm in Helpers.GetStandardReferences(false, true, true))
                     sandbox.Load(asm);
-                // create proxy in sandbox appdomain
-                // AppDomain.CurrentDomain.Load(typeof(ProxyExecuter).Assembly.GetName());
-                // AppDomain.CurrentDomain.Load(typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.GetName());
-                // AppDomain.CurrentDomain.Load(File.ReadAllBytes(typeof(ProxyExecuter).Assembly.Location));
-                // sandbox.AssemblyResolve += LoadFromSameFolder;
-                // AppDomain.CurrentDomain.AssemblyResolve += LoadFromSameFolder;
 
-                var proxy = (ProxyExecuter)Activator.CreateInstance(sandbox, typeof(ProxyExecuter).Assembly.FullName, typeof(ProxyExecuter).FullName).Unwrap();
+                var proxy = (ProxyExecuterClass)Activator.CreateInstance(sandbox, typeof(ProxyExecuterClass).Assembly.FullName, typeof(ProxyExecuterClass).FullName).Unwrap();
+
 
                 // run computation in sandboxed appdomain, on a separate thread, and wait for it to signal the start of computation
                 Exception tempException = null;
@@ -107,6 +98,7 @@ namespace TeamAzureDragon.CSharpCompiler
 
                     if (sw.ElapsedMilliseconds > timeoutSeconds * 1000)
                     {
+
                         scriptThread.Abort();
                         timedOut = true;
                         break;

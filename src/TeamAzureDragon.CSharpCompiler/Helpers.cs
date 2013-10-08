@@ -18,13 +18,17 @@ namespace TeamAzureDragon.CSharpCompiler
     [SecuritySafeCritical]
     public static class Helpers
     {
-        public static IEnumerable<string> GetStandardReferences(bool includeMsCorLib, bool includeSecuritySafeHelpers)
+        public static IEnumerable<string> GetStandardReferences(bool includeMsCorLib, bool includeSecuritySafeHelpers, bool includeProxyExecuter)
         {
             if (includeMsCorLib)
                 yield return typeof(object).Assembly.FullName;
 
             if (includeSecuritySafeHelpers)
                 yield return typeof(TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers).Assembly.FullName;
+
+            if (includeProxyExecuter)
+                yield return typeof(TeamAzureDragon.CSharpCompiler.ProxyExecuter.ProxyExecuterClass).Assembly.FullName;
+
 
             yield return "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
             yield return "System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";

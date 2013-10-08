@@ -22,6 +22,11 @@ namespace LearningSystem.App.AppLogic
             return "";
         }
     }
+    public enum CSharpCodeValidation
+    {
+        Result,
+        StdOut
+    }
     public static class AnswerHandlerFactory
     {
         static public IAnswerHandler GetHandler(AnswerType type, string answerContent, int version = 0)
@@ -47,11 +52,8 @@ namespace LearningSystem.App.AppLogic
             }
         }
 
-        static IEnumerable<string> GetTildeList(Group group)
-        {
-            return group.Captures.Cast<Capture>().Select(c => c.Value.EndsWith("~") ? c.Value.Substring(0, c.Value.Length - 1) : c.Value);
-        }
-        private static IAnswerHandler GetMultipleAnswerHandler(string answerContent, int version)
+
+        static IAnswerHandler GetMultipleAnswerHandler(string answerContent, int version = 0)
         {
             if (version == 0)
             {
@@ -80,7 +82,7 @@ namespace LearningSystem.App.AppLogic
             throw new ArgumentException("version");
         }
 
-        private static IAnswerHandler GetListAnswerHandler(string answerContent, int version)
+        static IAnswerHandler GetListAnswerHandler(string answerContent, int version = 0)
         {
             if (version == 0)
             {
@@ -103,33 +105,42 @@ namespace LearningSystem.App.AppLogic
             throw new ArgumentException("version");
         }
 
-        static readonly string options = String.Join("|", (CSharpCodeTemplate[])Enum.GetValues(typeof(CSharpCodeTemplate)));
-
         static IAnswerHandler GetCSharpAnswerHandler(string answerContent, int version = 0)
         {
             if (version == 0)
             {
                 var match = Regex.Match(answerContent,
-                    @"^(?ix)0;(?<template>" + options + @");(?<normalize>true|false);(?<tests>[^~]+~)+\s*$");
+                    @"^(?ix)0;" +
+                    @"(?<template>" + EnumOptions<CSharpCodeTemplate>() + @");" +
+                    @"(?<normalize>true|false);" +
+                    @"(?<validation>" + EnumOptions<CSharpCodeValidation>() + @");" +
+                    @"(?<tests>[^;~]+~)+" +
+                    @"(;(?<inputs>[^~]+~)+)?" +
+                    @"\s*$", RegexOptions.ExplicitCapture);
+
+                // todo: [;~] is problematic
 
                 if (!match.Success)
                     throw new ArgumentException("failed to match");
 
-                var template = (CSharpCodeTemplate)Enum.Parse(typeof(CSharpCodeTemplate), match.Groups["template"].Value);
+                var template = (CSharpCodeTemplate)Enum.Parse(typeof(CSharpCodeTemplate), match.Groups["template"].Value, true);
+                var validation = (CSharpCodeValidation)Enum.Parse(typeof(CSharpCodeValidation), match.Groups["validation"].Value, true);
                 var normalize = bool.Parse(match.Groups["normalize"].Value);
                 var tests = GetTildeList(match.Groups["tests"]);
+                var inputs = GetTildeList(match.Groups["tests"]);
 
                 return new CSharpAnswerHandler
                 {
                     CodeTemplate = template,
                     NormalizeLines = normalize,
-                    Tests = tests
+                    Tests = tests,
+                    Validation = validation,
+                    Inputs = inputs
                 };
             }
 
             throw new ArgumentException("version");
         }
-
 
         static IAnswerHandler GetTextAnswerHandler(string data, int version = 0)
         {
@@ -158,6 +169,18 @@ namespace LearningSystem.App.AppLogic
                 throw new ArgumentException("version");
             }
             return new TextAnswerHandler { Text = text, IgnoreCase = ignoreCase, NormalizeWhiteSpace = normalize };
+        }
+
+
+
+        static IEnumerable<string> GetTildeList(Group group)
+        {
+            return group.Captures.Cast<Capture>().Select(c => c.Value.EndsWith("~") ? c.Value.Substring(0, c.Value.Length - 1) : c.Value);
+        }
+
+        static string EnumOptions<TEnum>()
+        {
+            return String.Join("|", (TEnum[])Enum.GetValues(typeof(TEnum)));
         }
 
     }

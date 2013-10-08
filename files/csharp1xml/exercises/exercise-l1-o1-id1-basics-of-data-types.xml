@@ -5,7 +5,7 @@
 <description>Computer programs are meant to manipulate data, and this data can take many forms - numbers, text, objects, collections. Although the underlying storage mechanism is the same for any kind of data (bits and bytes of computer memory), modern programming languages provide you with "data types", which allow you to perform operations on a piece of information based on what you want it to represent - add numbers, search in text, create objects and so on.
 
 This exercise will teach you about some of the data types available in C#, their properties and usage.</description>
-<order>1</order>
+<order>3</order>
 <questions>
 <questionId>1</questionId>
 <questionId>2</questionId>
