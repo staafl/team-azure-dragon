@@ -18,6 +18,9 @@ namespace TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers
         [SecuritySafeCritical]
         static public int GetStackTraceDepth(Thread thread)
         {
+            if (thread.ThreadState != System.Threading.ThreadState.Running)
+                return 0;
+
             new SecurityPermission(SecurityPermissionFlag.UnmanagedCode | SecurityPermissionFlag.ControlThread).Assert();
 
             try
@@ -30,7 +33,6 @@ namespace TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers
 #pragma warning disable
                 var trace = new StackTrace(thread, true);
 #pragma warning restore
-
                 return trace.FrameCount;
             }
             finally

@@ -59,21 +59,19 @@ namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
             scriptThread.Start();
             var sw = Stopwatch.StartNew();
 
-
             while (true)
             {
-                // resolution of 100 ms
-                if (scriptThread.Join(100))
+                // todo: resolution?
+                if (scriptThread.Join(TimeSpan.FromMilliseconds(100)))
                     break;
 
-                //var frameCount = TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.GetStackTraceDepth(scriptThread);
-
-                //if (frameCount > 500)
-                //{
-                //    TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.AbortThread(scriptThread);
-                //    exception = new StackOverflowException();
-                //    break;
-                //}
+                var frameCount = TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.GetStackTraceDepth(scriptThread);
+                if (frameCount > 500)
+                {
+                    TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.AbortThread(scriptThread);
+                    exception = new StackOverflowException();
+                    break;
+                }
 
                 // todo: check sandbox memory consumption
 
