@@ -12,6 +12,7 @@ using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using TeamAzureDragon.Utils;
 using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.FakeValidateAntiForgeryTokenAttribute;
+using LearningSystem.App.Areas.Administration.ViewModels;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -56,25 +57,28 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModelExercises = db.Exercises.All("Lesson").ToList()
-                        .Select(exercise => Misc.SerializeToDictionary(exercise,
-                                path =>
-                                {
-                                    if (path == "ExerciseId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "Description") return RecursiveSerializationOption.Assign;
-                                    if (path == "Order") return RecursiveSerializationOption.Assign;
-                                    if (path == "Lesson") return RecursiveSerializationOption.Recurse;
-                                    if (path == "Lesson.Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "Lesson.LessonId") return RecursiveSerializationOption.Assign;
-                                    if (path == "LessonId") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList();
+            //var viewModelExercises = db.Exercises.All("Lesson").ToList()
+            //            .Select(exercise => Misc.SerializeToDictionary(exercise,
+            //                    path =>
+            //                    {
+            //                        if (path == "ExerciseId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Name") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Description") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Order") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Lesson") return RecursiveSerializationOption.Recurse;
+            //                        if (path == "Lesson.Name") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Lesson.LessonId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "LessonId") return RecursiveSerializationOption.Assign;
+            //                        return RecursiveSerializationOption.Skip;
+            //                    })).ToList();
 
             //for (int i = 0; i < viewModelExercises.Count(); i++)
             //{
             //    viewModelExercises[i]["Description"] = (viewModelExercises[i]["Description"] ?? "").ToString().Abbreviate(30);
             //}
+
+            var viewModelExercises = db.Exercises.All("Lesson").ToList()
+                        .Select(exercise => new ExerciseViewModel().FillViewModel(exercise)).ToList();
 
             DataSourceResult result = viewModelExercises.ToDataSourceResult(request);
 
@@ -88,18 +92,19 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([DataSourceRequest]DataSourceRequest request, Exercise exercise)
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, ExerciseViewModel exerciseVM)
         {
+            Lesson lesson = db.Lessons.GetById(exerciseVM.Lesson.LessonId);
+            exerciseVM.Lesson.SkillId = lesson.SkillId;
             if (ModelState.IsValid)
-            {
-                Lesson lesson = db.Lessons.GetById(exercise.Lesson.LessonId);
-                exercise.Lesson.SkillId = lesson.SkillId;
+            {                
+                Exercise exercise = exerciseVM.FillModel(db.Context);
                 db.Exercises.Add(exercise);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(new[] { exercise }.ToDataSourceResult(request, ModelState));
+            return View(new[] { exerciseVM }.ToDataSourceResult(request, ModelState));
         }
 
         // POST: /Administration/Skill/Edit/5
@@ -109,31 +114,33 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Exercise exercise)
+        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, ExerciseViewModel exerciseVM)
         {
-            Exercise oldexercise = db.Exercises.GetById(exercise.ExerciseId);
+            
             if (ModelState.IsValid)
             {
-                oldexercise.Name = exercise.Name;
-                oldexercise.Description = exercise.Description;
-                oldexercise.Order = exercise.Order;
-                oldexercise.LessonId = exercise.Lesson.LessonId;
+                Exercise oldexercise = db.Exercises.GetById(exerciseVM.ExerciseId);
+                //oldexercise.Name = exerciseVM.Name;
+                //oldexercise.Description = exerciseVM.Description;
+                //oldexercise.Order = exerciseVM.Order;
+                //oldexercise.LessonId = exerciseVM.Lesson.LessonId;
+                exerciseVM.FillModel(db.Context, oldexercise);
 
                 db.Exercises.Update(oldexercise);
                 return RedirectToAction("Index");
             }
-            return View(new[] { oldexercise }.ToDataSourceResult(request, ModelState));
+            return View(new[] { exerciseVM }.ToDataSourceResult(request, ModelState));
         }
 
         // GET: /Administration/Skill/Delete/5
-        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, Exercise exercise)
+        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, ExerciseViewModel exerciseVM)
         {
             if (ModelState.IsValid)
             {
-                db.Exercises.Delete(exercise);
+                db.Exercises.Delete(exerciseVM.ExerciseId);
             }
 
-            return View(new[] { exercise }.ToDataSourceResult(request, ModelState));
+            return View(new[] { exerciseVM }.ToDataSourceResult(request, ModelState));
         }
 
         protected override void Dispose(bool disposing)

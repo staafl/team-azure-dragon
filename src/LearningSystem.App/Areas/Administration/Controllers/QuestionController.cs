@@ -12,6 +12,7 @@ using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using TeamAzureDragon.Utils;
 using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.FakeValidateAntiForgeryTokenAttribute;
+using LearningSystem.App.Areas.Administration.ViewModels;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -62,23 +63,26 @@ namespace LearningSystem.App.Areas.Administration.Controllers
 
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
+            //var viewModelQuestion = db.Questions.All("Exercise").ToList()
+            //            .Select(question => Misc.SerializeToDictionary(question,
+            //                    path =>
+            //                    {
+            //                        if (path == "QuestionId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Statement") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Order") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Points") return RecursiveSerializationOption.Assign;
+            //                        if (path == "AnswerType") return RecursiveSerializationOption.Assign;
+            //                        if (path == "AnswerContent") return RecursiveSerializationOption.Assign;
+            //                        if (path == "AnswerContentVersion") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Exercise") return RecursiveSerializationOption.Recurse;
+            //                        if (path == "Exercise.ExerciseId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Exercise.Name") return RecursiveSerializationOption.Assign;
+            //                        if (path == "ExerciseId") return RecursiveSerializationOption.Assign;
+            //                        return RecursiveSerializationOption.Skip;
+            //                    })).ToList();
+
             var viewModelQuestion = db.Questions.All("Exercise").ToList()
-                        .Select(question => Misc.SerializeToDictionary(question,
-                                path =>
-                                {
-                                    if (path == "QuestionId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Statement") return RecursiveSerializationOption.Assign;
-                                    if (path == "Order") return RecursiveSerializationOption.Assign;
-                                    if (path == "Points") return RecursiveSerializationOption.Assign;
-                                    if (path == "AnswerType") return RecursiveSerializationOption.Assign;
-                                    if (path == "AnswerContent") return RecursiveSerializationOption.Assign;
-                                    if (path == "AnswerContentVersion") return RecursiveSerializationOption.Assign;
-                                    if (path == "Exercise") return RecursiveSerializationOption.Recurse;
-                                    if (path == "Exercise.ExerciseId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Exercise.Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "ExerciseId") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList();
+                        .Select(question => new QuestionViewModel().FillViewModel(question)).ToList();
 
             DataSourceResult result = viewModelQuestion.ToDataSourceResult(request);
 
@@ -92,18 +96,20 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([DataSourceRequest]DataSourceRequest request, Question question)
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, QuestionViewModel questionVM)
         {
-            Exercise exercise = db.Exercises.GetById(question.Exercise.ExerciseId);
-            question.Exercise.LessonId = exercise.LessonId;
+            Exercise exercise = db.Exercises.GetById(questionVM.Exercise.ExerciseId);
+            questionVM.Exercise.LessonId = exercise.LessonId;
+
             if (ModelState.IsValid)
-            {
+            {                
+                var question = questionVM.FillModel(db.Context);
                 db.Questions.Add(question);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(new[] { question }.ToDataSourceResult(request, ModelState));
+            return View(new[] { questionVM }.ToDataSourceResult(request, ModelState));
         }
 
         // POST: /Administration/Skill/Edit/5
@@ -113,33 +119,35 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Question question)
+        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, QuestionViewModel questionVM)
         {
-            Question oldquestion = db.Questions.GetById(question.QuestionId);
+            
             if (ModelState.IsValid)
             {
-                oldquestion.Statement = question.Statement;
-                oldquestion.Order = question.Order;
-                oldquestion.Points = question.Points;
-                oldquestion.AnswerType = question.AnswerType;
-                oldquestion.AnswerContent = question.AnswerContent;
-                oldquestion.AnswerContentVersion = question.AnswerContentVersion;
-                oldquestion.ExerciseId = question.Exercise.ExerciseId;
+                Question oldquestion = db.Questions.GetById(questionVM.QuestionId);
+                //oldquestion.Statement = questionVM.Statement;
+                //oldquestion.Order = questionVM.Order;
+                //oldquestion.Points = questionVM.Points;
+                //oldquestion.AnswerType = questionVM.AnswerType;
+                //oldquestion.AnswerContent = questionVM.AnswerContent;
+                //oldquestion.AnswerContentVersion = questionVM.AnswerContentVersion;
+                //oldquestion.ExerciseId = questionVM.Exercise.ExerciseId;
+                oldquestion = questionVM.FillModel(db.Context, oldquestion);
                 db.Questions.Update(oldquestion);
                 return RedirectToAction("Index");
             }
-            return View(new[] { question }.ToDataSourceResult(request, ModelState));
+            return View(new[] { questionVM }.ToDataSourceResult(request, ModelState));
         }
 
         // GET: /Administration/Skill/Delete/5
-        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, Question question)
+        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, QuestionViewModel questionVM)
         {
             if (ModelState.IsValid)
             {
-                db.Questions.Delete(question);
+                db.Questions.Delete(questionVM.QuestionId);
             }
 
-            return View(new[] { question }.ToDataSourceResult(request, ModelState));
+            return View(new[] { questionVM }.ToDataSourceResult(request, ModelState));
         }
 
         public static List<SelectListItem> EnumToDropDownList(Type enumType)

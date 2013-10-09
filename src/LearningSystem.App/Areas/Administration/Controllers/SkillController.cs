@@ -12,6 +12,7 @@ using LearningSystem.Data;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using ValidateAntiForgeryTokenAttribute = TeamAzureDragon.Utils.FakeValidateAntiForgeryTokenAttribute;
+using LearningSystem.App.Areas.Administration.ViewModels;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -55,17 +56,20 @@ namespace LearningSystem.App.Areas.Administration.Controllers
             //          Name        - LessonName
             //          Description
             //          
+            //var viewModelSkills = db.Skills.All().ToList()
+            //            .Select(skill => Misc.SerializeToDictionary(skill,
+            //                    path =>
+            //                    {
+            //                        if (path == "SkillId") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Name") return RecursiveSerializationOption.Assign;
+            //                        if (path == "Description") return RecursiveSerializationOption.Assign;
+            //                        //if (path == "Lessons") return RecursiveSerializationOption.ForeachRecurse;
+            //                        //if (path == "Lessons.Name") return RecursiveSerializationOption.Assign;
+            //                        return RecursiveSerializationOption.Skip;
+            //                    })).ToList();
+
             var viewModelSkills = db.Skills.All().ToList()
-                        .Select(skill => Misc.SerializeToDictionary(skill,
-                                path =>
-                                {
-                                    if (path == "SkillId") return RecursiveSerializationOption.Assign;
-                                    if (path == "Name") return RecursiveSerializationOption.Assign;
-                                    if (path == "Description") return RecursiveSerializationOption.Assign;
-                                    //if (path == "Lessons") return RecursiveSerializationOption.ForeachRecurse;
-                                    //if (path == "Lessons.Name") return RecursiveSerializationOption.Assign;
-                                    return RecursiveSerializationOption.Skip;
-                                })).ToList();
+                        .Select(skill => new SkillViewModel().FillViewModel(skill)).ToList();
 
             DataSourceResult result = viewModelSkills.ToDataSourceResult(request);
 
@@ -79,16 +83,17 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([DataSourceRequest]DataSourceRequest request, Skill skill)
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, SkillViewModel skillVM)
         {
             if (ModelState.IsValid)
             {
+                var skill = skillVM.FillModel(db.Context);
                 db.Skills.Add(skill);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(new[] { skill }.ToDataSourceResult(request, ModelState));
+            return View(new[] { skillVM }.ToDataSourceResult(request, ModelState));
         }
 
         // POST: /Administration/Skill/Edit/5
@@ -98,25 +103,27 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, Skill skill)
+        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, SkillViewModel skillVM)
         {
             if (ModelState.IsValid)
             {
+                var skill = db.Skills.GetById(skillVM.SkillId);
+                skillVM.FillModel(db.Context, skill);
                 db.Skills.Update(skill);
                 return RedirectToAction("Index");
             }
-            return View(new[] { skill }.ToDataSourceResult(request, ModelState));
+            return View(new[] { skillVM }.ToDataSourceResult(request, ModelState));
         }
 
         // GET: /Administration/Skill/Delete/5
-        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, Skill skill)
+        public ActionResult Delete([DataSourceRequest]DataSourceRequest request, SkillViewModel skillVM)
         {
             if (ModelState.IsValid)
             {
-                db.Skills.Delete(skill);
+                db.Skills.Delete(skillVM.SkillId);
             }
 
-            return View(new[] { skill }.ToDataSourceResult(request, ModelState));
+            return View(new[] { skillVM }.ToDataSourceResult(request, ModelState));
         }
 
         //public ActionResult Lessons([DataSourceRequest]DataSourceRequest request, int id)
