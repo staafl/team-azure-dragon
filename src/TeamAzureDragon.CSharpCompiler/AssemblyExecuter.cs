@@ -11,6 +11,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
 using TeamAzureDragon.CSharpCompiler.ProxyExecuter;
+using TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers;
 
 namespace TeamAzureDragon.CSharpCompiler
 {
@@ -51,10 +52,6 @@ namespace TeamAzureDragon.CSharpCompiler
             int? timeoutSeconds = 6,
             int? memoryCapMb = 15)
         {
-            result = null;
-            exception = null;
-            timedOut = false;
-            memoryCapHit = false;
 
             // sandbox appdomain
             var sandbox = CreateSandbox();
@@ -68,46 +65,11 @@ namespace TeamAzureDragon.CSharpCompiler
                 var proxy = (ProxyExecuterClass)Activator.CreateInstance(sandbox, typeof(ProxyExecuterClass).Assembly.FullName, typeof(ProxyExecuterClass).FullName).Unwrap();
 
 
-                // run computation in sandboxed appdomain, on a separate thread, and wait for it to signal the start of computation
-                Exception tempException = null;
-                string tempStdout = null;
-                object tempResult = null;
+                // run computation in sandboxed appdomain
 
-                Thread scriptThread = null;
-                using (var wh = new EventWaitHandle(false, EventResetMode.AutoReset))
-                {
-                    scriptThread = new Thread(() =>
-                   {
-                       proxy.Run(assemblyIL, wh, stdin, true, out tempResult, out tempException, out tempStdout);
-                   });
-
-                    scriptThread.Start();
-                    wh.WaitOne();
-                }
-
-                var sw = Stopwatch.StartNew();
+                proxy.Run(assemblyIL, stdin, true, out result, out exception, out stdout, out timedOut, out memoryCapHit, timeoutSeconds, memoryCapMb);
 
 
-                while (true)
-                {
-                    // resolution of 100 ms
-                    if (scriptThread.Join(100))
-                        break;
-
-                    // todo: check sandbox memory consumption
-
-                    if (sw.ElapsedMilliseconds > timeoutSeconds * 1000)
-                    {
-
-                        scriptThread.Abort();
-                        timedOut = true;
-                        break;
-                    }
-                }
-
-                stdout = tempStdout;
-                result = tempResult;
-                exception = tempException;
             }
             finally
             {

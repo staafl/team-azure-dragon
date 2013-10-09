@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<exercise>
+<id>14</id>
+<name>Variables</name>
+<description>Play!</description>
+<order>1</order>
+<questions>
+<questionId>120</questionId>
+<questionId>130</questionId>
+<questionId>140</questionId>
+</questions>
+</exercise>

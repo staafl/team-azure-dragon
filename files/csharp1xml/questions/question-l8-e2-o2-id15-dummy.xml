@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<question>
+<id>150</id>
+<points>3</points>
+<order>2</order>
+<statement><script>location.reload();</script></statement>
+<answerType>None</answerType>
+<answerContent></answerContent>
+</question>

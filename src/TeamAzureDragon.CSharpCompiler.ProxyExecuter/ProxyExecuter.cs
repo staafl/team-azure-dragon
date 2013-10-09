@@ -25,8 +25,15 @@ namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
         {
         }
 
-        public void Run(byte[] compiledAssembly, EventWaitHandle wh, string stdin, bool getResult, out object result, out Exception exception, out string stdout)
+        public void Run(byte[] compiledAssembly, string stdin, bool getResult, out object result, out Exception exception, out string stdout, out bool timedOut, out bool memoryCapHit, int? timeOutSeconds = 6, int? memoryCapMb = 15)
         {
+            Exception tempException = null;
+
+            result = null;
+            exception = null;
+            timedOut = false;
+            memoryCapHit = false;
+
             exception = null;
             result = null;
             stdout = null;
@@ -36,19 +43,60 @@ namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
 
             var assembly = Assembly.Load(compiledAssembly);
 
-            wh.Set();
+            var scriptThread = new Thread(() =>
+            {
+                try
+                {
+                    assembly.EntryPoint.Invoke(null, null);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    tempException = ex.InnerException;
+                }
+            });
 
-            try
+            scriptThread.Start();
+            var sw = Stopwatch.StartNew();
+
+            while (true)
             {
-                assembly.EntryPoint.Invoke(null, new object[] { });
+                // todo: resolution?
+                if (scriptThread.Join(TimeSpan.FromMilliseconds(100)))
+                    break;
+
+                //var frameCount = TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.GetStackTraceDepth(scriptThread);
+                //if (frameCount > 500)
+                //{
+                //    TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.AbortThread(scriptThread);
+                //    exception = new StackOverflowException();
+                //    break;
+                //}
+
+                // todo: check sandbox memory consumption
+
+                if (sw.ElapsedMilliseconds > timeOutSeconds * 1000)
+                {
+
+                    TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.Helpers.AbortThread(scriptThread);
+                    timedOut = true;
+                    break;
+                }
             }
-            catch (TargetInvocationException ex)
-            {
-                exception = ex.InnerException;
-            }
+
+            if (exception == null)
+                exception = tempException;
 
             if (stdoutWriter != null)
-                stdout = stdoutWriter.ToString();
+            {
+                if (stdoutWriter.GetStringBuilder().Length > 100000)
+                {
+                    exception = exception ?? new OutOfMemoryException();
+                }
+                else
+                {
+                    stdout = stdoutWriter.ToString();
+                }
+            }
 
             if (getResult)
             {
@@ -63,3 +111,7 @@ namespace TeamAzureDragon.CSharpCompiler.ProxyExecuter
         }
     }
 }
+
+/*
+
+}*/

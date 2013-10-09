@@ -46,7 +46,7 @@ namespace TeamAzureDragon.Scratch
                 string stdout;
                 bool success;
                 Console.WriteLine(">> " + ExecutionDirector.RunAndReport(program, out success, null, out stdout, CSharpCodeTemplate.MethodBody));
-                if (stdout != null)
+                if (!string.IsNullOrEmpty(stdout))
                     Console.WriteLine("STDOUT: " + stdout);
             }
 

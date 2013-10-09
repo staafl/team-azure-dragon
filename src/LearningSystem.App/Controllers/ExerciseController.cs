@@ -49,7 +49,7 @@ namespace LearningSystem.App.Controllers
 
             if (question == null)
             {
-                throw new ArgumentNullException("This exercise has no questions yet!");
+                return View("_MissingQuestions");
             }
 
             var handler = AnswerHandlerFactory.GetHandler(question.AnswerType, question.AnswerContent);
@@ -115,7 +115,7 @@ namespace LearningSystem.App.Controllers
         }
 
         [System.Web.Mvc.HttpPostAttribute]
-        public ActionResult HandleQuestionInput(int questionId, string input)
+        public ActionResult HandleQuestionInput(int questionId, string input, bool passExercise)
         {
             var question = Db.Questions.GetById(questionId);
             if (question == null)
@@ -136,7 +136,7 @@ namespace LearningSystem.App.Controllers
              *  }
              */
 
-            if (result.Success)
+            if (result.Success || passExercise)
             {
                 var exercise = question.Exercise;
                 if (question.Order == exercise.Questions.Max(q => q.Order))

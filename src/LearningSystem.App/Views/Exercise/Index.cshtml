@@ -38,8 +38,15 @@
     $("#question-container").on("click", "#submit", function () {
         var data = {
             questionId: $("#questionId").val(),
-            input: $("#answer-input").val()
+            input: $("#answer-input").val(),
+            passExercise: false
         };
+
+        //special case on last question error
+        if (nextQuestionOrder + 1 == @ViewBag.QuestionsCount &&
+            currentErrors < @ViewBag.PassableErrors) {
+            data.passExercise = true;
+        }
 
         postRequester("/Exercise/HandleQuestionInput", data, function (data) {
             if (data.exerciseFinished) {
