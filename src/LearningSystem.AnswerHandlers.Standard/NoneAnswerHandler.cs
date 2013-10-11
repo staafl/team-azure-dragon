@@ -9,9 +9,9 @@ namespace LearningSystem.AnswerHandlers.Standard
 {
     public class NoneAnswerHandler : IAnswerHandler
     {
-        public static string TypeIdentifier = "None";
+        public const string TypeIdentifier = "None";
 
-        public static IAnswerHandler GetAnswerHandler(string answerContent, int version = 0)
+        public static IAnswerHandler GetAnswerHandler(string answerContent)
         {
             return new NoneAnswerHandler();
         }

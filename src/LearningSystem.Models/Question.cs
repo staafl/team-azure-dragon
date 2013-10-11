@@ -33,9 +33,6 @@ namespace LearningSystem.Models
         [DataType(DataType.MultilineText)]
         public string AnswerContent { get; set; }
 
-        [Display(Name = "Content version")]
-        public int AnswerContentVersion { get; set; }
-
         [Display(Name = "Exercise")]
         public int ExerciseId { get; set; }
 

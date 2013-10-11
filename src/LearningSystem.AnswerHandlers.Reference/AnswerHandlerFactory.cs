@@ -19,7 +19,7 @@ namespace LearningSystem.App.AppLogic
             foreach (var type in assembly.GetTypes().Where(t => typeof(IAnswerHandler).IsAssignableFrom(t) && !t.IsAbstract))
             {
                 var handlerGetter = type.GetMethod("GetAnswerHandler");
-                var identifier = type.GetProperty("TypeIdentifier");
+                var identifier = type.GetField("TypeIdentifier");
                 var del = handlerGetter.CreateDelegate(typeof(Func<string, IAnswerHandler>));
 
                 RegisterHandler(identifier.GetValue(null) + "", (Func<string, IAnswerHandler>)del);
@@ -32,7 +32,7 @@ namespace LearningSystem.App.AppLogic
             handlerGetters[identifier] = handlerGetter;
         }
 
-        static public IAnswerHandler GetHandler(string type, string answerContent, int version = 0, bool throwIfFailed = true)
+        static public IAnswerHandler GetHandler(string type, string answerContent, bool throwIfFailed = true)
         {
             Func<string, IAnswerHandler> handlerGetter;
             if (!handlerGetters.TryGetValue(type, out handlerGetter))

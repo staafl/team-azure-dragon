@@ -61,28 +61,25 @@ namespace LearningSystem.AnswerHandlers.Standard
         }
 
 
-        public static string TypeIdentifier = "List";
+        public const string TypeIdentifier = "List";
 
-        public static IAnswerHandler GetAnswerHandler(string answerContent, int version = 0)
+        public static IAnswerHandler GetAnswerHandler(string answerContent)
         {
-            if (version == 0)
+            var match = Regex.Match(answerContent,
+                 @"^(?ix)0;(?<requiredCount>\d+);(?<tests>[^~]+~?)+$");
+
+            if (!match.Success)
+                throw new ArgumentException("failed to match");
+
+            var requiredCount = int.Parse(match.Groups["requiredCount"].Value);
+            var tests = Misc.GetTildeList(match.Groups["tests"]);
+
+            return new ListAnswerHandler
             {
-                var match = Regex.Match(answerContent,
-                     @"^(?ix)0;(?<requiredCount>\d+);(?<tests>[^~]+~?)+$");
+                RequiredCount = requiredCount,
+                Tests = tests,
+            };
 
-                if (!match.Success)
-                    throw new ArgumentException("failed to match");
-
-                var requiredCount = int.Parse(match.Groups["requiredCount"].Value);
-                var tests = Misc.GetTildeList(match.Groups["tests"]);
-
-                return new ListAnswerHandler
-                {
-                    RequiredCount = requiredCount,
-                    Tests = tests,
-                };
-
-            }
             throw new ArgumentException("version");
         }
 

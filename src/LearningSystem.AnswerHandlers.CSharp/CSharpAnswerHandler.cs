@@ -72,43 +72,38 @@ namespace LearningSystem.AnswerHandlers.CSharp
 
         public IEnumerable<string> Inputs { get; set; }
 
-        public static string TypeIdentifier = "CSharp";
+        public const string TypeIdentifier = "CSharp";
 
-        public static IAnswerHandler GetAnswerHandler(string answerContent, int version = 0)
+        public static IAnswerHandler GetAnswerHandler(string answerContent)
         {
-            if (version == 0)
+            var match = Regex.Match(answerContent,
+                @"^(?ix)0;" +
+                @"(?<template>" + Misc.EnumOptions<CSharpCodeTemplate>() + @");" +
+                @"(?<normalize>true|false);" +
+                @"(?<validation>" + Misc.EnumOptions<CSharpCodeValidation>() + @");" +
+                @"(?<tests>[^;~]+~)+" +
+                @"(;(?<inputs>[^~]+~)+)?" +
+                @"\s*$", RegexOptions.ExplicitCapture);
+
+            // todo: [;~] is problematic
+
+            if (!match.Success)
+                throw new ArgumentException("failed to match");
+
+            var template = match.ParseEnum<CSharpCodeTemplate>("template");
+            var validation = match.ParseEnum<CSharpCodeValidation>("template");
+            var normalize = bool.Parse(match.Groups["normalize"].Value);
+            var tests = match.Groups["tests"].GetTildeList();
+            var inputs = match.Groups["tests"].GetTildeList();
+
+            return new CSharpAnswerHandler
             {
-                var match = Regex.Match(answerContent,
-                    @"^(?ix)0;" +
-                    @"(?<template>" + Misc.EnumOptions<CSharpCodeTemplate>() + @");" +
-                    @"(?<normalize>true|false);" +
-                    @"(?<validation>" + Misc.EnumOptions<CSharpCodeValidation>() + @");" +
-                    @"(?<tests>[^;~]+~)+" +
-                    @"(;(?<inputs>[^~]+~)+)?" +
-                    @"\s*$", RegexOptions.ExplicitCapture);
-
-                // todo: [;~] is problematic
-
-                if (!match.Success)
-                    throw new ArgumentException("failed to match");
-
-                var template = match.ParseEnum<CSharpCodeTemplate>("template");
-                var validation = match.ParseEnum<CSharpCodeValidation>("template");
-                var normalize = bool.Parse(match.Groups["normalize"].Value);
-                var tests = match.Groups["tests"].GetTildeList();
-                var inputs = match.Groups["tests"].GetTildeList();
-
-                return new CSharpAnswerHandler
-                {
-                    CodeTemplate = template,
-                    NormalizeLines = normalize,
-                    Tests = tests,
-                    Validation = validation,
-                    Inputs = inputs
-                };
-            }
-
-            throw new ArgumentException("version");
+                CodeTemplate = template,
+                NormalizeLines = normalize,
+                Tests = tests,
+                Validation = validation,
+                Inputs = inputs
+            };
         }
 
     }

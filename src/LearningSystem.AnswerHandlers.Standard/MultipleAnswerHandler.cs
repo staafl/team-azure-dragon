@@ -27,31 +27,26 @@ namespace LearningSystem.AnswerHandlers.Standard
             return new AnswerValidationResult { Success = true };
         }
 
-        public static string TypeIdentifier = "Multiple";
+        public const string TypeIdentifier = "Multiple";
 
-        public static IAnswerHandler GetAnswerHandler(string answerContent, int version = 0)
+        public static IAnswerHandler GetAnswerHandler(string answerContent)
         {
-            if (version == 0)
-            {
-                var match = Regex.Match(answerContent, @"^(?ix)0;(?<tests>[^~]+~[^~]+~?)+$");
+            var match = Regex.Match(answerContent, @"^(?ix)0;(?<tests>[^~]+~[^~]+~?)+$");
 
-                if (!match.Success)
-                    throw new ArgumentException("failed to match");
+            if (!match.Success)
+                throw new ArgumentException("failed to match");
 
-                var tests = Misc.GetTildeList(match.Groups["tests"]).Select(
-                    s =>
-                    {
-                        var split = s.Split('~');
-                        return Tuple.Create(split[0], split[1] == "1" ? true : false);
-                    }).ToList();
-
-                return new MultipleAnswerHandler
+            var tests = Misc.GetTildeList(match.Groups["tests"]).Select(
+                s =>
                 {
-                    Tests = tests
-                };
-            }
+                    var split = s.Split('~');
+                    return Tuple.Create(split[0], split[1] == "1" ? true : false);
+                }).ToList();
 
-            throw new ArgumentException("version");
+            return new MultipleAnswerHandler
+            {
+                Tests = tests
+            };
         }
     }
 }
