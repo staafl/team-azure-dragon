@@ -39,9 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnswerHandlerFactory.cs" />
     <Compile Include="AnswerValidationResult.cs" />
     <Compile Include="IAnswerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj">
+      <Project>{e77c8fc5-143f-4341-b8a7-b2b99f0061c6}</Project>
+      <Name>TeamAzureDragon.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

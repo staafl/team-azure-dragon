@@ -59,6 +59,10 @@
       <Project>{1d5a2399-ebff-41ad-b1a1-38b60ffcd767}</Project>
       <Name>TeamAzureDragon.CSharpCompiler %28TeamAzureDragon.CSharpCompiler\TeamAzureDragon.CSharpCompiler%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj">
+      <Project>{e77c8fc5-143f-4341-b8a7-b2b99f0061c6}</Project>
+      <Name>TeamAzureDragon.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

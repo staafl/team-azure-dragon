@@ -27,8 +27,7 @@ namespace LearningSystem.App.AppLogic
                 int points = int.Parse(q["points"].InnerText);
                 int order = int.Parse(q["order"].InnerText);
                 string statement = q["statement"].InnerXml;
-                AnswerType answerType = (AnswerType)Enum.Parse(typeof(AnswerType),
-                    q["answerType"].InnerText, true);
+                string answerType = q["answerType"].InnerText;
                 string answerContent = q["answerContent"].InnerText;
 
                 questions.Add(id, new Question()

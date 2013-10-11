@@ -20,6 +20,7 @@ namespace TeamAzureDragon.Utils
 {
     public static partial class Misc
     {
+
         public static bool GraphContainsCycles<T>(T root, Func<T, IEnumerable<T>> siblings)
         {
             var stack = new Stack<Tuple<T, T>>();
@@ -51,7 +52,7 @@ namespace TeamAzureDragon.Utils
                 return str;
             if (removeWhitespace)
                 str = RemoveWhiteSpace(str);
-            else 
+            else
                 str = NormalizeWhiteSpace(str);
             return str.ToUpper();
         }
@@ -107,12 +108,38 @@ namespace TeamAzureDragon.Utils
                 return value;
             }
         }
+
         public static object EvalPropertyPath(object obj, string path)
         {
             object value = obj;
             foreach (var pathElement in path.Split('.'))
                 value = value.GetType().GetProperty(pathElement).GetValue(value);
             return value;
+        }
+
+        public static string sprintf(this string str, params object[] args)
+        {
+            return string.Format(str, args);
+        }
+
+        public static T ParseEnum<T>(this Match match, string groupName)
+        {
+            return (T)Enum.Parse(typeof(T), match.Groups[groupName].Value, true);
+        }
+
+        public static T ParseValue<T>(this Match match, string groupName)
+        {
+            return (T)Convert.ChangeType(match.Groups[groupName].Value, typeof(T));
+        }
+
+        public static IEnumerable<string> GetTildeList(this Group group)
+        {
+            return group.Captures.Cast<Capture>().Select(c => c.Value.EndsWith("~") ? c.Value.Substring(0, c.Value.Length - 1) : c.Value);
+        }
+
+        public static string EnumOptions<TEnum>()
+        {
+            return String.Join("|", (TEnum[])Enum.GetValues(typeof(TEnum)));
         }
 
     }
