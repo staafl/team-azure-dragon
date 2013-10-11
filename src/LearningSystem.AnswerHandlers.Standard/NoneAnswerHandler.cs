@@ -9,6 +9,13 @@ namespace LearningSystem.AnswerHandlers.Standard
 {
     public class NoneAnswerHandler : IAnswerHandler
     {
+        public static string TypeIdentifier = "None";
+
+        public static IAnswerHandler GetAnswerHandler(string answerContent, int version = 0)
+        {
+            return new NoneAnswerHandler();
+        }
+
         public AnswerValidationResult ValidateInput(string input)
         {
             return new AnswerValidationResult { Success = true };

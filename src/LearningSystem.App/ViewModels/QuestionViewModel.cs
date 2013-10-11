@@ -12,7 +12,7 @@ namespace LearningSystem.App.ViewModels
 
         public string Statement { get; set; }
 
-        public AnswerType AnswerType { get; set; }
+        public string AnswerType { get; set; }
 
         public string AnswerContent { get; set; }
 

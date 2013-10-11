@@ -205,7 +205,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppLogic\AnswerHandlerFactory.cs" />
     <Compile Include="AppLogic\EmailService.cs">
       <SubType>Code</SubType>
     </Compile>

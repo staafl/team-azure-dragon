@@ -26,7 +26,7 @@ namespace LearningSystem.Models
 
         [Required(ErrorMessage = "Answer Type is required!")]
         [Display(Name = "Answer type")]
-        public AnswerType AnswerType { get; set; }
+        public string AnswerType { get; set; }
 
         [StringLength(2000)]
         [Display(Name = "Answer content")]

@@ -10,6 +10,36 @@ namespace LearningSystem.AnswerHandlers.Standard
 {
     public class TextAnswerHandler : IAnswerHandler
     {
+        public static string TypeIdentifier = "Text";
+
+        public static IAnswerHandler GetAnswerHandler(string answerContent, int version = 0)
+        {
+            bool ignoreCase;
+            bool normalize;
+            string text;
+            if (version == 0)
+            {
+                ignoreCase = true;
+                normalize = true;
+                text = answerContent;
+            }
+            else if (version == 1)
+            {
+                var match = Regex.Match(answerContent, @"(?ix)^1;(?<ignore>true|false);(?<normalize>true|false);(?<text>.*?);?$");
+
+                if (!match.Success)
+                    throw new ArgumentException("failed to match");
+
+                ignoreCase = bool.Parse(match.Groups["ignore"].Value);
+                normalize = bool.Parse(match.Groups["normalize"].Value);
+                text = match.Groups["text"].Value;
+            }
+            else
+            {
+                throw new ArgumentException("version");
+            }
+            return new TextAnswerHandler { Text = text, IgnoreCase = ignoreCase, NormalizeWhiteSpace = normalize };
+        }
 
 
         public bool IgnoreCase { get; set; }
