@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LearningSystem.App.AppLogic
+namespace LearningSystem.AnswerHandlers.Reference
 {
     public class AnswerValidationResult
     {

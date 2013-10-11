@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using LearningSystem.AnswerHandlers.Reference;
 using TeamAzureDragon.CSharpCompiler;
-namespace LearningSystem.App.AppLogic
+namespace LearningSystem.AnswerHandlers.CSharp
 {
     public enum CSharpCodeValidation
     {

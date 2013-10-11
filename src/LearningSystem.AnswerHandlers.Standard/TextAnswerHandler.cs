@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using LearningSystem.AnswerHandlers.Reference;
 using TeamAzureDragon.Utils;
 
-namespace LearningSystem.App.AppLogic
+namespace LearningSystem.AnswerHandlers.Standard
 {
     public class TextAnswerHandler : IAnswerHandler
     {

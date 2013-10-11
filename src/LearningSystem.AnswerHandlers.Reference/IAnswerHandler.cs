@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearningSystem.App.AppLogic
+namespace LearningSystem.AnswerHandlers.Reference
 {
     /// <summary>
     /// Handles user input
