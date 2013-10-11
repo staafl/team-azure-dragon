@@ -13,16 +13,16 @@ Ionic.Zip.xml:  10/5/2013 7:49:55 PM
 Kendo.Mvc.dll: 2013.2.918.340 10/5/2013 7:40:53 PM
     Managed: Kendo.Mvc, Version=2013.2.918.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4
 Kendo.Mvc.xml:  10/5/2013 7:40:53 PM
-LearningSystem.App.dll: 1.0.0.0 10/11/2013 12:15:32 AM
-    Managed: LearningSystem.App, Version=1.0.5031.29266, Culture=neutral, PublicKeyToken=null
+LearningSystem.App.dll: 1.0.0.0 10/11/2013 12:48:25 AM
+    Managed: LearningSystem.App, Version=1.0.5031.30252, Culture=neutral, PublicKeyToken=null
 LearningSystem.App.dll.config:  10/10/2013 10:17:04 PM
-LearningSystem.App.pdb:  10/11/2013 12:15:32 AM
-LearningSystem.Data.dll: 1.0.0.0 10/11/2013 12:13:44 AM
-    Managed: LearningSystem.Data, Version=1.0.5031.29212, Culture=neutral, PublicKeyToken=null
-LearningSystem.Data.pdb:  10/11/2013 12:13:44 AM
-LearningSystem.Models.dll: 1.0.0.0 10/11/2013 12:13:39 AM
-    Managed: LearningSystem.Models, Version=1.0.5031.29209, Culture=neutral, PublicKeyToken=null
-LearningSystem.Models.pdb:  10/11/2013 12:13:39 AM
+LearningSystem.App.pdb:  10/11/2013 12:48:25 AM
+LearningSystem.Data.dll: 1.0.0.0 10/11/2013 12:48:19 AM
+    Managed: LearningSystem.Data, Version=1.0.5031.30249, Culture=neutral, PublicKeyToken=null
+LearningSystem.Data.pdb:  10/11/2013 12:48:19 AM
+LearningSystem.Models.dll: 1.0.0.0 10/11/2013 12:48:14 AM
+    Managed: LearningSystem.Models, Version=1.0.5031.30247, Culture=neutral, PublicKeyToken=null
+LearningSystem.Models.pdb:  10/11/2013 12:48:14 AM
 Microsoft.AspNet.Identity.Core.dll: 1.0.20802.0 10/5/2013 7:49:38 PM
     Managed: Microsoft.AspNet.Identity.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 Microsoft.AspNet.Identity.Core.xml:  10/5/2013 7:49:38 PM
@@ -125,18 +125,18 @@ System.Web.WebPages.Razor.dll: 3.0.10809.0 10/5/2013 7:49:51 PM
     Managed: System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 System.Web.WebPages.Razor.xml:  10/5/2013 7:49:51 PM
 System.Web.WebPages.xml:  10/5/2013 7:49:51 PM
-TeamAzureDragon.CSharpCompiler.dll: 1.0.0.0 10/11/2013 12:13:39 AM
-    Managed: TeamAzureDragon.CSharpCompiler, Version=1.0.5031.29209, Culture=neutral, PublicKeyToken=a56947a49b8895fc
-TeamAzureDragon.CSharpCompiler.pdb:  10/11/2013 12:13:39 AM
-TeamAzureDragon.CSharpCompiler.ProxyExecuter.dll: 1.0.0.0 10/11/2013 12:13:34 AM
-    Managed: TeamAzureDragon.CSharpCompiler.ProxyExecuter, Version=1.0.5031.29207, Culture=neutral, PublicKeyToken=9d3ddb9a560fa5e5
-TeamAzureDragon.CSharpCompiler.ProxyExecuter.pdb:  10/11/2013 12:13:34 AM
-TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.dll: 1.0.0.0 10/11/2013 12:13:33 AM
-    Managed: TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers, Version=1.0.5031.29206, Culture=neutral, PublicKeyToken=e43a3f742cf6867d
-TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.pdb:  10/11/2013 12:13:33 AM
-TeamAzureDragon.Utils.dll: 1.0.0.0 10/11/2013 12:13:33 AM
-    Managed: TeamAzureDragon.Utils, Version=1.0.5031.29206, Culture=neutral, PublicKeyToken=null
-TeamAzureDragon.Utils.pdb:  10/11/2013 12:13:33 AM
+TeamAzureDragon.CSharpCompiler.dll: 1.0.0.0 10/11/2013 12:48:14 AM
+    Managed: TeamAzureDragon.CSharpCompiler, Version=1.0.5031.30247, Culture=neutral, PublicKeyToken=a56947a49b8895fc
+TeamAzureDragon.CSharpCompiler.pdb:  10/11/2013 12:48:14 AM
+TeamAzureDragon.CSharpCompiler.ProxyExecuter.dll: 1.0.0.0 10/11/2013 12:48:09 AM
+    Managed: TeamAzureDragon.CSharpCompiler.ProxyExecuter, Version=1.0.5031.30244, Culture=neutral, PublicKeyToken=9d3ddb9a560fa5e5
+TeamAzureDragon.CSharpCompiler.ProxyExecuter.pdb:  10/11/2013 12:48:09 AM
+TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.dll: 1.0.0.0 10/11/2013 12:48:07 AM
+    Managed: TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers, Version=1.0.5031.30243, Culture=neutral, PublicKeyToken=e43a3f742cf6867d
+TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.pdb:  10/11/2013 12:48:07 AM
+TeamAzureDragon.Utils.dll: 1.0.0.0 10/11/2013 12:48:08 AM
+    Managed: TeamAzureDragon.Utils, Version=1.0.5031.30243, Culture=neutral, PublicKeyToken=null
+TeamAzureDragon.Utils.pdb:  10/11/2013 12:48:07 AM
 Typesafe.Mailgun.dll: 0.4.0.2115 10/5/2013 7:49:55 PM
     Managed: Typesafe.Mailgun, Version=0.4.0.2115, Culture=neutral, PublicKeyToken=null
 Typesafe.Mailgun.xml:  10/5/2013 7:49:55 PM
