@@ -452,6 +452,9 @@
     <Content Include="Views\Exercise\_FailedExercise.cshtml" />
     <Content Include="Views\Skill\PreviewSkill.cshtml" />
     <Content Include="Views\Exercise\_MissingQuestions.cshtml" />
+    <None Include="Web.AppHarbor.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Administration\Models\" />
