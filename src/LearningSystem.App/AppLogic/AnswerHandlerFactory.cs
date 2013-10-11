@@ -10,23 +10,8 @@ using TeamAzureDragon.Utils;
 using TeamAzureDragon.CSharpCompiler;
 namespace LearningSystem.App.AppLogic
 {
-    public class NoneAnswerHandler : IAnswerHandler
-    {
-        public AnswerValidationResult ValidateInput(string input)
-        {
-            return new AnswerValidationResult { Success = true };
-        }
 
-        public string RenderInputHtml()
-        {
-            return "";
-        }
-    }
-    public enum CSharpCodeValidation
-    {
-        Result,
-        StdOut
-    }
+
     public static class AnswerHandlerFactory
     {
         static public IAnswerHandler GetHandler(AnswerType type, string answerContent, int version = 0)

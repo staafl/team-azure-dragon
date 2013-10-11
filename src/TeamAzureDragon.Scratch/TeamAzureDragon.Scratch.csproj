@@ -43,6 +43,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppHarbor-live|AnyCPU'">
+    <OutputPath>bin\AppHarbor-live\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -103,7 +113,7 @@
     </ProjectReference>
     <ProjectReference Include="..\TeamAzureDragon.CSharpCompiler\TeamAzureDragon.CSharpCompiler.csproj">
       <Project>{1d5a2399-ebff-41ad-b1a1-38b60ffcd767}</Project>
-      <Name>TeamAzureDragon.CSharpCompiler</Name>
+      <Name>TeamAzureDragon.CSharpCompiler %28TeamAzureDragon.CSharpCompiler\TeamAzureDragon.CSharpCompiler%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj">
       <Project>{e77c8fc5-143f-4341-b8a7-b2b99f0061c6}</Project>

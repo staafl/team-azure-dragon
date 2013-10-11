@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.App", "LearningSystem.App\LearningSystem.App.csproj", "{097D9FF2-6C10-4BDA-8FC7-7692E816262C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.Utils", "TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj", "{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}"
@@ -28,69 +26,137 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.CSharpCompi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAzureDragon.CSharpCompiler.ProxyExecuter", "TeamAzureDragon.CSharpCompiler.ProxyExecuter\TeamAzureDragon.CSharpCompiler.ProxyExecuter.csproj", "{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LearningSystem.AnswerHandlers", "LearningSystem.AnswerHandlers", "{1F378DA0-D3E6-41AF-875B-28664146E62C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.AnswerHandlers.Reference", "LearningSystem.AnswerHandlers.Reference\LearningSystem.AnswerHandlers.Reference.csproj", "{B5DBB90C-437B-41FB-9F78-2C6AF4644375}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.AnswerHandlers.Standard", "LearningSystem.AnswerHandlers.Standard\LearningSystem.AnswerHandlers.Standard.csproj", "{DB3FDDFF-9186-4254-8801-0A355663EF1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.AnswerHandlers.CSharp", "LearningSystem.AnswerHandlers.CSharp\LearningSystem.AnswerHandlers.CSharp.csproj", "{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LearningSystem.Tests", "LearningSystem.Tests", "{8C75D37B-552B-4EA3-A55D-327C5DD2391F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamAzureDragon.CSharpCompiler", "TeamAzureDragon.CSharpCompiler", "{03A1954B-4FD1-4FC9-AD1F-2D882341ED1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamAzureDragon", "TeamAzureDragon", "{8D0C37AE-D22B-4E9B-B7B2-0F902962A329}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AppHarbor|Any CPU = AppHarbor|Any CPU
+		AppHarbor-live|Any CPU = AppHarbor-live|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{097D9FF2-6C10-4BDA-8FC7-7692E816262C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A5BAB78-E243-455A-AD7C-23CAA9D882C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7D009E7-D120-4C19-8A1B-717DAE55868B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.AppHarbor|Any CPU.ActiveCfg = AppHarbor|Any CPU
 		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.AppHarbor|Any CPU.Build.0 = AppHarbor|Any CPU
+		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.AppHarbor-live|Any CPU.ActiveCfg = AppHarbor-live|Any CPU
+		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.AppHarbor-live|Any CPU.Build.0 = AppHarbor-live|Any CPU
 		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.AppHarbor|Any CPU.ActiveCfg = Release|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.AppHarbor|Any CPU.Build.0 = Release|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.AppHarbor-live|Any CPU.ActiveCfg = Release|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.AppHarbor-live|Any CPU.Build.0 = Release|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.AppHarbor|Any CPU.ActiveCfg = Release|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.AppHarbor|Any CPU.Build.0 = Release|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.AppHarbor-live|Any CPU.ActiveCfg = Release|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.AppHarbor-live|Any CPU.Build.0 = Release|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.AppHarbor|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.AppHarbor|Any CPU.Build.0 = Release|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.AppHarbor-live|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.AppHarbor-live|Any CPU.Build.0 = Release|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B5DBB90C-437B-41FB-9F78-2C6AF4644375} = {1F378DA0-D3E6-41AF-875B-28664146E62C}
+		{DB3FDDFF-9186-4254-8801-0A355663EF1D} = {1F378DA0-D3E6-41AF-875B-28664146E62C}
+		{1ABD01AE-40B6-478C-8C18-33C6BE8F1407} = {1F378DA0-D3E6-41AF-875B-28664146E62C}
+		{E0D2E7E2-42E3-4F6C-BC83-9DB4CF72F79E} = {8C75D37B-552B-4EA3-A55D-327C5DD2391F}
+		{1D5A2399-EBFF-41AD-B1A1-38B60FFCD767} = {03A1954B-4FD1-4FC9-AD1F-2D882341ED1B}
+		{A7DE9E05-9993-4FBD-97CC-6DF5C6BC3101} = {03A1954B-4FD1-4FC9-AD1F-2D882341ED1B}
+		{291FF5C3-1AF5-41A0-B9EC-147CCB3FE440} = {03A1954B-4FD1-4FC9-AD1F-2D882341ED1B}
+		{C4530896-61D2-46EB-8A0F-26B8CDB9F5F5} = {8D0C37AE-D22B-4E9B-B7B2-0F902962A329}
+		{E77C8FC5-143F-4341-B8A7-B2B99F0061C6} = {8D0C37AE-D22B-4E9B-B7B2-0F902962A329}
 	EndGlobalSection
 EndGlobal

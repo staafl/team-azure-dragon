@@ -206,15 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppLogic\AnswerHandlerFactory.cs" />
-    <Compile Include="AppLogic\AnswerValidationResult.cs" />
-    <Compile Include="AppLogic\CSharpAnswerHandler.cs" />
     <Compile Include="AppLogic\EmailService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AppLogic\IAnswerHandler.cs" />
-    <Compile Include="AppLogic\ListAnswerHandler.cs" />
-    <Compile Include="AppLogic\MultipleAnswerHandler.cs" />
-    <Compile Include="AppLogic\TextAnswerHandler.cs" />
     <Compile Include="AppLogic\Utils.cs" />
     <Compile Include="AppLogic\XmlParser.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -466,6 +460,18 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LearningSystem.AnswerHandlers.CSharp\LearningSystem.AnswerHandlers.CSharp.csproj">
+      <Project>{1abd01ae-40b6-478c-8c18-33c6be8f1407}</Project>
+      <Name>LearningSystem.AnswerHandlers.CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LearningSystem.AnswerHandlers.Reference\LearningSystem.AnswerHandlers.Reference.csproj">
+      <Project>{b5dbb90c-437b-41fb-9f78-2c6af4644375}</Project>
+      <Name>LearningSystem.AnswerHandlers.Reference</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LearningSystem.AnswerHandlers.Standard\LearningSystem.AnswerHandlers.Standard.csproj">
+      <Project>{db3fddff-9186-4254-8801-0a355663ef1d}</Project>
+      <Name>LearningSystem.AnswerHandlers.Standard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LearningSystem.Data\LearningSystem.Data.csproj">
       <Project>{b7d009e7-d120-4c19-8a1b-717dae55868b}</Project>
       <Name>LearningSystem.Data</Name>
@@ -484,7 +490,7 @@
     </ProjectReference>
     <ProjectReference Include="..\TeamAzureDragon.CSharpCompiler\TeamAzureDragon.CSharpCompiler.csproj">
       <Project>{1d5a2399-ebff-41ad-b1a1-38b60ffcd767}</Project>
-      <Name>TeamAzureDragon.CSharpCompiler</Name>
+      <Name>TeamAzureDragon.CSharpCompiler %28TeamAzureDragon.CSharpCompiler\TeamAzureDragon.CSharpCompiler%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\TeamAzureDragon.Utils\TeamAzureDragon.Utils.csproj">
       <Project>{e77c8fc5-143f-4341-b8a7-b2b99f0061c6}</Project>
