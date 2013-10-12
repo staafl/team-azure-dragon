@@ -13,6 +13,8 @@ using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using TeamAzureDragon.Utils;
 using LearningSystem.App.Areas.Administration.ViewModels;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace LearningSystem.App.Areas.Administration.Controllers
 {
@@ -122,16 +124,19 @@ namespace LearningSystem.App.Areas.Administration.Controllers
         // POST: /Administration/Skill/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([DataSourceRequest]DataSourceRequest request, LessonViewModel lessonVM)
+        public ActionResult Edit([DataSourceRequest]DataSourceRequest request)
         {
-            if (ModelState.IsValid)
-            {
-                var model = db.Lessons.GetById(lessonVM.LessonId);
-                lessonVM.FillModel(db.Context, model);
-                db.Lessons.Update(model);
-                return RedirectToAction("Index");
-            }
-            return View(new[] { lessonVM }.ToDataSourceResult(request, ModelState));
+            Request.InputStream.Seek(0, SeekOrigin.Begin);
+            String jsonData = new StreamReader(this.Request.InputStream).ReadToEnd();
+            return Content("asdf");
+            //if (ModelState.IsValid)
+            //{
+            //    var model = db.Lessons.GetById(lessonVM.LessonId);
+            //    lessonVM.FillModel(db.Context, model);
+            //    db.Lessons.Update(model);
+            //    return RedirectToAction("Index");
+            //}
+            //return View(new[] { lessonVM }.ToDataSourceResult(request, ModelState));
         }
 
         // GET: /Administration/Skill/Delete/5

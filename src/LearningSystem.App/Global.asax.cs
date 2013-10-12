@@ -51,6 +51,8 @@ namespace LearningSystem.App
 
         protected void Application_Error(object sender, EventArgs e)
         {
+            // TODO: isn't there a better approach?
+
             Exception exception = Server.GetLastError();
             Server.ClearError();
 
