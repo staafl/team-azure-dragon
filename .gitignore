@@ -96,7 +96,7 @@ AppPackages/
 # Others
 [Bb]in
 [Oo]bj
-sql
+# sql
 TestResults
 [Tt]est[Rr]esult*
 *.Cache
