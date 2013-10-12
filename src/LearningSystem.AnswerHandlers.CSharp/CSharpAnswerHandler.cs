@@ -59,7 +59,8 @@ namespace LearningSystem.AnswerHandlers.CSharp
         public string RenderInputHtml()
         {
             // todo: duplication
-            if (this.CodeTemplate == CSharpCodeTemplate.WholeProgram)
+            if (this.CodeTemplate == CSharpCodeTemplate.WholeProgram ||
+                this.CodeTemplate == CSharpCodeTemplate.Statements)
             {
                 return @"<textarea id='answer-input' name='answer-input' class='answer-input-textfield input-code'></textarea>";
 
