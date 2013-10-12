@@ -29,13 +29,13 @@ namespace LearningSystem.App.AppLogic
         {
             if (identifier == null) throw new ArgumentNullException("identifier");
             if (handlerGetter == null) throw new ArgumentNullException("handlerGetter");
-            handlerGetters[identifier] = handlerGetter;
+            handlerGetters[identifier.ToUpper()] = handlerGetter;
         }
 
         static public IAnswerHandler GetHandler(string type, string answerContent, bool throwIfFailed = true)
         {
             Func<string, IAnswerHandler> handlerGetter;
-            if (!handlerGetters.TryGetValue(type, out handlerGetter))
+            if (!handlerGetters.TryGetValue(type.ToUpper(), out handlerGetter))
             {
                 if (throwIfFailed)
                     throw new ArgumentException("Type {0} not recognized".sprintf(type));
