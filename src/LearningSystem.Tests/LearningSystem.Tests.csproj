@@ -143,6 +143,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\files\testing-zips\picking-mushrooms.zip" >
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\LearningSystem.App\LearningSystem.App.csproj">
       <Project>{097d9ff2-6c10-4bda-8fc7-7692e816262c}</Project>
       <Name>LearningSystem.App</Name>
@@ -163,9 +168,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestingZips\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

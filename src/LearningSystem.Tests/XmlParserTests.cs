@@ -24,8 +24,6 @@ namespace LearningSystem.Tests
         [TestInitialize]
         public void SetUp()
         {
-            if (System.Configuration.ConfigurationManager.AppSettings["appharbor"] == true)
-                Assert.Inconclusive();
         }
 
         private byte[] LoadBytesFromFile(string path)
@@ -52,7 +50,7 @@ namespace LearningSystem.Tests
         {
             var mockDbProvider = new Mock<IUoWLearningSystem>();
 
-            byte[] stream = LoadBytesFromFile("..//..//TestingZips//picking-mushrooms.zip");
+            byte[] stream = LoadBytesFromFile("picking-mushrooms.zip");
 
             MemoryStream memory = new MemoryStream(stream);
 
@@ -74,7 +72,7 @@ namespace LearningSystem.Tests
         {
             var mockDbProvider = new Mock<IUoWLearningSystem>();
 
-            byte[] stream = LoadBytesFromFile("..//..//TestingZips//picking-mushrooms.zip");
+            byte[] stream = LoadBytesFromFile("picking-mushrooms.zip");
             MemoryStream memory = new MemoryStream(stream);
 
             var file = MockAddMethod(memory);
@@ -96,7 +94,7 @@ namespace LearningSystem.Tests
         {
             var mockDbProvider = new Mock<IUoWLearningSystem>();
 
-            byte[] stream = LoadBytesFromFile("..//..//TestingZips//picking-mushrooms.zip");
+            byte[] stream = LoadBytesFromFile("picking-mushrooms.zip");
             MemoryStream memory = new MemoryStream(stream);
 
             var file = MockAddMethod(memory);
@@ -129,7 +127,7 @@ namespace LearningSystem.Tests
         {
             var mockDbProvider = new Mock<IUoWLearningSystem>();
 
-            byte[] stream = LoadBytesFromFile("..//..//TestingZips//picking-mushrooms.zip");
+            byte[] stream = LoadBytesFromFile("picking-mushrooms.zip");
             MemoryStream memory = new MemoryStream(stream);
 
             var file = MockAddMethod(memory);
@@ -157,7 +155,7 @@ namespace LearningSystem.Tests
         {
             var mockDbProvider = new Mock<IUoWLearningSystem>();
 
-            byte[] stream = LoadBytesFromFile("..//..//TestingZips//picking-mushrooms.zip");
+            byte[] stream = LoadBytesFromFile("picking-mushrooms.zip");
             MemoryStream memory = new MemoryStream(stream);
 
             var file = MockAddMethod(memory);
