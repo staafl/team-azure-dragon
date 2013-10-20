@@ -24,6 +24,8 @@ namespace LearningSystem.Tests
         [TestInitialize]
         public void SetUp()
         {
+            if (System.Configuration.ConfigurationManager.AppSettings["appharbor"] == "true")
+                Assert.Inconclusive();
         }
 
         private byte[] LoadBytesFromFile(string path)
