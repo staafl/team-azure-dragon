@@ -544,7 +544,7 @@
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>if NOT $(ConfigurationName) == AppHarbor if NOT $(ConfigurationName) == AppHarbor-live $(SolutionDir)\..\files\version-dumper\version-dumper.exe $(TargetDir) &gt; $(SolutionDir)\..\files\version-dumper\version.txt</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)\..\files\version-dumper\version-dumper.exe $(TargetDir) &gt; $(SolutionDir)\..\files\version-dumper\version.txt</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
