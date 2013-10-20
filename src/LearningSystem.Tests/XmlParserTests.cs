@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
-using LearningSystem.Models;
-using LearningSystem.App.AppLogic;
 using System.Reflection;
-using LearningSystem.App.ViewModels;
 using System.Web.Mvc;
-using TeamAzureDragon.Utils;
+using LearningSystem.App.AppLogic;
 using LearningSystem.App.Areas.Administration.Controllers;
+using LearningSystem.App.ViewModels;
+using LearningSystem.Models;
+using TeamAzureDragon.Utils;
 
 namespace LearningSystem.Tests
 {
@@ -24,7 +24,8 @@ namespace LearningSystem.Tests
         [TestInitialize]
         public void SetUp()
         {
-
+            if (System.Configuration.ConfigurationManager.AppSettings["appharbor"] == true)
+                Assert.Inconclusive();
         }
 
         private byte[] LoadBytesFromFile(string path)
