@@ -1,150 +1,154 @@
-Antlr3.Runtime.dll: 3.3.1.7705 10/12/2013 12:28:55 AM
+Antlr3.Runtime.dll: 3.3.1.7705 9/28/2013 2:13:32 PM
     Managed: Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-EntityFramework.dll: 6.0.20726.0 10/12/2013 12:28:40 AM
+EntityFramework.dll: 6.0.20726.0 9/28/2013 5:51:30 PM
     Managed: EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-EntityFramework.SqlServer.dll: 6.0.20726.0 10/12/2013 12:28:40 AM
+EntityFramework.SqlServer.dll: 6.0.20726.0 9/28/2013 5:51:30 PM
     Managed: EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-EntityFramework.SqlServer.xml:  10/12/2013 12:28:40 AM
-EntityFramework.xml:  10/12/2013 12:28:41 AM
-Ionic.Zip.dll: 1.9.1.8 10/12/2013 12:28:48 AM
+EntityFramework.SqlServer.xml:  9/28/2013 5:51:30 PM
+EntityFramework.xml:  9/28/2013 5:36:34 PM
+Ionic.Zip.dll: 1.9.1.8 9/29/2013 10:30:05 PM
     Managed: Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c
-Ionic.Zip.xml:  10/12/2013 12:28:48 AM
-Kendo.Mvc.dll: 2013.2.918.340 10/11/2013 11:54:30 PM
+Ionic.Zip.xml:  9/29/2013 10:30:05 PM
+Kendo.Mvc.dll: 2013.2.918.340 9/29/2013 12:58:52 PM
     Managed: Kendo.Mvc, Version=2013.2.918.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4
-Kendo.Mvc.xml:  10/11/2013 11:54:31 PM
-LearningSystem.AnswerHandlers.CSharp.dll: 1.0.0.0 10/12/2013 1:03:01 AM
+Kendo.Mvc.xml:  9/29/2013 12:58:52 PM
+LearningSystem.AnswerHandlers.CSharp.dll: 1.0.0.0 10/20/2013 1:19:18 PM
     Managed: LearningSystem.AnswerHandlers.CSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-LearningSystem.AnswerHandlers.CSharp.pdb:  10/12/2013 1:03:01 AM
-LearningSystem.AnswerHandlers.Reference.dll: 1.0.0.0 10/12/2013 1:02:57 AM
-    Managed: LearningSystem.AnswerHandlers.Reference, Version=1.0.5032.30688, Culture=neutral, PublicKeyToken=null
-LearningSystem.AnswerHandlers.Reference.pdb:  10/12/2013 1:02:57 AM
-LearningSystem.AnswerHandlers.Standard.dll: 1.0.0.0 10/12/2013 1:03:00 AM
-    Managed: LearningSystem.AnswerHandlers.Standard, Version=1.0.5032.30690, Culture=neutral, PublicKeyToken=null
-LearningSystem.AnswerHandlers.Standard.pdb:  10/12/2013 1:03:00 AM
-LearningSystem.App.dll: 1.0.0.0 10/12/2013 1:03:03 AM
-    Managed: LearningSystem.App, Version=1.0.5032.30691, Culture=neutral, PublicKeyToken=null
-LearningSystem.App.pdb:  10/12/2013 1:03:03 AM
-LearningSystem.Data.dll: 1.0.0.0 10/12/2013 1:01:23 AM
-    Managed: LearningSystem.Data, Version=1.0.5032.30641, Culture=neutral, PublicKeyToken=null
-LearningSystem.Data.pdb:  10/12/2013 1:01:23 AM
-LearningSystem.Models.dll: 1.0.0.0 10/12/2013 12:29:54 AM
-    Managed: LearningSystem.Models, Version=1.0.5032.29697, Culture=neutral, PublicKeyToken=null
-LearningSystem.Models.pdb:  10/12/2013 12:29:54 AM
-Microsoft.AspNet.Identity.Core.dll: 1.0.20802.0 10/12/2013 12:28:35 AM
+LearningSystem.AnswerHandlers.CSharp.pdb:  10/20/2013 1:19:18 PM
+LearningSystem.AnswerHandlers.Reference.dll: 1.0.0.0 10/20/2013 1:19:09 PM
+    Managed: LearningSystem.AnswerHandlers.Reference, Version=1.0.5041.27574, Culture=neutral, PublicKeyToken=null
+LearningSystem.AnswerHandlers.Reference.pdb:  10/20/2013 1:19:09 PM
+LearningSystem.AnswerHandlers.Standard.dll: 1.0.0.0 10/20/2013 1:19:19 PM
+    Managed: LearningSystem.AnswerHandlers.Standard, Version=1.0.5041.27579, Culture=neutral, PublicKeyToken=null
+LearningSystem.AnswerHandlers.Standard.pdb:  10/20/2013 1:19:19 PM
+LearningSystem.App.dll: 1.0.0.0 10/20/2013 1:37:50 PM
+    Managed: LearningSystem.App, Version=1.0.5041.28134, Culture=neutral, PublicKeyToken=null
+LearningSystem.App.dll.config:  10/20/2013 1:51:43 PM
+LearningSystem.App.pdb:  10/20/2013 1:37:50 PM
+LearningSystem.Data.dll: 1.0.0.0 10/20/2013 1:19:24 PM
+    Managed: LearningSystem.Data, Version=1.0.5041.27582, Culture=neutral, PublicKeyToken=null
+LearningSystem.Data.pdb:  10/20/2013 1:19:24 PM
+LearningSystem.Models.dll: 1.0.0.0 10/20/2013 1:19:23 PM
+    Managed: LearningSystem.Models, Version=1.0.5041.27581, Culture=neutral, PublicKeyToken=null
+LearningSystem.Models.pdb:  10/20/2013 1:19:23 PM
+Microsoft.AspNet.Identity.Core.dll: 1.0.20802.0 9/29/2013 10:30:06 PM
     Managed: Microsoft.AspNet.Identity.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.AspNet.Identity.Core.xml:  10/12/2013 12:28:35 AM
-Microsoft.AspNet.Identity.EntityFramework.dll: 1.0.20802.0 10/12/2013 12:28:35 AM
+Microsoft.AspNet.Identity.Core.xml:  9/29/2013 10:30:06 PM
+Microsoft.AspNet.Identity.EntityFramework.dll: 1.0.20802.0 9/29/2013 10:30:06 PM
     Managed: Microsoft.AspNet.Identity.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.AspNet.Identity.EntityFramework.xml:  10/12/2013 12:28:35 AM
-Microsoft.AspNet.Identity.Owin.dll: 1.0.20802.0 10/12/2013 12:28:48 AM
+Microsoft.AspNet.Identity.EntityFramework.xml:  9/29/2013 10:30:06 PM
+Microsoft.AspNet.Identity.Owin.dll: 1.0.20802.0 9/29/2013 10:30:06 PM
     Managed: Microsoft.AspNet.Identity.Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.AspNet.Identity.Owin.xml:  10/12/2013 12:28:48 AM
-Microsoft.Owin.dll: 2.0.20807.343 10/12/2013 12:28:51 AM
+Microsoft.AspNet.Identity.Owin.xml:  9/29/2013 10:30:06 PM
+Microsoft.Owin.dll: 2.0.20807.343 9/28/2013 2:13:37 PM
     Managed: Microsoft.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Host.SystemWeb.dll: 2.0.20807.343 10/12/2013 12:28:51 AM
+Microsoft.Owin.Host.SystemWeb.dll: 2.0.20807.343 9/28/2013 2:13:37 PM
     Managed: Microsoft.Owin.Host.SystemWeb, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Host.SystemWeb.xml:  10/12/2013 12:28:51 AM
-Microsoft.Owin.Security.Cookies.dll: 2.0.20807.343 10/12/2013 12:28:51 AM
+Microsoft.Owin.Host.SystemWeb.xml:  9/28/2013 2:13:37 PM
+Microsoft.Owin.Security.Cookies.dll: 2.0.20807.343 9/28/2013 2:13:37 PM
     Managed: Microsoft.Owin.Security.Cookies, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Security.Cookies.xml:  10/12/2013 12:28:51 AM
-Microsoft.Owin.Security.dll: 2.0.20807.343 10/12/2013 12:28:52 AM
+Microsoft.Owin.Security.Cookies.xml:  9/28/2013 2:13:37 PM
+Microsoft.Owin.Security.dll: 2.0.20807.343 9/28/2013 2:13:37 PM
     Managed: Microsoft.Owin.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Security.Facebook.dll: 2.0.20807.343 10/12/2013 12:28:51 AM
+Microsoft.Owin.Security.Facebook.dll: 2.0.20807.343 9/28/2013 2:13:37 PM
     Managed: Microsoft.Owin.Security.Facebook, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Security.Facebook.xml:  10/12/2013 12:28:51 AM
-Microsoft.Owin.Security.Google.dll: 2.0.20807.343 10/12/2013 12:28:51 AM
+Microsoft.Owin.Security.Facebook.xml:  9/28/2013 2:13:37 PM
+Microsoft.Owin.Security.Google.dll: 2.0.20807.343 9/28/2013 2:13:38 PM
     Managed: Microsoft.Owin.Security.Google, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Security.Google.xml:  10/12/2013 12:28:51 AM
-Microsoft.Owin.Security.MicrosoftAccount.dll: 2.0.20807.343 10/12/2013 12:28:51 AM
+Microsoft.Owin.Security.Google.xml:  9/28/2013 2:13:38 PM
+Microsoft.Owin.Security.MicrosoftAccount.dll: 2.0.20807.343 9/28/2013 2:13:38 PM
     Managed: Microsoft.Owin.Security.MicrosoftAccount, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Security.MicrosoftAccount.xml:  10/12/2013 12:28:51 AM
-Microsoft.Owin.Security.OAuth.dll: 2.0.20807.343 10/12/2013 12:28:52 AM
+Microsoft.Owin.Security.MicrosoftAccount.xml:  9/28/2013 2:13:38 PM
+Microsoft.Owin.Security.OAuth.dll: 2.0.20807.343 9/28/2013 2:13:38 PM
     Managed: Microsoft.Owin.Security.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Security.OAuth.xml:  10/12/2013 12:28:52 AM
-Microsoft.Owin.Security.Twitter.dll: 2.0.20807.343 10/12/2013 12:28:52 AM
+Microsoft.Owin.Security.OAuth.xml:  9/28/2013 2:13:38 PM
+Microsoft.Owin.Security.Twitter.dll: 2.0.20807.343 9/28/2013 2:13:38 PM
     Managed: Microsoft.Owin.Security.Twitter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Microsoft.Owin.Security.Twitter.xml:  10/12/2013 12:28:52 AM
-Microsoft.Owin.Security.xml:  10/12/2013 12:28:52 AM
-Microsoft.Owin.xml:  10/12/2013 12:28:51 AM
-Microsoft.Web.Infrastructure.dll: 1.0.20105.407 10/12/2013 12:28:52 AM
+Microsoft.Owin.Security.Twitter.xml:  9/28/2013 2:13:38 PM
+Microsoft.Owin.Security.xml:  9/28/2013 2:13:37 PM
+Microsoft.Owin.xml:  9/28/2013 2:13:37 PM
+Microsoft.Web.Infrastructure.dll: 1.0.20105.407 9/28/2013 2:13:31 PM
     Managed: Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Ninject.dll: 3.0.1.10 10/12/2013 12:28:55 AM
+Newtonsoft.Json.dll: 4.5.11.15520 9/30/2013 9:26:41 AM
+    Managed: Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed
+Newtonsoft.Json.xml:  9/30/2013 9:26:41 AM
+Ninject.dll: 3.0.1.10 9/29/2013 3:17:56 PM
     Managed: Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7
-Ninject.pdb:  10/12/2013 12:28:55 AM
-Ninject.Web.Common.dll: 3.0.0.7 10/12/2013 12:28:54 AM
+Ninject.pdb:  9/29/2013 3:17:56 PM
+Ninject.Web.Common.dll: 3.0.0.7 9/29/2013 3:18:09 PM
     Managed: Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7
-Ninject.Web.Common.pdb:  10/12/2013 12:28:54 AM
-Ninject.Web.Common.xml:  10/12/2013 12:28:54 AM
-Ninject.Web.Mvc.dll: 3.0.0.6 10/12/2013 12:28:53 AM
+Ninject.Web.Common.pdb:  9/29/2013 3:18:09 PM
+Ninject.Web.Common.xml:  9/29/2013 3:18:09 PM
+Ninject.Web.Mvc.dll: 3.0.0.6 9/29/2013 3:18:05 PM
     Managed: Ninject.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7
-Ninject.Web.Mvc.pdb:  10/12/2013 12:28:53 AM
-Ninject.Web.Mvc.xml:  10/12/2013 12:28:53 AM
-Ninject.xml:  10/12/2013 12:28:55 AM
-Owin.dll: 1.0 10/12/2013 12:28:54 AM
+Ninject.Web.Mvc.pdb:  9/29/2013 3:18:05 PM
+Ninject.Web.Mvc.xml:  9/29/2013 3:18:05 PM
+Ninject.xml:  9/29/2013 3:17:56 PM
+Owin.dll: 1.0 9/28/2013 2:13:37 PM
     Managed: Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5
-Roslyn.Compilers.CSharp.dll: 1.2.20906.1 10/12/2013 12:28:37 AM
+Roslyn.Compilers.CSharp.dll: 1.2.20906.1 9/29/2013 10:32:13 PM
     Managed: Roslyn.Compilers.CSharp, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Roslyn.Compilers.CSharp.xml:  10/12/2013 12:28:37 AM
-Roslyn.Compilers.dll: 1.2.20906.1 10/12/2013 12:28:36 AM
+Roslyn.Compilers.CSharp.xml:  9/29/2013 10:32:13 PM
+Roslyn.Compilers.dll: 1.2.20906.1 9/29/2013 10:32:13 PM
     Managed: Roslyn.Compilers, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Roslyn.Compilers.VisualBasic.dll: 1.2.20906.1 10/12/2013 12:28:36 AM
+Roslyn.Compilers.VisualBasic.dll: 1.2.20906.1 9/29/2013 10:32:14 PM
     Managed: Roslyn.Compilers.VisualBasic, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Roslyn.Compilers.VisualBasic.xml:  10/12/2013 12:28:36 AM
-Roslyn.Compilers.xml:  10/12/2013 12:28:36 AM
-Roslyn.Services.CSharp.dll: 1.2.20906.1 10/12/2013 12:28:37 AM
+Roslyn.Compilers.VisualBasic.xml:  9/29/2013 10:32:14 PM
+Roslyn.Compilers.xml:  9/29/2013 10:32:13 PM
+Roslyn.Services.CSharp.dll: 1.2.20906.1 9/29/2013 10:32:12 PM
     Managed: Roslyn.Services.CSharp, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Roslyn.Services.CSharp.xml:  10/12/2013 12:28:37 AM
-Roslyn.Services.dll: 1.2.20906.1 10/12/2013 12:28:36 AM
+Roslyn.Services.CSharp.xml:  9/29/2013 10:32:12 PM
+Roslyn.Services.dll: 1.2.20906.1 9/29/2013 10:32:12 PM
     Managed: Roslyn.Services, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Roslyn.Services.VisualBasic.dll: 1.2.20906.1 10/12/2013 12:28:36 AM
+Roslyn.Services.VisualBasic.dll: 1.2.20906.1 9/29/2013 10:32:14 PM
     Managed: Roslyn.Services.VisualBasic, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Roslyn.Services.VisualBasic.xml:  10/12/2013 12:28:36 AM
-Roslyn.Services.xml:  10/12/2013 12:28:36 AM
-Roslyn.Utilities.dll: 1.2.20906.1 10/12/2013 12:28:36 AM
+Roslyn.Services.VisualBasic.xml:  9/29/2013 10:32:14 PM
+Roslyn.Services.xml:  9/29/2013 10:32:12 PM
+Roslyn.Utilities.dll: 1.2.20906.1 9/29/2013 10:32:12 PM
     Managed: Roslyn.Utilities, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-Roslyn.Utilities.xml:  10/12/2013 12:28:36 AM
-System.Net.Http.Formatting.dll: 5.0.10529.0 10/12/2013 12:28:50 AM
+Roslyn.Utilities.xml:  9/29/2013 10:32:12 PM
+System.Net.Http.Formatting.dll: 5.0.10530.0 9/29/2013 7:58:36 PM
     Managed: System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Net.Http.Formatting.xml:  10/12/2013 12:28:50 AM
-System.Web.Http.dll: 5.0.10529.0 10/12/2013 12:28:50 AM
+System.Net.Http.Formatting.xml:  9/29/2013 7:58:36 PM
+System.Web.Http.dll: 5.0.10530.0 9/29/2013 7:58:54 PM
     Managed: System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.Http.WebHost.dll: 5.0.10529.0 10/12/2013 12:28:50 AM
+System.Web.Http.WebHost.dll: 5.0.10530.0 9/29/2013 7:58:58 PM
     Managed: System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.Http.WebHost.xml:  10/12/2013 12:28:50 AM
-System.Web.Http.xml:  10/12/2013 12:28:50 AM
-System.Web.Mvc.dll: 5.0.10809.0 10/12/2013 12:28:49 AM
+System.Web.Http.WebHost.xml:  9/29/2013 7:58:58 PM
+System.Web.Http.xml:  9/29/2013 7:58:54 PM
+System.Web.Mvc.dll: 5.0.10809.0 9/29/2013 10:30:06 PM
     Managed: System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.Mvc.xml:  10/12/2013 12:28:49 AM
-System.Web.Optimization.dll: 1.1.30515.0 10/12/2013 12:28:49 AM
+System.Web.Mvc.xml:  9/29/2013 10:30:06 PM
+System.Web.Optimization.dll: 1.1.30515.0 9/28/2013 2:13:31 PM
     Managed: System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.Razor.dll: 3.0.10809.0 10/12/2013 12:28:49 AM
+System.Web.Razor.dll: 3.0.10809.0 9/28/2013 6:10:42 PM
     Managed: System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.Razor.xml:  10/12/2013 12:28:49 AM
-System.Web.WebPages.Deployment.dll: 3.0.10809.0 10/12/2013 12:28:51 AM
+System.Web.Razor.xml:  9/28/2013 6:10:42 PM
+System.Web.WebPages.Deployment.dll: 3.0.10809.0 9/28/2013 2:13:31 PM
     Managed: System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.WebPages.Deployment.xml:  10/12/2013 12:28:51 AM
-System.Web.WebPages.dll: 3.0.10809.0 10/12/2013 12:28:51 AM
+System.Web.WebPages.Deployment.xml:  9/28/2013 2:13:31 PM
+System.Web.WebPages.dll: 3.0.10809.0 9/28/2013 2:13:31 PM
     Managed: System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.WebPages.Razor.dll: 3.0.10809.0 10/12/2013 12:28:51 AM
+System.Web.WebPages.Razor.dll: 3.0.10809.0 9/28/2013 2:13:31 PM
     Managed: System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.WebPages.Razor.xml:  10/12/2013 12:28:51 AM
-System.Web.WebPages.xml:  10/12/2013 12:28:51 AM
-TeamAzureDragon.CSharpCompiler.dll: 1.0.0.0 10/12/2013 12:29:54 AM
-    Managed: TeamAzureDragon.CSharpCompiler, Version=1.0.5032.29697, Culture=neutral, PublicKeyToken=a56947a49b8895fc
-TeamAzureDragon.CSharpCompiler.pdb:  10/12/2013 12:29:54 AM
-TeamAzureDragon.CSharpCompiler.ProxyExecuter.dll: 1.0.0.0 10/12/2013 12:29:53 AM
-    Managed: TeamAzureDragon.CSharpCompiler.ProxyExecuter, Version=1.0.5032.29696, Culture=neutral, PublicKeyToken=9d3ddb9a560fa5e5
-TeamAzureDragon.CSharpCompiler.ProxyExecuter.pdb:  10/12/2013 12:29:53 AM
-TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.dll: 1.0.0.0 10/12/2013 12:29:53 AM
-    Managed: TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers, Version=1.0.5032.29696, Culture=neutral, PublicKeyToken=e43a3f742cf6867d
-TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.pdb:  10/12/2013 12:29:53 AM
-TeamAzureDragon.Utils.dll: 1.0.0.0 10/12/2013 12:29:53 AM
-    Managed: TeamAzureDragon.Utils, Version=1.0.5032.29696, Culture=neutral, PublicKeyToken=null
-TeamAzureDragon.Utils.pdb:  10/12/2013 12:29:53 AM
-Typesafe.Mailgun.dll: 0.4.0.2115 10/12/2013 12:28:53 AM
+System.Web.WebPages.Razor.xml:  9/28/2013 2:13:31 PM
+System.Web.WebPages.xml:  9/28/2013 2:13:31 PM
+TeamAzureDragon.CSharpCompiler.dll: 1.0.0.0 10/20/2013 1:19:17 PM
+    Managed: TeamAzureDragon.CSharpCompiler, Version=1.0.5041.27578, Culture=neutral, PublicKeyToken=a56947a49b8895fc
+TeamAzureDragon.CSharpCompiler.pdb:  10/20/2013 1:19:16 PM
+TeamAzureDragon.CSharpCompiler.ProxyExecuter.dll: 1.0.0.0 10/20/2013 1:19:13 PM
+    Managed: TeamAzureDragon.CSharpCompiler.ProxyExecuter, Version=1.0.5041.27576, Culture=neutral, PublicKeyToken=9d3ddb9a560fa5e5
+TeamAzureDragon.CSharpCompiler.ProxyExecuter.pdb:  10/20/2013 1:19:13 PM
+TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.dll: 1.0.0.0 10/20/2013 1:19:12 PM
+    Managed: TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers, Version=1.0.5041.27576, Culture=neutral, PublicKeyToken=e43a3f742cf6867d
+TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.pdb:  10/20/2013 1:19:12 PM
+TeamAzureDragon.Utils.dll: 1.0.0.0 10/20/2013 1:19:07 PM
+    Managed: TeamAzureDragon.Utils, Version=1.0.5041.27573, Culture=neutral, PublicKeyToken=null
+TeamAzureDragon.Utils.pdb:  10/20/2013 1:19:07 PM
+Typesafe.Mailgun.dll: 0.4.0.2115 9/30/2013 9:26:42 AM
     Managed: Typesafe.Mailgun, Version=0.4.0.2115, Culture=neutral, PublicKeyToken=null
-Typesafe.Mailgun.xml:  10/12/2013 12:28:53 AM
-WebActivator.dll: 1.5.3.0 10/12/2013 12:28:54 AM
+Typesafe.Mailgun.xml:  9/30/2013 9:26:42 AM
+WebActivator.dll: 1.5.3.0 9/29/2013 3:18:10 PM
     Managed: WebActivator, Version=1.5.3.0, Culture=neutral, PublicKeyToken=null
-WebGrease.dll: 1.3.0.0 10/12/2013 12:28:55 AM
+WebGrease.dll: 1.3.0.0 9/28/2013 2:13:32 PM
     Managed: WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
