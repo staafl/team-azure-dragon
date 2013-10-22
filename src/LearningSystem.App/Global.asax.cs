@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Xml;
 using TeamAzureDragon.Utils;
 using LearningSystem.App.AppLogic;
 using LearningSystem.AnswerHandlers.CSharp;
@@ -46,8 +48,51 @@ namespace LearningSystem.App
 
             AnswerHandlerFactory.LoadPlugin(typeof(CSharpAnswerHandler).Assembly);
             AnswerHandlerFactory.LoadPlugin(typeof(ListAnswerHandler).Assembly);
-
+            
+            StartKeepAliveThread();
         }
+        
+        public static class Settings
+        {
+            static readonly XmlDocument settings = new XmlDocument();
+
+            public static void Initialize()
+            {
+                settings.Load(AppDomain.CurrentDomain.BaseDirectory + "\\settings.xml");
+            }
+
+            public static string RootUrl {
+                get {
+                    return settings.SelectSingleNode("/settings/rootUrl").InnerXml.Trim();
+                }
+            }
+        }
+        
+        static void StartKeepAliveThread() {
+            new Thread(() =>
+            {
+                try {
+                    // Log.Trace("Keep-alive thread started.");
+                    while(true)
+                    {
+                        Thread.Sleep(TimeSpan.FromMinutes(15));
+                        // var thread = Log.Trace("Keep-alive thread awoke.");
+                        using (var client = new System.Net.WebClient())
+                        {
+                            var url = Settings.RootUrl + "/";
+                            // Log.Trace("Attempting to download {0}".Fmt(url), thread);
+                            client.DownloadString(url);
+                            // Log.Trace("Success!", thread);
+                        }
+                    }
+                }
+                catch(Exception ex) {
+                    // Log.Exception(ex, null, "keep-alive thread catch.");
+                    throw;
+                }
+            }).Start();
+        }
+
 
         protected void Application_Error(object sender, EventArgs e)
         {
