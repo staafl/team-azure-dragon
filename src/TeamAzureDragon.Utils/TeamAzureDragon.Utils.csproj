@@ -89,6 +89,10 @@
   <ItemGroup>
     <Compile Include="Attributes\ModelPropertyPathAttribute.cs" />
     <Compile Include="Attributes\ModelNavigationIdAttribute.cs" />
+    <Compile Include="Logging\FileLogSink.cs" />
+    <Compile Include="Logging\ILogSink.cs" />
+    <Compile Include="Logging\ListLogSink.cs" />
+    <Compile Include="Logging\Log.cs" />
     <Compile Include="SerializationHelpers.cs" />
     <Compile Include="FakeValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="DataPatterns\DefaultInitializer.cs" />
