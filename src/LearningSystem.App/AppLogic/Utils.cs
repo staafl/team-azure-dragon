@@ -26,6 +26,8 @@ namespace LearningSystem.App.AppLogic
 
             int port = HttpContext.Current.Request.Url.Port;
 
+            // hack!
+            if (hostname.ToLower().Contains("localhost"))
             if (port != 80 && port != 443)
             {
                 uri.Append(":");
